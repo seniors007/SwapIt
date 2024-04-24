@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:swapit/constants.dart';
-import 'package:swapit/core/widgets/text_field.dart';
+import 'package:swapit/core/widgets/custom_text_field.dart';
+
 import 'package:swapit/features/auth/presentation/views/register_view.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/login_button.dart';
@@ -14,9 +15,8 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  final _formKey = GlobalKey<FormState>();
-  // final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
+  String? email, password;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               height: 8,
             ),
             Form(
-              key: _formKey,
-              child: Column(
+              key: formKey,
+              child: ListView(
                 children: [
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -50,11 +50,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   const SizedBox(
                     height: 15,
                   ),
-                  const CustomTextField(label: 'Email'),
+                  CustomTextField(
+                    label: 'Email',
+                    onChanged: (data) {
+                      email = data;
+                    },
+                  ),
                   const SizedBox(
                     height: 20.0,
                   ),
-                  const CustomTextField(label: 'Password'),
+                  CustomTextField(
+                    label: 'Password',
+                    onChanged: (data) {
+                      password = data;
+                    },
+                  ),
                   const SizedBox(
                     height: 30.0,
                   ),

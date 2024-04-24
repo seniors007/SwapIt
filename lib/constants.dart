@@ -10,3 +10,4 @@ const kDivider = Divider(
   thickness: 2.2,
   height: 6,
 );
+const String kApiUrl = 'http://localhost:5204/api/users/';

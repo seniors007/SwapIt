@@ -5,12 +5,20 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.label,
+    this.onChanged,
   });
   final String label;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // controller: _passwordController,
+      validator: (data) {
+        if (data!.isEmpty) {
+          return '$label is required';
+        }
+        return null;
+      },
+      onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(

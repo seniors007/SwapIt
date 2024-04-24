@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:swapit/constants.dart';
-import 'package:swapit/core/widgets/text_field.dart';
+import 'package:swapit/core/widgets/custom_text_field.dart';
 
 class AddServiceViewBody extends StatefulWidget {
   const AddServiceViewBody({super.key});
@@ -92,7 +92,6 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    postData();
                     // try {
                     //   Response response = await dio.get(
                     //       'http://127.0.0.1:5204/api/users/IsUserNameExists?username=bbbbbbb');
@@ -105,7 +104,7 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                     // } catch (e) {
                     //   print('Error: $e');
                     // }
-                    //      Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   style:
                       ElevatedButton.styleFrom(backgroundColor: kYellowColor),
@@ -126,40 +125,6 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
         ),
       ),
     );
-  }
-
-  void postData() async {
-    Dio dio = Dio();
-    String url = 'http://127.0.0.1:5204/api/users/create';
-
-    // JSON data to be sent in the request body
-    Map<String, dynamic> data = {
-      "username": "pppppp",
-      "password": "To@@ma\$1",
-      "roleid": "admin"
-    };
-    try {
-      Response response = await dio.post(
-        url,
-        data: data,
-        options: Options(
-          contentType: Headers.jsonContentType,
-        ),
-      );
-
-      // Handle response
-      if (response.statusCode == 200) {
-        // Request successful
-        print('Request successful');
-        print(response.data);
-      } else {
-        // Request failed with non-200 status code
-        print('Request failed with status: ${response.statusCode}');
-      }
-    } catch (e) {
-      // Error occurred during request
-      print('Error: $e');
-    }
   }
 
   void dropdownCallback(String? selectedValue) {

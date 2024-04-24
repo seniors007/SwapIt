@@ -1,6 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:swapit/constants.dart';
-import 'package:swapit/core/widgets/text_field.dart';
+import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/register_button.dart';
 
@@ -13,6 +14,10 @@ class RegisterViewBody extends StatefulWidget {
 
 class _RegisterViewBodyState extends State<RegisterViewBody> {
   String _dropdownvalue = 'Male';
+  // final _formKey = GlobalKey<FormState>();
+  // TextEditingController _emailController = TextEditingController();
+  // late String _emailErrorText;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -105,6 +110,37 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
         ],
       ),
     );
+  }
+
+  void postData() async {
+    Dio dio = Dio();
+    String url = 'http://127.0.0.1:5204/api/users/create';
+
+    Map<String, dynamic> data = {
+      "username": "pppppp",
+      "password": "To@@ma\$1",
+      "roleid": "admin"
+    };
+    try {
+      Response response = await dio.post(
+        url,
+        data: data,
+        options: Options(
+          contentType: Headers.jsonContentType,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        debugPrint('request successful');
+        print(response.data);
+      } else {
+        // Request failed with non-200 status code
+        print('Request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Error occurred during request
+      print('Error: $e');
+    }
   }
 
   void dropdownCallback(String? selectedValue) {
