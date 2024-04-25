@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:swapit/constants.dart';
-import 'package:swapit/features/home/presentation/views/home_view.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
-
+  const LoginButton({super.key, this.onPressed});
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        Get.to(() => const Homeview());
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(backgroundColor: kYellowColor),
       child: const Text(
         'Login',
