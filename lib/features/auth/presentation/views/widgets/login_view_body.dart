@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:swapit/constants.dart';
+import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/features/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -29,11 +30,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           isLoading = true;
         } else if (state is LoginSuccess) {
           Get.to(() => const Homeview());
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Login Successful'),
-            ),
-          );
+          showSnackBar(context, 'Login Successful');
           isLoading = false;
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -41,6 +38,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               content: Text(state.errMsg),
             ),
           );
+          showSnackBar(context, '$state.errMsg');
           isLoading = false;
         }
       },
