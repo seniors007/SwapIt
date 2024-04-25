@@ -33,11 +33,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           showSnackBar(context, 'Login Successful');
           isLoading = false;
         } else if (state is LoginFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errMsg),
-            ),
-          );
           showSnackBar(context, '$state.errMsg');
           isLoading = false;
         }
