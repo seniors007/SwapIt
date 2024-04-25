@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit/constants.dart';
+import 'package:swapit/core/widgets/custom_button.dart';
 
 class ServicePostInSearch extends StatelessWidget {
   const ServicePostInSearch({super.key});
@@ -18,13 +19,13 @@ class ServicePostInSearch extends StatelessWidget {
               offset: const Offset(10, 10)),
         ],
       ),
-      child: Card(
+      child: const Card(
         elevation: 0,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Row(
             children: [
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image(
@@ -49,27 +50,27 @@ class ServicePostInSearch extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
+              SizedBox(
                 width: 12,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Decorator',
                     style: TextStyle(
                         color: kYellowColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  const Text(
+                  Text(
                     'For birthday Decoration',
                     style: TextStyle(
                       color: kGreenColor,
                       fontSize: 17,
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Cost: 500 Points',
                     style: TextStyle(
                       color: kGreenColor,
@@ -78,17 +79,11 @@ class ServicePostInSearch extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 125,
                       ),
-                      ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: kYellowColor),
-                          child: const Text(
-                            'Request',
-                            style: TextStyle(color: kWhiteColor),
-                          )),
+                      CustomButton(
+                          label: 'Request', backgroundColor: kYellowColor)
                     ],
                   )
                 ],

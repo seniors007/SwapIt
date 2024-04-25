@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit/constants.dart';
+import 'package:swapit/core/widgets/custom_button.dart';
 
 class PendingServiceCard extends StatelessWidget {
   const PendingServiceCard({super.key});
@@ -19,13 +20,13 @@ class PendingServiceCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: Card(
+        child: const Card(
           elevation: 0,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,37 +104,16 @@ class PendingServiceCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Spacer(),
+                Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: kYellowColor),
-                      child: const Text(
-                        'Accept',
-                        style: TextStyle(
-                          color: kWhiteColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
+                    CustomButton(
+                        label: 'Accept', backgroundColor: kYellowColor),
+                    SizedBox(
                       width: 50,
                     ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: kGreenColor),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: kWhiteColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                    )
+                    CustomButton(label: 'Cancel', backgroundColor: kGreenColor),
                   ],
                 )
               ],

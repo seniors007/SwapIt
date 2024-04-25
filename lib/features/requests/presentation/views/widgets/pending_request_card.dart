@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swapit/constants.dart';
+import 'package:swapit/core/widgets/custom_button.dart';
 
 class PendingRequestCard extends StatelessWidget {
   const PendingRequestCard({super.key});
@@ -20,13 +21,13 @@ class PendingRequestCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: Card(
+        child: const Card(
           elevation: 0,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             child: Row(
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -87,29 +88,21 @@ class PendingRequestCard extends StatelessWidget {
                     )
                   ],
                 ),
-                const Spacer(),
+                Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Image(
+                    Image(
                       image: AssetImage('assets/profile.png'),
                     ),
-                    const Text(
+                    Text(
                       'Draco M.',
                       style: TextStyle(color: kGreenColor),
                     ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: kGreenColor),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: kWhiteColor,
-                          fontSize: 20,
-                        ),
-                      ),
+                    Spacer(),
+                    CustomButton(
+                      label: 'Cancel',
+                      backgroundColor: kGreenColor,
                     )
                   ],
                 ),

@@ -28,7 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
         //   emit(LoginFailure(errMsg: 'User Name or Password Is Incorrect'));
         //   debugPrint('Failed with status code: ${response.statusCode}');
       } else {
-        emit(LoginFailure(errMsg: '${response.statusCode}'));
+        emit(LoginFailure(errMsg: 'No internet connection'));
         debugPrint('Failed with status code: ${response.statusCode}');
       }
     } catch (e) {

@@ -8,7 +8,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:swapit/features/auth/presentation/views/register_view.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
-import 'package:swapit/features/auth/presentation/views/widgets/login_button.dart';
+import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/home/presentation/views/home_view.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -33,7 +33,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           showSnackBar(context, 'Login Successful');
           isLoading = false;
         } else if (state is LoginFailure) {
-          showSnackBar(context, '$state.errMsg');
+          showSnackBar(context, state.errMsg);
           isLoading = false;
         }
       },
@@ -87,7 +87,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       const SizedBox(
                         height: 30.0,
                       ),
-                      LoginButton(
+                      CustomButton(
+                        label: 'login',
+                        backgroundColor: kYellowColor,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<LoginCubit>(context).loginUser(

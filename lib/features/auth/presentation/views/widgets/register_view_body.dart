@@ -1,9 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:swapit/constants.dart';
+import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
+import 'package:swapit/features/auth/presentation/views/login_view.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
-import 'package:swapit/features/auth/presentation/views/widgets/register_button.dart';
 
 class RegisterViewBody extends StatefulWidget {
   const RegisterViewBody({super.key});
@@ -87,7 +89,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                const RegisterButton(),
+                CustomButton(
+                  backgroundColor: kYellowColor,
+                  label: 'Register',
+                  onPressed: () {
+                    Get.to(() => const LoginView());
+                  },
+                ),
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -112,36 +120,36 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
     );
   }
 
-  void postData() async {
-    Dio dio = Dio();
-    String url = 'http://127.0.0.1:5204/api/users/create';
+  // void postData() async {
+  //   Dio dio = Dio();
+  //   String url = 'http://127.0.0.1:5204/api/users/create';
 
-    Map<String, dynamic> data = {
-      "username": "pppppp",
-      "password": "To@@ma\$1",
-      "roleid": "admin"
-    };
-    try {
-      Response response = await dio.post(
-        url,
-        data: data,
-        options: Options(
-          contentType: Headers.jsonContentType,
-        ),
-      );
+  //   Map<String, dynamic> data = {
+  //     "username": "pppppp",
+  //     "password": "To@@ma\$1",
+  //     "roleid": "admin"
+  //   };
+  //   try {
+  //     Response response = await dio.post(
+  //       url,
+  //       data: data,
+  //       options: Options(
+  //         contentType: Headers.jsonContentType,
+  //       ),
+  //     );
 
-      if (response.statusCode == 200) {
-        debugPrint('request successful');
-        print(response.data);
-      } else {
-        // Request failed with non-200 status code
-        print('Request failed with status: ${response.statusCode}');
-      }
-    } catch (e) {
-      // Error occurred during request
-      print('Error: $e');
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       debugPrint('request successful');
+  //       print(response.data);
+  //     } else {
+  //       // Request failed with non-200 status code
+  //       print('Request failed with status: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     // Error occurred during request
+  //     print('Error: $e');
+  //   }
+  // }
 
   void dropdownCallback(String? selectedValue) {
     if (selectedValue is String) {
