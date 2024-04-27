@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:swapit/core/functions/excute_paypal_method.dart';
+import 'package:swapit/core/functions/get_treansactions.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
+import 'package:swapit/core/widgets/custom_text_field.dart';
 
-class PointsControlViewBody extends StatelessWidget {
+class PointsControlViewBody extends StatefulWidget {
   const PointsControlViewBody({super.key});
 
+  @override
+  State<PointsControlViewBody> createState() => _PointsControlViewBodyState();
+}
+
+class _PointsControlViewBodyState extends State<PointsControlViewBody> {
+  GlobalKey<FormState> formKey = GlobalKey();
+
+  double incash = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +41,7 @@ class PointsControlViewBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Container(
-              height: 200,
+              height: 270,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -44,58 +55,66 @@ class PointsControlViewBody extends StatelessWidget {
                 elevation: 0,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'My Point : 1000 points',
-                            style: TextStyle(
-                              color: kYellowColor,
-                              fontSize: 20,
+                  child: Form(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'My Point : 1000 points',
+                          style: TextStyle(
+                            color: kYellowColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const Spacer(),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'operations With ',
+                              style: TextStyle(
+                                color: kYellowColor,
+                                fontSize: 20,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'operations With ',
-                            style: TextStyle(
-                              color: kYellowColor,
-                              fontSize: 20,
+                            ImageIcon(
+                              AssetImage('assets/paypal.png'),
+                              size: 70,
                             ),
-                          ),
-                          ImageIcon(
-                            AssetImage('assets/paypal.png'),
-                            size: 70,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomButton(
-                            label: 'Accept',
-                            backgroundColor: kYellowColor,
-                            onPressed: () {},
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CustomButton(
-                            label: 'Cancel',
-                            backgroundColor: kGreenColor,
-                            onPressed: () {},
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        ),
+                        CustomTextField(
+                          label: 'Amount',
+                          onChanged: (data) {
+                            incash = double.parse(data);
+                            incash = incash * 500;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                              label: 'Buy in',
+                              backgroundColor: kYellowColor,
+                              onPressed: () {
+                                var transctionsData = getTransctionsData();
+                                excutePaypalMethod(context, transctionsData);
+                              },
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            CustomButton(
+                              label: 'Withdraw',
+                              backgroundColor: kGreenColor,
+                              onPressed: () {},
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
