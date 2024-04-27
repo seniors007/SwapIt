@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 
 class PendingRequestCard extends StatelessWidget {
@@ -21,13 +21,13 @@ class PendingRequestCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: const Card(
+        child: Card(
           elevation: 0,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -88,21 +88,22 @@ class PendingRequestCard extends StatelessWidget {
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage('assets/profile.png'),
                     ),
-                    Text(
+                    const Text(
                       'Draco M.',
                       style: TextStyle(color: kGreenColor),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     CustomButton(
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
+                      onPressed: () {},
                     )
                   ],
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 
 class FinishedSerivceCard extends StatelessWidget {
   const FinishedSerivceCard({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 
 class PendingServiceCard extends StatelessWidget {
@@ -20,13 +20,13 @@ class PendingServiceCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: const Card(
+        child: Card(
           elevation: 0,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Row(
+                const Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,16 +104,23 @@ class PendingServiceCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomButton(
-                        label: 'Accept', backgroundColor: kYellowColor),
-                    SizedBox(
+                      label: 'Accept',
+                      backgroundColor: kYellowColor,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(
                       width: 50,
                     ),
-                    CustomButton(label: 'Cancel', backgroundColor: kGreenColor),
+                    CustomButton(
+                      label: 'Cancel',
+                      backgroundColor: kGreenColor,
+                      onPressed: () {},
+                    ),
                   ],
                 )
               ],

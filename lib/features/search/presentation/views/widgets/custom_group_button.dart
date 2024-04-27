@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 
 class CustomGroupButton extends StatelessWidget {
   const CustomGroupButton({

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 
 class AddServiceViewBody extends StatefulWidget {

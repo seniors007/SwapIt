@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/search/presentation/views/widgets/custom_group_button.dart';
 import 'package:swapit/features/search/presentation/views/widgets/custom_title.dart';
 import 'package:swapit/features/search/presentation/views/widgets/search_bar.dart';

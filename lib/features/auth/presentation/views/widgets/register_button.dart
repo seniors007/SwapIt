@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/auth/presentation/views/login_view.dart';
 
 class RegisterButton extends StatelessWidget {

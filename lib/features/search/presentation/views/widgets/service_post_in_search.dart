@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 
 class ServicePostInSearch extends StatelessWidget {
@@ -19,13 +19,13 @@ class ServicePostInSearch extends StatelessWidget {
               offset: const Offset(10, 10)),
         ],
       ),
-      child: const Card(
+      child: Card(
         elevation: 0,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 16),
           child: Row(
             children: [
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image(
@@ -50,27 +50,27 @@ class ServicePostInSearch extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 12,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Decorator',
                     style: TextStyle(
                         color: kYellowColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text(
+                  const Text(
                     'For birthday Decoration',
                     style: TextStyle(
                       color: kGreenColor,
                       fontSize: 17,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Cost: 500 Points',
                     style: TextStyle(
                       color: kGreenColor,
@@ -79,11 +79,14 @@ class ServicePostInSearch extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 125,
                       ),
                       CustomButton(
-                          label: 'Request', backgroundColor: kYellowColor)
+                        label: 'Request',
+                        backgroundColor: kYellowColor,
+                        onPressed: () {},
+                      )
                     ],
                   )
                 ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/notification/presentation/views/widgets/notification_card_list_view.dart';
 
 class NotificationViewBody extends StatelessWidget {

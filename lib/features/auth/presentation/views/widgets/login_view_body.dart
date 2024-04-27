@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -88,13 +88,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         height: 30.0,
                       ),
                       CustomButton(
-                        label: 'login',
+                        label: 'Login',
                         backgroundColor: kYellowColor,
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            BlocProvider.of<LoginCubit>(context).loginUser(
-                                userName: userName!, password: password!);
-                          }
+                          // if (formKey.currentState!.validate()) {
+                          //   BlocProvider.of<LoginCubit>(context).loginUser(
+                          //       userName: userName!, password: password!);
+                          // }
+                          Get.to(() => const Homeview());
                         },
                       ),
                       const SizedBox(

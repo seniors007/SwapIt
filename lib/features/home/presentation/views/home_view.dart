@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:swapit/features/notification/presentation/views/notification_view.dart';
 import 'package:swapit/features/profile/presentation/views/profile_view.dart';

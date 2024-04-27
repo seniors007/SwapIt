@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/auth/presentation/views/Login_view.dart';
 import 'package:swapit/features/splash/presentation/views/widgets/sliding_text.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_button.dart';
-import 'package:swapit/features/profile/presentation/views/widgets/myPoints.dart';
+import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/profile_options.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/profile_imgs_collection.dart';
@@ -24,6 +24,9 @@ class ProfileViewBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ProfileInfo(),
+            SizedBox(
+              height: 7,
+            ),
             kDivider,
             SizedBox(
               height: 7,

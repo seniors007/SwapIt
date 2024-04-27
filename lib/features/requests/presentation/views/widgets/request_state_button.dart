@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
-import 'package:swapit/constants.dart';
+import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/current_request_card.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/finished_request_card.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/pending_request_card.dart';
