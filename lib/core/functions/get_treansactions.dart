@@ -3,24 +3,21 @@ import 'package:swapit/features/profile/data/models/amount_model/details.dart';
 import 'package:swapit/features/profile/data/models/item_list_model/item.dart';
 import 'package:swapit/features/profile/data/models/item_list_model/item_list_model.dart';
 
-({AmountModel amount, ItemListModel itemList}) getTransctionsData() {
+({AmountModel amount, ItemListModel itemList}) getTransctionsData(int inCash) {
+  int quantity = inCash * 5;
+
   var amount = AmountModel(
-      total: "100",
+      total: inCash.toString(),
       currency: 'USD',
-      details: Details(shipping: "0", shippingDiscount: 0, subtotal: '100'));
+      details: Details(
+          shipping: "0", shippingDiscount: 0, subtotal: inCash.toString()));
 
   List<OrderItemModel> orders = [
     OrderItemModel(
       currency: 'USD',
-      name: 'Apple',
-      price: "4",
-      quantity: 10,
-    ),
-    OrderItemModel(
-      currency: 'USD',
-      name: 'Apple',
-      price: "5",
-      quantity: 12,
+      name: 'Points',
+      price: ".2",
+      quantity: quantity,
     ),
   ];
 

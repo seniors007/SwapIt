@@ -1,8 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:swapit/core/utils/api_kyes.dart';
+import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/features/profile/data/models/amount_model/amount_model.dart';
 import 'package:swapit/features/profile/data/models/item_list_model/item_list_model.dart';
 
@@ -25,14 +25,17 @@ void excutePaypalMethod(BuildContext context,
         onSuccess: (Map params) async {
           log("onSuccess: $params");
           Navigator.pop(context);
+          showSnackBar(context, 'Buy In Successfully Done ,Thank You');
         },
         onError: (error) {
           log("onError: $error");
           Navigator.pop(context);
+          showSnackBar(context, 'Something Wrong Happened, try again');
         },
         onCancel: () {
           log('cancelled:');
           Navigator.pop(context);
+          showSnackBar(context, 'OH, You Canceled Your Buy In');
         },
       ),
     ),

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.label,
-    this.onChanged,
-  });
+  const CustomTextField(
+      {super.key, required this.label, this.onChanged, this.keyboardType});
+  final TextInputType? keyboardType;
   final String label;
   final Function(String)? onChanged;
   @override
@@ -37,6 +35,7 @@ class CustomTextField extends StatelessWidget {
           borderSide: const BorderSide(color: kYellowColor),
         ),
       ),
+      keyboardType: keyboardType,
     );
   }
 }
