@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/core/widgets/custom_button.dart';
+import 'package:swapit/features/requests/presentation/views/finish_service_view.dart';
 
 class CurrentRequestCard extends StatelessWidget {
   const CurrentRequestCard({super.key});
@@ -10,7 +14,7 @@ class CurrentRequestCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 175,
+        height: 185,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -20,13 +24,13 @@ class CurrentRequestCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: const Card(
+        child: Card(
           elevation: 0,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -76,18 +80,25 @@ class CurrentRequestCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage('assets/profile.png'),
                     ),
-                    Text(
+                    const Text(
                       'Draco M.',
                       style: TextStyle(color: kGreenColor),
                     ),
-                    Spacer(),
+                    const Spacer(),
+                    CustomButton(
+                      label: "Finish",
+                      backgroundColor: kYellowColor,
+                      onPressed: () {
+                        Get.to(() => const FinishServiceView());
+                      },
+                    )
                   ],
                 ),
               ],

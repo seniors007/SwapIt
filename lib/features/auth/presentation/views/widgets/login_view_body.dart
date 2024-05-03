@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -31,6 +33,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         } else if (state is LoginSuccess) {
           Get.to(() => const Homeview());
           showSnackBar(context, 'Login Successful');
+          final userName = state.loginResponse.userName;
+          final userId = state.loginResponse.userId;
+          final roles = state.loginResponse.roles;
+          log('Username: $userName');
+          log('User ID: $userId');
+          log('Roles: $roles');
           isLoading = false;
         } else if (state is LoginFailure) {
           showSnackBar(context, state.errMsg);
@@ -91,11 +99,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         label: 'Login',
                         backgroundColor: kYellowColor,
                         onPressed: () {
-                          // if (formKey.currentState!.validate()) {
-                          //   BlocProvider.of<LoginCubit>(context).loginUser(
-                          //       userName: userName!, password: password!);
-                          // }
-                          Get.to(() => const Homeview());
+                          if (formKey.currentState!.validate()) {
+                            BlocProvider.of<LoginCubit>(context).loginUser(
+                                userName: userName!, password: password!);
+                          }
+                          // Get.to(() => const Homeview());
                         },
                       ),
                       const SizedBox(
