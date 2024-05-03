@@ -10,19 +10,35 @@ class SearchPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomSearchBar(),
-          kDivider,
-          CustomTitle(),
-          CustomGroupButton(),
-          SizedBox(
-            height: 5,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: CustomScrollView(
+        clipBehavior: Clip.none,
+        slivers: [
+          const SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomSearchBar(),
+                  kDivider,
+                  CustomTitle(),
+                  CustomGroupButton(),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
+              ),
+            ),
           ),
-          ServicePostInSearch(),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return const ServicePostInSearch();
+              },
+              childCount: 10,
+            ),
+          )
         ],
       ),
     );

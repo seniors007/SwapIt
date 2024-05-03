@@ -4,7 +4,7 @@ import 'package:swapit/features/profile/presentation/views/widgets/add_service_b
 import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/profile_options.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
-import 'package:swapit/features/profile/presentation/views/widgets/profile_imgs_collection.dart';
+import 'package:swapit/features/profile/presentation/views/widgets/past_work_imgs.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/service_post.dart';
 
 class ProfileViewBody extends StatelessWidget {
@@ -35,7 +35,7 @@ class ProfileViewBody extends StatelessWidget {
               'My work',
               style: TextStyle(color: kGreenColor),
             ),
-            ProfileImgs(),
+            PastWorkImgs(),
             kDivider,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),

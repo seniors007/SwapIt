@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
+import 'package:swapit/core/widgets/custom_snack_bar.dart';
 
 class FinishServiceViewBody extends StatefulWidget {
   const FinishServiceViewBody({super.key});
@@ -84,6 +85,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
                           backgroundColor: kYellowColor,
                           onPressed: () {
                             Get.back();
+                            showSnackBar(context, "Thank You For Your Rate");
                           },
                         )
                       ],

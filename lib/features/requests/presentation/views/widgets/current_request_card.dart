@@ -6,9 +6,14 @@ import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/requests/presentation/views/finish_service_view.dart';
 
-class CurrentRequestCard extends StatelessWidget {
+class CurrentRequestCard extends StatefulWidget {
   const CurrentRequestCard({super.key});
 
+  @override
+  State<CurrentRequestCard> createState() => _CurrentRequestCardState();
+}
+
+class _CurrentRequestCardState extends State<CurrentRequestCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -7,7 +7,7 @@ import 'package:swapit/features/home/presentation/views/widgets/home_view_body.d
 import 'package:swapit/features/notification/presentation/views/notification_view.dart';
 import 'package:swapit/features/profile/presentation/views/profile_view.dart';
 import 'package:swapit/features/requests/presentation/views/requests_view.dart';
-import 'package:swapit/features/search/presentation/views/search_page.dart';
+import 'package:swapit/features/search/presentation/views/search_view.dart';
 import 'package:swapit/features/services/presentation/views/services_page.dart';
 
 class Homeview extends StatefulWidget {
