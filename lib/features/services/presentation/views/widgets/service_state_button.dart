@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
-import 'package:swapit/features/services/presentation/views/widgets/curremt_service_card.dart';
+import 'package:swapit/features/services/presentation/views/widgets/current_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/finished_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/pending_service_card.dart';
 

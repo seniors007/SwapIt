@@ -10,7 +10,7 @@ class FinishedRequestCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 200,
+        height: 170,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -44,35 +44,7 @@ class FinishedRequestCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Image(
-                          image: AssetImage('assets/day.png'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('jan,24 2024')
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        Image(
-                          image: AssetImage('assets/time.png'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('12:00 pm')
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
+                      height: 25,
                     ),
                     Row(
                       children: [

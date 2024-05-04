@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
+import 'package:swapit/core/widgets/service_notes.dart';
 
 class PendingRequestCard extends StatelessWidget {
   const PendingRequestCard({super.key});
@@ -11,7 +12,7 @@ class PendingRequestCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 200,
+        height: 240,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -25,88 +26,59 @@ class PendingRequestCard extends StatelessWidget {
           elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Row(
+            child: Column(
               children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                const Row(
                   children: [
-                    Text(
-                      'Elctrical Repair',
-                      style: TextStyle(
-                        color: kYellowColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      'Elctrical',
-                      style: TextStyle(
-                        color: kYellowColor,
-                        fontSize: 17,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image(
-                          image: AssetImage('assets/day.png'),
+                        Text(
+                          'Elctrical Repair',
+                          style: TextStyle(
+                            color: kGreenColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          'Elctrical',
+                          style: TextStyle(
+                            color: kYellowColor,
+                            fontSize: 17,
+                          ),
                         ),
                         SizedBox(
-                          width: 15,
+                          height: 5,
                         ),
-                        Text('jan,25 2024')
+                        ServiceNotes(),
                       ],
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
+                    Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Image(
-                          image: AssetImage('assets/time.png'),
+                          image: AssetImage('assets/profile.png'),
                         ),
-                        SizedBox(
-                          width: 15,
+                        Text(
+                          'Draco M.',
+                          style: TextStyle(color: kGreenColor),
                         ),
-                        Text('6:00 pm')
                       ],
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        Image(
-                          image: AssetImage('assets/state.png'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('State: Pendding')
-                      ],
-                    )
                   ],
                 ),
                 const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
                   children: [
-                    const Image(
-                      image: AssetImage('assets/profile.png'),
-                    ),
-                    const Text(
-                      'Draco M.',
-                      style: TextStyle(color: kGreenColor),
-                    ),
                     const Spacer(),
                     CustomButton(
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
                       onPressed: () {},
-                    )
+                    ),
                   ],
-                ),
+                )
               ],
             ),
           ),

@@ -41,7 +41,7 @@ class _CurrentRequestCardState extends State<CurrentRequestCard> {
                     Text(
                       'Elctrical Replacemant',
                       style: TextStyle(
-                        color: kYellowColor,
+                        color: kGreenColor,
                         fontSize: 20,
                       ),
                     ),
@@ -53,31 +53,17 @@ class _CurrentRequestCardState extends State<CurrentRequestCard> {
                       ),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 25,
                     ),
                     Row(
                       children: [
                         Image(
-                          image: AssetImage('assets/day.png'),
+                          image: AssetImage('assets/state.png'),
                         ),
                         SizedBox(
                           width: 15,
                         ),
-                        Text('jan,26 2024')
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        Image(
-                          image: AssetImage('assets/time.png'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('9:00 Am')
+                        Text('State: Current')
                       ],
                     ),
                     SizedBox(

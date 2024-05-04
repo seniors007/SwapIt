@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:swapit/core/utils/constants.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {super.key, required this.label, this.onChanged, this.keyboardType});
+      {super.key,
+      required this.label,
+      this.onChanged,
+      this.keyboardType,
+      this.hintText,
+      this.inputFormatters});
   final TextInputType? keyboardType;
   final String label;
   final Function(String)? onChanged;
+  final String? hintText;
+  final List<TextInputFormatter>? inputFormatters;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -16,9 +24,11 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
+      inputFormatters: inputFormatters,
       onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
+        hintText: hintText,
         labelStyle: const TextStyle(
           color: kGreenColor,
           fontSize: 17,

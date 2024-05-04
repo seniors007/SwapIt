@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
+import 'package:swapit/core/widgets/service_notes.dart';
 
 class PendingServiceCard extends StatelessWidget {
   const PendingServiceCard({super.key});
@@ -34,7 +35,7 @@ class PendingServiceCard extends StatelessWidget {
                         Text(
                           'Party Decoration',
                           style: TextStyle(
-                            color: kYellowColor,
+                            color: kGreenColor,
                             fontSize: 20,
                           ),
                         ),
@@ -48,45 +49,10 @@ class PendingServiceCard extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                        Row(
-                          children: [
-                            Image(
-                              image: AssetImage('assets/day.png'),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text('jan,28 2024')
-                          ],
-                        ),
+                        ServiceNotes(),
                         SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          children: [
-                            Image(
-                              image: AssetImage('assets/time.png'),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text('2:00 pm')
-                          ],
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Image(
-                              image: AssetImage('assets/map.png'),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text('El Minya')
-                          ],
-                        )
                       ],
                     ),
                     Spacer(),

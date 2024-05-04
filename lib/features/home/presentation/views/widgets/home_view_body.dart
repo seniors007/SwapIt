@@ -7,37 +7,34 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: kBackgroundColor),
-      child: const Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
-            child: ProfileInfo(),
+    return const Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 6),
+          child: ProfileInfo(),
+        ),
+        Text(
+          'Hi user \nHere what is \ngoing on today.',
+          style: TextStyle(
+            fontSize: 45,
+            color: kYellowColor,
           ),
-          Text(
-            'Hi user \nHere what is \ngoing on today.',
-            style: TextStyle(
-              fontSize: 45,
-              color: kYellowColor,
-            ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        kDivider,
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          'Services For You',
+          style: TextStyle(
+            fontSize: 20,
+            color: kGreenColor,
           ),
-          SizedBox(
-            height: 5,
-          ),
-          kDivider,
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            'Services For You',
-            style: TextStyle(
-              fontSize: 20,
-              color: kGreenColor,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

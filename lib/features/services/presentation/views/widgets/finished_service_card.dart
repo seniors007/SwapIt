@@ -31,7 +31,7 @@ class FinishedSerivceCard extends StatelessWidget {
                     Text(
                       'Party Decoration',
                       style: TextStyle(
-                        color: kYellowColor,
+                        color: kGreenColor,
                         fontSize: 20,
                       ),
                     ),
@@ -41,20 +41,6 @@ class FinishedSerivceCard extends StatelessWidget {
                         color: kYellowColor,
                         fontSize: 17,
                       ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Image(
-                          image: AssetImage('assets/day.png'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('jan,28 2024')
-                      ],
                     ),
                     SizedBox(
                       height: 15,
