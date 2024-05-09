@@ -9,6 +9,7 @@ import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:swapit/features/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:swapit/features/auth/presentation/views/login_view.dart';
+import 'package:swapit/features/auth/presentation/views/viewModels/resister_data.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 
 class RegisterViewBody extends StatefulWidget {
@@ -23,14 +24,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
 
   GlobalKey<FormState> formKey = GlobalKey();
 
-  String? userName,
-      password,
-      email,
-      phoneNumber,
-      birthYear,
-      birthMonth,
-      dateOfBirth,
-      birthDay;
+  final registerdata = RegisterData();
 
   bool isLoading = false;
 
@@ -83,7 +77,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           CustomTextField(
                             label: 'User Name',
                             onChanged: (data) {
-                              userName = data;
+                              registerdata.userName = data;
                             },
                           ),
                           const SizedBox(
@@ -93,7 +87,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             label: 'Email',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: (value) {
-                              email = value;
+                              registerdata.email = value;
                             },
                           ),
                           const SizedBox(
@@ -102,7 +96,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           CustomTextField(
                             label: 'Password',
                             onChanged: (data) {
-                              password = data;
+                              registerdata.password = data;
                             },
                           ),
                           const SizedBox(
@@ -115,7 +109,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                 width: 150,
                                 keyboardType: TextInputType.datetime,
                                 onChanged: (value) {
-                                  birthYear = value;
+                                  registerdata.birthYear = value;
                                 },
                               ),
                               const SizedBox(
@@ -126,7 +120,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                 width: 75,
                                 keyboardType: TextInputType.datetime,
                                 onChanged: (value) {
-                                  birthMonth = value;
+                                  registerdata.birthMonth = value;
                                 },
                               ),
                               const SizedBox(
@@ -137,7 +131,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                 width: 75,
                                 keyboardType: TextInputType.datetime,
                                 onChanged: (value) {
-                                  birthDay = value;
+                                  registerdata.birthDay = value;
                                 },
                               ),
                             ],
@@ -181,7 +175,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             label: 'Phone Number',
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
-                              phoneNumber = value;
+                              registerdata.phoneNumber = value;
                             },
                           ),
                           const SizedBox(
@@ -193,23 +187,25 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             onPressed: () {
                               //when the app completed shold be activate
                               if (formKey.currentState!.validate()) {
-                                if (birthYear != null &&
-                                    birthMonth != null &&
-                                    birthDay != null) {
-                                  int year = int.parse(birthYear!);
-                                  int month = int.parse(birthMonth!);
-                                  int day = int.parse(birthDay!);
+                                if (registerdata.birthYear != null &&
+                                    registerdata.birthMonth != null &&
+                                    registerdata.birthDay != null) {
+                                  int year = int.parse(registerdata.birthYear!);
+                                  int month =
+                                      int.parse(registerdata.birthMonth!);
+                                  int day = int.parse(registerdata.birthDay!);
                                   DateTime date = DateTime(year, month, day);
-                                  dateOfBirth = date.toIso8601String();
+                                  registerdata.dateOfBirth =
+                                      date.toIso8601String();
                                 }
                                 BlocProvider.of<RegisterCubit>(context)
                                     .registerUser(
-                                  userName: userName!,
-                                  password: password!,
-                                  email: email!,
-                                  dateOfBirth: dateOfBirth!,
+                                  userName: registerdata.userName!,
+                                  password: registerdata.password!,
+                                  email: registerdata.email!,
+                                  dateOfBirth: registerdata.dateOfBirth!,
                                   gender: dropdownGendervalue,
-                                  phoneNumber: phoneNumber!,
+                                  phoneNumber: registerdata.phoneNumber!,
                                 );
                               }
                             },
