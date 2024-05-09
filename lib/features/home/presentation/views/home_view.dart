@@ -12,7 +12,6 @@ import 'package:swapit/features/services/presentation/views/services_page.dart';
 
 class Homeview extends StatefulWidget {
   const Homeview({Key? key}) : super(key: key);
-  static String id = 'HomePage';
 
   @override
   State<Homeview> createState() => _HomeviewState();

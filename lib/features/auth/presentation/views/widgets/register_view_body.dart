@@ -19,9 +19,19 @@ class RegisterViewBody extends StatefulWidget {
 }
 
 class _RegisterViewBodyState extends State<RegisterViewBody> {
-  String _dropdownvalue = 'Male';
+  String dropdownGendervalue = 'Male';
+
   GlobalKey<FormState> formKey = GlobalKey();
-  String? userName, password;
+
+  String? userName,
+      password,
+      email,
+      phoneNumber,
+      birthYear,
+      birthMonth,
+      dateOfBirth,
+      birthDay;
+
   bool isLoading = false;
 
   @override
@@ -79,7 +89,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           const SizedBox(
                             height: 20.0,
                           ),
-                          const CustomTextField(label: 'Email'),
+                          CustomTextField(
+                            label: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                          ),
                           const SizedBox(
                             height: 20.0,
                           ),
@@ -92,14 +108,46 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           const SizedBox(
                             height: 20.0,
                           ),
-                          const CustomTextField(label: 'Birth Date'),
+                          Row(
+                            children: [
+                              CustomTextField(
+                                label: 'Birth Year',
+                                width: 150,
+                                keyboardType: TextInputType.datetime,
+                                onChanged: (value) {
+                                  birthYear = value;
+                                },
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              CustomTextField(
+                                label: 'Month',
+                                width: 75,
+                                keyboardType: TextInputType.datetime,
+                                onChanged: (value) {
+                                  birthMonth = value;
+                                },
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              CustomTextField(
+                                label: 'Day',
+                                width: 75,
+                                keyboardType: TextInputType.datetime,
+                                onChanged: (value) {
+                                  birthDay = value;
+                                },
+                              ),
+                            ],
+                          ),
                           const SizedBox(
                             height: 20.0,
                           ),
                           const Row(
                             children: [
                               Text(
-                                textAlign: TextAlign.left,
                                 'Gender',
                                 style: TextStyle(
                                     color: kGreenColor,
@@ -111,11 +159,15 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           DropdownButton(
                             items: const [
                               DropdownMenuItem(
-                                  value: 'Male', child: Text('Male')),
+                                value: 'Male',
+                                child: Text('Male'),
+                              ),
                               DropdownMenuItem(
-                                  value: 'Female', child: Text('Female')),
+                                value: 'Female',
+                                child: Text('Female'),
+                              ),
                             ],
-                            value: _dropdownvalue,
+                            value: dropdownGendervalue,
                             onChanged: dropdownCallback,
                             iconSize: 50,
                             isExpanded: true,
@@ -125,7 +177,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           const SizedBox(
                             height: 20.0,
                           ),
-                          const CustomTextField(label: 'Phone Number'),
+                          CustomTextField(
+                            label: 'Phone Number',
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              phoneNumber = value;
+                            },
+                          ),
                           const SizedBox(
                             height: 20.0,
                           ),
@@ -134,13 +192,26 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             label: 'Register',
                             onPressed: () {
                               //when the app completed shold be activate
-                              // if (formKey.currentState!.validate()) {
-                              BlocProvider.of<RegisterCubit>(context)
-                                  .registerUser(
-                                userName: userName!,
-                                password: password!,
-                              );
-                              // }
+                              if (formKey.currentState!.validate()) {
+                                if (birthYear != null &&
+                                    birthMonth != null &&
+                                    birthDay != null) {
+                                  int year = int.parse(birthYear!);
+                                  int month = int.parse(birthMonth!);
+                                  int day = int.parse(birthDay!);
+                                  DateTime date = DateTime(year, month, day);
+                                  dateOfBirth = date.toIso8601String();
+                                }
+                                BlocProvider.of<RegisterCubit>(context)
+                                    .registerUser(
+                                  userName: userName!,
+                                  password: password!,
+                                  email: email!,
+                                  dateOfBirth: dateOfBirth!,
+                                  gender: dropdownGendervalue,
+                                  phoneNumber: phoneNumber!,
+                                );
+                              }
                             },
                           ),
                           const SizedBox(
@@ -172,41 +243,10 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
     );
   }
 
-  // void postData() async {
-  //   Dio dio = Dio();
-  //   String url = 'http://127.0.0.1:5204/api/users/create';
-
-  //   Map<String, dynamic> data = {
-  //     "username": "pppppp",
-  //     "password": "To@@ma\$1",
-  //     "roleid": "admin"
-  //   };
-  //   try {
-  //     Response response = await dio.post(
-  //       url,
-  //       data: data,
-  //       options: Options(
-  //         contentType: Headers.jsonContentType,
-  //       ),
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       debugPrint('request successful');
-  //       print(response.data);
-  //     } else {
-  //       // Request failed with non-200 status code
-  //       print('Request failed with status: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     // Error occurred during request
-  //     print('Error: $e');
-  //   }
-  // }
-
   void dropdownCallback(String? selectedValue) {
     if (selectedValue is String) {
       setState(() {
-        _dropdownvalue = selectedValue;
+        dropdownGendervalue = selectedValue;
       });
     }
   }

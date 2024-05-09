@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -10,13 +11,20 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> registerUser({
     required String userName,
     required String password,
+    required String email,
+    required String dateOfBirth,
+    required String gender,
+    required String phoneNumber,
   }) async {
     final dio.Dio _dio = dio.Dio();
     const String apiUrl = 'http://localhost:5204/api/users/create';
-    final Map<String, dynamic> data = {
+    final Map<String, dynamic> registerData = {
       "username": userName,
       "password": password,
-      "roleid": 'admin',
+      "email": email,
+      "dateOfBirth": dateOfBirth,
+      "gender": gender,
+      "phoneNumber": phoneNumber
     };
 
     emit(RegisterLoading());
@@ -24,7 +32,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       final dio.Response response = await _dio.post(
         apiUrl,
-        data: data,
+        data: registerData,
         // options: dio.Options(
         //   contentType: dio.Headers.jsonContentType,
         // ),
@@ -32,14 +40,14 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       if (response.statusCode == 200) {
         emit(RegisterSuccess());
-        debugPrint('Response: ${response.data}');
+        log('Response: ${response.data}');
       } else {
         emit(RegisterFailure(errMsg: 'Failed to register user'));
-        debugPrint('Failed with status code: ${response.statusCode}');
+        log('Failed with status code: ${response.statusCode}');
       }
     } catch (e) {
       emit(RegisterFailure(errMsg: 'This Account Already Exists'));
-      debugPrint('Error: $e');
+      log('Error: $e');
     }
   }
 }

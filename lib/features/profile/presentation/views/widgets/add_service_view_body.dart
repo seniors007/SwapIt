@@ -11,7 +11,7 @@ class AddServiceViewBody extends StatefulWidget {
 }
 
 class _AddServiceViewBodyState extends State<AddServiceViewBody> {
-  String _dropdownvalue = 'Decoration';
+  String _dropdownvalue = 'Category';
   Dio dio = Dio();
 
   @override
@@ -62,11 +62,17 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                 DropdownButton(
                   items: const [
                     DropdownMenuItem(
-                        value: 'Decoration', child: Text('Decoration')),
+                      value: 'Decoration',
+                      child: Text('Decoration'),
+                    ),
                     DropdownMenuItem(
-                        value: 'Elictrical', child: Text('Elictrical')),
+                      value: 'Elictrical',
+                      child: Text('Elictrical'),
+                    ),
                     DropdownMenuItem(
-                        value: 'Cleaning', child: Text('Cleaning')),
+                      value: 'Cleaning',
+                      child: Text('Cleaning'),
+                    ),
                   ],
                   value: _dropdownvalue,
                   onChanged: dropdownCallback,
