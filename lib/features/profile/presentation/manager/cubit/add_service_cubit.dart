@@ -9,12 +9,16 @@ part 'add_service_state.dart';
 class AddServiceCubit extends Cubit<AddServiceState> {
   AddServiceCubit() : super(AddServiceInitial());
 
-  Future<void> addService() async {
+  Future<void> addService(
+      {required int categoryId,
+      required String serviceName,
+      required String serviceDescription,
+      required int price}) async {
     final dio.Dio _dio = dio.Dio();
     const String apiUrl = 'http://localhost:5204/api/services/Create';
 
     final Map<String, dynamic> serviceData = {
-      "name": "Coashing",
+      "name": serviceName,
       "description": "I coash in private Session",
       "price": 20,
       "timeToExecute": 15,

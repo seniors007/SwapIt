@@ -17,11 +17,13 @@ class AddServiceViewBody extends StatefulWidget {
 }
 
 class _AddServiceViewBodyState extends State<AddServiceViewBody> {
-  String _dropdownValue = '';
-  List<Map<String, dynamic>> _categories = []; // Store categories here
+  int _dropdownValue = 0;
+  List<Map<String, dynamic>> _categories = [];
   bool isLoading = false;
   GlobalKey<FormState> formKey = GlobalKey();
-
+  String? serviceName;
+  String? serviceDescription;
+  int? price;
   @override
   void initState() {
     super.initState();
@@ -35,8 +37,9 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
       if (response.statusCode == 200) {
         setState(() {
           _categories = List<Map<String, dynamic>>.from(response.data);
-          _dropdownValue =
-              _categories.isNotEmpty ? _categories[0]['id'].toString() : '';
+          _dropdownValue = _categories.isNotEmpty
+              ? int.parse(_categories[0]['id'].toString())
+              : 0;
         });
       } else {
         throw Exception('Failed to fetch categories');
@@ -55,6 +58,7 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
         } else if (state is AddServiceSuccess) {
           showSnackBar(context, 'Service added');
           isLoading = false;
+          Navigator.pop(context);
         } else if (state is AddServiceFailure) {
           showSnackBar(context, state.errMsg);
           isLoading = false;
@@ -84,11 +88,11 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                         const SizedBox(
                           height: 15,
                         ),
-                        DropdownButtonFormField<String>(
+                        DropdownButtonFormField<int>(
                           items: _categories
-                              .map<DropdownMenuItem<String>>((category) {
-                            return DropdownMenuItem<String>(
-                              value: category['id'].toString(),
+                              .map<DropdownMenuItem<int>>((category) {
+                            return DropdownMenuItem<int>(
+                              value: int.parse(category['id'].toString()),
                               child: Text(category['name']),
                             );
                           }).toList(),
@@ -110,31 +114,56 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                         const SizedBox(
                           height: 15.0,
                         ),
-                        const CustomTextField(label: 'Service Name'),
+                        CustomTextField(
+                          label: 'Service Name',
+                          onChanged: (value) {
+                            serviceName = value;
+                          },
+                        ),
                         const SizedBox(
                           height: 15.0,
                         ),
-                        const CustomTextField(label: 'Service Description'),
+                        CustomTextField(
+                          label: 'Service Description',
+                          onChanged: (value) {
+                            serviceDescription = value;
+                          },
+                        ),
                         const SizedBox(
                           height: 15.0,
                         ),
-                        const CustomTextField(label: 'Price'),
-                        const SizedBox(
-                          height: 15.0,
+                        CustomTextField(
+                          label: 'Price',
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            try {
+                              final priceAsInt = int.tryParse(value);
+                              if (priceAsInt != null) {
+                                price = priceAsInt;
+                              }
+                            } catch (e) {
+                              // Handle unexpected errors
+                              print('Error converting price to integer: $e');
+                            }
+                          },
                         ),
-                        const CustomTextField(label: 'Position'),
                         const SizedBox(
                           height: 20.0,
                         ),
                         CustomButton(
-                            label: 'Add',
-                            backgroundColor: kYellowColor,
-                            onPressed: () {
-                              // if (formKey.currentState!.validate()) {
+                          label: 'Add',
+                          backgroundColor: kYellowColor,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
                               BlocProvider.of<AddServiceCubit>(context)
-                                  .addService();
-                              // }
-                            })
+                                  .addService(
+                                      categoryId: _dropdownValue,
+                                      serviceName: serviceName!,
+                                      serviceDescription: serviceDescription!,
+                                      price: price!);
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
