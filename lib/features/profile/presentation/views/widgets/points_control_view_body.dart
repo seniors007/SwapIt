@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:swapit/core/functions/excute_paypal_method.dart';
 import 'package:swapit/core/functions/get_treansactions.dart';
@@ -14,7 +17,11 @@ class PointsControlViewBody extends StatefulWidget {
 class _PointsControlViewBodyState extends State<PointsControlViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
 
-  double points = 100;
+  double moneyAmount = 100;
+
+  int getPoints() {
+    return (moneyAmount * 5).toInt();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class _PointsControlViewBodyState extends State<PointsControlViewBody> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'operations With ',
+                              'Buy in With ',
                               style: TextStyle(
                                 color: kYellowColor,
                                 fontSize: 20,
@@ -92,27 +99,27 @@ class _PointsControlViewBodyState extends State<PointsControlViewBody> {
                             ),
                           ],
                         ),
-                        // CustomTextField(
-                        //   label: 'Amount',
-                        //   onChanged: (data) {
-                        //     number = int.parse(data);
-                        //   },
-                        // ),
+                        Text(
+                          'You will get  ${getPoints()} points',
+                          style: const TextStyle(
+                            color: kGreenColor,
+                            fontSize: 17,
+                          ),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
                         Slider(
                           thumbColor: kGreenColor,
                           activeColor: kYellowColor,
-                          value: points,
-                          label: points.round().toString(),
+                          value: moneyAmount,
+                          label: moneyAmount.round().toString(),
                           max: 1000,
                           divisions: 20,
                           onChanged: (newPoints) {
-                            setState(() => points = newPoints);
+                            setState(() => moneyAmount = newPoints);
                           },
                         ),
-
                         const SizedBox(
                           height: 15,
                         ),
@@ -121,7 +128,7 @@ class _PointsControlViewBodyState extends State<PointsControlViewBody> {
                           backgroundColor: kGreenColor,
                           onPressed: () {
                             var transctionsData =
-                                getTransctionsData(points.toInt());
+                                getTransctionsData(moneyAmount.toInt());
                             excutePaypalMethod(context, transctionsData);
                           },
                         )
@@ -137,6 +144,20 @@ class _PointsControlViewBodyState extends State<PointsControlViewBody> {
     );
   }
 }
+
+void deposite() async {
+  try {
+    var dio = Dio();
+    Response response = await dio.get(
+      "http://localhost:5204/api/payment/Deposite?userId=30&points=20",
+    );
+    log(response.data);
+  } catch (error) {
+    log('Error making GET request: $error');
+    // Handle error here
+  }
+}
+
 
 
   // Future<void> triggerWithdrawal() async {

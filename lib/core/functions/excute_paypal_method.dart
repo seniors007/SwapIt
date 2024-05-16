@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:swapit/core/utils/api_kyes.dart';
@@ -25,6 +26,7 @@ void excutePaypalMethod(BuildContext context,
         onSuccess: (Map params) async {
           log("onSuccess: $params");
           Navigator.pop(context);
+          deposite();
           showSnackBar(context, 'Buy In Successfully Done ,Thank You');
         },
         onError: (error) {
@@ -40,4 +42,23 @@ void excutePaypalMethod(BuildContext context,
       ),
     ),
   );
+}
+
+void deposite() async {
+  try {
+    var dio = Dio();
+    Response response = await dio.post(
+      'http://localhost:5204/api/payment/Deposite',
+      queryParameters: {
+        'userId': 30,
+        'points': 20,
+      },
+      options: Options(
+        responseType: ResponseType.plain,
+      ),
+    );
+    log(response.data.toString());
+  } catch (error) {
+    log('Error making POST request: $error');
+  }
 }

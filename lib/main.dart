@@ -3,7 +3,11 @@ import 'package:get/get.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/splash/presentation/views/splash_view.dart';
 
-void main() {
+void main() async {
+  //   WidgetsFlutterBinding.ensureInitialized();
+  // final cameras = await availableCameras();
+  //  final firstCamera = cameras.first;
+
   runApp(const SwapIt());
 }
 
