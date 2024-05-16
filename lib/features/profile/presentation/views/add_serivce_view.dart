@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swapit/features/profile/presentation/manager/cubit/add_service_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_view_body.dart';
 
 class AddServiceView extends StatelessWidget {
@@ -6,8 +8,11 @@ class AddServiceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: AddServiceViewBody(),
+    return BlocProvider(
+      create: (context) => AddServiceCubit(),
+      child: const Scaffold(
+        body: AddServiceViewBody(),
+      ),
     );
   }
 }
