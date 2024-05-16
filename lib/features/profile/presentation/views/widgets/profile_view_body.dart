@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_button.dart';
-import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
-import 'package:swapit/features/profile/presentation/views/widgets/profile_options.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
+import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/past_work_imgs.dart';
-import 'package:swapit/features/profile/presentation/views/widgets/service_post.dart';
+import 'package:swapit/features/profile/presentation/views/widgets/profile_options.dart';
+import 'package:swapit/features/profile/presentation/views/widgets/service_post_list_view.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({
@@ -14,49 +14,68 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scrollbar(
-      radius: Radius.circular(8),
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 8, bottom: 10),
-        clipBehavior: Clip.none,
-        physics: ClampingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ProfileInfo(),
-            SizedBox(
-              height: 7,
-            ),
-            kDivider,
-            SizedBox(
-              height: 7,
-            ),
-            Text(
-              'My work',
-              style: TextStyle(color: kGreenColor),
-            ),
-            PastWorkImgs(),
-            kDivider,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return const Padding(
+      padding: EdgeInsets.only(left: 8, bottom: 10),
+      child: Scrollbar(
+        radius: Radius.circular(8),
+        child: CustomScrollView(
+          clipBehavior: Clip.none,
+          physics: ClampingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ProfileInfo(),
+                  SizedBox(
+                    height: 7,
+                  ),
+                  kDivider,
+                  SizedBox(
+                    height: 7,
+                  ),
                   Text(
-                    'My Service',
+                    'My work',
                     style: TextStyle(color: kGreenColor),
                   ),
-                  AddServiceButton()
+                  PastWorkImgs(),
+                  kDivider,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'My Service',
+                          style: TextStyle(color: kGreenColor),
+                        ),
+                        AddServiceButton()
+                      ],
+                    ),
+                  ),
+
+                  // SizedBox(height: 10),
+                  // kDivider,
+                  // MyPoints(),
+                  // ProfileOptions(),
                 ],
               ),
             ),
-            ServicePostInProfile(),
-            ServicePostInProfile(),
-            ServicePostInProfile(),
-            SizedBox(height: 10),
-            kDivider,
-            MyPoints(),
-            ProfileOptions(),
+            SliverToBoxAdapter(
+              child: ServicePostListView(),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  kDivider,
+                  MyPoints(),
+                  ProfileOptions(),
+                ],
+              ),
+            )
           ],
         ),
       ),
