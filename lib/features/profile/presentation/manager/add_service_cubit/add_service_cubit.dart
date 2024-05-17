@@ -19,12 +19,12 @@ class AddServiceCubit extends Cubit<AddServiceState> {
 
     final Map<String, dynamic> serviceData = {
       "name": serviceName,
-      "description": "I coash in private Session",
-      "price": 20,
+      "description": serviceDescription,
+      "price": price,
       "timeToExecute": 15,
       "previousworkImagesUrl": "2.jpg",
       "serviceProviderId": 30,
-      "categoryId": 1
+      "categoryId": categoryId
     };
     emit(AddServiceLoading());
 

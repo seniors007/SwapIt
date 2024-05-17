@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/features/profile/presentation/manager/search_cubit/search_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_button.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
@@ -14,15 +16,15 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 8, bottom: 10),
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, bottom: 10),
       child: Scrollbar(
-        radius: Radius.circular(8),
+        radius: const Radius.circular(8),
         child: CustomScrollView(
           clipBehavior: Clip.none,
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           slivers: [
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,18 +55,22 @@ class ProfileViewBody extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // SizedBox(height: 10),
-                  // kDivider,
-                  // MyPoints(),
-                  // ProfileOptions(),
                 ],
               ),
             ),
             SliverToBoxAdapter(
-              child: ServicePostListView(),
+              child: BlocProvider(
+                create: (context) => SearchCubit()
+                  ..searchService(
+                    serviceName: '',
+                    servicePrice: 0,
+                    serviceProviderId: 30,
+                    categoryId: 0,
+                  ),
+                child: const ServicePostListView(),
+              ),
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Column(
                 children: [
                   SizedBox(

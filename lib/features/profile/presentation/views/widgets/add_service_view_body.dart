@@ -7,7 +7,7 @@ import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
-import 'package:swapit/features/profile/presentation/manager/cubit/add_service_cubit.dart';
+import 'package:swapit/features/profile/presentation/manager/add_service_cubit/add_service_cubit.dart';
 
 class AddServiceViewBody extends StatefulWidget {
   const AddServiceViewBody({super.key});

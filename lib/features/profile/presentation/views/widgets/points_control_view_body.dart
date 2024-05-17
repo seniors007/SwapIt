@@ -158,113 +158,110 @@ void deposite() async {
   }
 }
 
+// Future<void> triggerWithdrawal() async {
+//   if (isWithdrawing) return; // Prevent multiple simultaneous withdrawals
 
+//   setState(() {
+//     isWithdrawing = true; // Set flag to indicate withdrawal in progress
+//   });
 
-  // Future<void> triggerWithdrawal() async {
-  //   if (isWithdrawing) return; // Prevent multiple simultaneous withdrawals
+//   final withdrawalAmount =
+//       double.tryParse(withdrawalAmountController.text) ?? 0.0;
+//   if (withdrawalAmount <= 0.0) {
+//     // Handle invalid withdrawal amount (e.g., show an error message)
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       const SnackBar(
+//         content: Text('Please enter a valid withdrawal amount.'),
+//         backgroundColor: Colors.red,
+//       ),
+//     );
+//     setState(() {
+//       isWithdrawing = false; // Reset flag upon error
+//     });
+//     return;
+//   }
 
-  //   setState(() {
-  //     isWithdrawing = true; // Set flag to indicate withdrawal in progress
-  //   });
+//   await withdrawFunds(withdrawalAmount);
 
-  //   final withdrawalAmount =
-  //       double.tryParse(withdrawalAmountController.text) ?? 0.0;
-  //   if (withdrawalAmount <= 0.0) {
-  //     // Handle invalid withdrawal amount (e.g., show an error message)
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Please enter a valid withdrawal amount.'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //     setState(() {
-  //       isWithdrawing = false; // Reset flag upon error
-  //     });
-  //     return;
-  //   }
+//   setState(() {
+//     isWithdrawing = false; // Reset flag upon completion
+//   });
+// }
 
-  //   await withdrawFunds(withdrawalAmount);
+// Future<void> withdrawFunds(double withdrawalAmount) async {
+//   // Prepare withdrawal data (assuming PayoutRequest model or similar)
+//   final withdrawalData = PayoutRequest(
+//     // Set appropriate properties based on your API requirements
+//     recipientType: 'EMAIL',
+//     receiver:
+//         'testbusiness123456798@business.example.com', // Replace with actual recipient email
+//     amount: withdrawalAmount,
+//     currency: 'USD',
+//     senderBatchHeader: '', // Replace with appropriate currency
+//   );
 
-  //   setState(() {
-  //     isWithdrawing = false; // Reset flag upon completion
-  //   });
-  // }
+//   final paypalService = PayPalPayouts(
+//       dio: Dio()); // Consider using a factory constructor if needed
 
-  // Future<void> withdrawFunds(double withdrawalAmount) async {
-  //   // Prepare withdrawal data (assuming PayoutRequest model or similar)
-  //   final withdrawalData = PayoutRequest(
-  //     // Set appropriate properties based on your API requirements
-  //     recipientType: 'EMAIL',
-  //     receiver:
-  //         'testbusiness123456798@business.example.com', // Replace with actual recipient email
-  //     amount: withdrawalAmount,
-  //     currency: 'USD',
-  //     senderBatchHeader: '', // Replace with appropriate currency
-  //   );
+//   try {
+//     final response = await paypalService.createPayout(withdrawalData);
+//     if (response.statusCode == 201) {
+//       log('Withdrawal successful!');
+//       // Show success message to user (e.g., using a SnackBar)
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(
+//           content: Text('Withdrawal successful!'),
+//           backgroundColor: Colors.green,
+//         ),
+//       );
+//       // Reset form (optional)
+//       formKey.currentState!.reset();
+//       setState(() {
+//         incash = 0.0; // Reset withdrawal amount
+//       });
+//     } else {
+//       final errorData = jsonDecode(response.data);
+//       final errorMessage = errorData['message'] ?? 'Error during withdrawal';
+//       log('Error: $errorMessage');
+//       // Show error message to user (e.g., using a SnackBar)
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Error: $errorMessage'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//     }
+//   } on Exception catch (e) {
+//     // Handle errors thrown by createPayout or Dio
+//     log('Error: ${e.toString()}');
+//     // Show error message to user (e.g., using a SnackBar)
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       const SnackBar(
+//         content: Text('An error occurred during withdrawal.'),
+//         backgroundColor: Colors.red,
+//       ),
+//     );
+//   }
+// }
+// TextFormField(
+//   controller: withdrawalAmountController,
+//   keyboardType: TextInputType.number,
+//   decoration: const InputDecoration(
+//     labelText: 'Withdrawal Amount',
+//     hintText: 'Enter Amount',
+//   ),
+//   validator: (value) {
+//     if (value == null || value.isEmpty) {
+//       return 'Please enter a withdrawal amount.';
+//     }
+//     return null;
+//   },
+// ),
 
-  //   final paypalService = PayPalPayouts(
-  //       dio: Dio()); // Consider using a factory constructor if needed
+// const SizedBox(height: 15.0),
 
-  //   try {
-  //     final response = await paypalService.createPayout(withdrawalData);
-  //     if (response.statusCode == 201) {
-  //       log('Withdrawal successful!');
-  //       // Show success message to user (e.g., using a SnackBar)
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Withdrawal successful!'),
-  //           backgroundColor: Colors.green,
-  //         ),
-  //       );
-  //       // Reset form (optional)
-  //       formKey.currentState!.reset();
-  //       setState(() {
-  //         incash = 0.0; // Reset withdrawal amount
-  //       });
-  //     } else {
-  //       final errorData = jsonDecode(response.data);
-  //       final errorMessage = errorData['message'] ?? 'Error during withdrawal';
-  //       log('Error: $errorMessage');
-  //       // Show error message to user (e.g., using a SnackBar)
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text('Error: $errorMessage'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //     }
-  //   } on Exception catch (e) {
-  //     // Handle errors thrown by createPayout or Dio
-  //     log('Error: ${e.toString()}');
-  //     // Show error message to user (e.g., using a SnackBar)
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('An error occurred during withdrawal.'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //   }
-  // }
-  // TextFormField(
-  //   controller: withdrawalAmountController,
-  //   keyboardType: TextInputType.number,
-  //   decoration: const InputDecoration(
-  //     labelText: 'Withdrawal Amount',
-  //     hintText: 'Enter Amount',
-  //   ),
-  //   validator: (value) {
-  //     if (value == null || value.isEmpty) {
-  //       return 'Please enter a withdrawal amount.';
-  //     }
-  //     return null;
-  //   },
-  // ),
-
-  // const SizedBox(height: 15.0),
-
-  // CustomButton(
-  //   backgroundColor: kGreenColor,
-  //   onPressed: triggerWithdrawal,
-  //   label: 'Withdraw',
-  // ),
-
+// CustomButton(
+//   backgroundColor: kGreenColor,
+//   onPressed: triggerWithdrawal,
+//   label: 'Withdraw',
+// ),

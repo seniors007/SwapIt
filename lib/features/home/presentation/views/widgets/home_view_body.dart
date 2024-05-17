@@ -39,8 +39,6 @@ class HomeViewBody extends StatelessWidget {
   }
 }
 
-
-
 //---------->not used <-----------------------
 //  Container(
 //             height: 175,
@@ -74,15 +72,15 @@ class HomeViewBody extends StatelessWidget {
 //                       'Make sure your avilability is up to date so \n         that you can receive new tasks',
 //                       style: TextStyle(color: Colors.grey, fontSize: 13),
 //                     ),
-                    // TextButton(
-                    //   onPressed: () {},
-                    //   child: const Text(
-                    //     'See my Avilability',
-                    //     style: TextStyle(
-                    //         decoration: TextDecoration.underline,
-                    //         color: kYellowColor,
-                    //         fontSize: 20),
-                    //   ),
+// TextButton(
+//   onPressed: () {},
+//   child: const Text(
+//     'See my Avilability',
+//     style: TextStyle(
+//         decoration: TextDecoration.underline,
+//         color: kYellowColor,
+//         fontSize: 20),
+//   ),
 //                     )
 //                   ],
 //                 ),

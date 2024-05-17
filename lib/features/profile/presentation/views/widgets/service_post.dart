@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 
 class ServicePostInProfile extends StatelessWidget {
-  const ServicePostInProfile({super.key});
-
+  const ServicePostInProfile(
+      {super.key,
+      required this.serviceName,
+      required this.description,
+      required this.cost,
+      required this.category});
+  final String serviceName, description, category;
+  final int cost;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 165,
+      height: 190,
       width: 350,
       decoration: BoxDecoration(
         boxShadow: [
@@ -55,23 +61,33 @@ class ServicePostInProfile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Decorator',
-                    style: TextStyle(
+                  Text(
+                    serviceName,
+                    style: const TextStyle(
                         color: kYellowColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  const Text(
-                    'For birthday Decoration',
-                    style: TextStyle(
-                      color: kGreenColor,
-                      fontSize: 17,
+                  Text(
+                    category,
+                    style: const TextStyle(
+                        color: kGreenColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      description,
+                      style: const TextStyle(
+                          color: kGreenColor,
+                          fontSize: 17,
+                          overflow: TextOverflow.ellipsis),
                     ),
                   ),
-                  const Text(
-                    'Cost: 500 Points',
-                    style: TextStyle(
+                  Text(
+                    'Cost: $cost Points',
+                    style: const TextStyle(
                       color: kGreenColor,
                       fontSize: 17,
                     ),
