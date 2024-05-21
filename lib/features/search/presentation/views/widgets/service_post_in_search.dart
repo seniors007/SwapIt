@@ -7,8 +7,14 @@ import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/search/presentation/views/service_datalis_view.dart';
 
 class ServicePostInSearch extends StatelessWidget {
-  const ServicePostInSearch({super.key});
-
+  const ServicePostInSearch(
+      {super.key,
+      required this.serviceName,
+      required this.description,
+      required this.category,
+      required this.cost});
+  final String serviceName, description, category;
+  final int cost;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -16,7 +22,7 @@ class ServicePostInSearch extends StatelessWidget {
         Get.to(() => const ServiceDetailsView());
       },
       child: Container(
-        height: 165,
+        height: 190,
         width: 350,
         decoration: BoxDecoration(
           boxShadow: [
@@ -64,23 +70,33 @@ class ServicePostInSearch extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Decorator',
-                      style: TextStyle(
+                    Text(
+                      serviceName,
+                      style: const TextStyle(
                           color: kYellowColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
-                    const Text(
-                      'For birthday Decoration',
-                      style: TextStyle(
-                        color: kGreenColor,
-                        fontSize: 17,
+                    Text(
+                      category,
+                      style: const TextStyle(
+                          color: kGreenColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        description,
+                        style: const TextStyle(
+                            color: kGreenColor,
+                            fontSize: 17,
+                            overflow: TextOverflow.ellipsis),
                       ),
                     ),
-                    const Text(
-                      'Cost: 500 Points',
-                      style: TextStyle(
+                    Text(
+                      'Cost: $cost Points',
+                      style: const TextStyle(
                         color: kGreenColor,
                         fontSize: 17,
                       ),
@@ -93,7 +109,9 @@ class ServicePostInSearch extends StatelessWidget {
                         CustomButton(
                           label: 'Request',
                           backgroundColor: kYellowColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => const ServiceDetailsView());
+                          },
                         )
                       ],
                     )

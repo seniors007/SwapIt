@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/features/profile/presentation/manager/search_cubit/search_cubit.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({super.key});
+  CustomSearchBar({super.key});
+  final TextEditingController _serviceNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,8 @@ class CustomSearchBar extends StatelessWidget {
         elevation: 5,
         color: kWhiteColor,
         child: TextField(
-          onSubmitted: (value) {},
+          controller: _serviceNameController,
+          onSubmitted: (_) => _performSearch(context),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 30,
@@ -28,10 +32,21 @@ class CustomSearchBar extends StatelessWidget {
               'assets/search.png',
               height: 30,
             ),
-            hintText: 'What do you look for today?',
           ),
         ),
       ),
     );
+  }
+
+  void _performSearch(BuildContext context) {
+    final serviceName = _serviceNameController.text.trim();
+    if (serviceName.isNotEmpty) {
+      context.read<SearchCubit>().searchService(
+            serviceName: serviceName,
+            servicePrice: 0,
+            serviceProviderId: 0,
+            categoryId: 0,
+          );
+    }
   }
 }

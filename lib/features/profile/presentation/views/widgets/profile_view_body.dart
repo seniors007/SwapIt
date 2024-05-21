@@ -7,7 +7,7 @@ import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/past_work_imgs.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/profile_options.dart';
-import 'package:swapit/features/profile/presentation/views/widgets/service_post_list_view.dart';
+import 'package:swapit/features/profile/presentation/views/widgets/service_post_inProfile_list_view.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({
@@ -67,7 +67,7 @@ class ProfileViewBody extends StatelessWidget {
                     serviceProviderId: 30,
                     categoryId: 0,
                   ),
-                child: const ServicePostListView(),
+                child: const ServicePostInProfileListView(),
               ),
             ),
             const SliverToBoxAdapter(

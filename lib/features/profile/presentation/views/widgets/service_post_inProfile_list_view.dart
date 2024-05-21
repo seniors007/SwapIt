@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/features/profile/presentation/manager/search_cubit/search_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/service_post.dart';
 
-class ServicePostListView extends StatelessWidget {
-  const ServicePostListView({super.key});
+class ServicePostInProfileListView extends StatelessWidget {
+  const ServicePostInProfileListView({super.key});
 
   @override
   Widget build(BuildContext context) {
