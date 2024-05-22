@@ -8,8 +8,7 @@ part 'accept_service_state.dart';
 class AcceptServiceCubitCubit extends Cubit<AcceptServiceCubitState> {
   AcceptServiceCubitCubit() : super(AcceptServiceInitial());
 
-  Future<void> acceptService(
-      {required int serviceId, required int providerId}) async {
+  Future<void> acceptService({required int serviceId}) async {
     final dio.Dio _dio = dio.Dio();
     String apiUrl =
         'http://localhost:5204/api/serviceRequests/AcceptServiceRequest?ServiceRequestId=$serviceId';
