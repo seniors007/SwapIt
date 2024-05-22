@@ -4,8 +4,14 @@ import 'package:swapit/core/utils/constants.dart';
 class ServiceFullDetails extends StatelessWidget {
   const ServiceFullDetails({
     super.key,
+    required this.serviceName,
+    required this.description,
+    required this.category,
+    required this.cost,
   });
 
+  final String serviceName, description, category;
+  final int cost;
   @override
   Widget build(BuildContext context) {
     return const Column(

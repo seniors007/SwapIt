@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/past_work_imgs.dart';
-import 'package:swapit/features/search/presentation/views/widgets/service_full_details.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ServiceDetailsViewBody extends StatefulWidget {
-  const ServiceDetailsViewBody({super.key});
+  const ServiceDetailsViewBody(
+      {super.key,
+      required this.serviceId,
+      required this.serviceName,
+      required this.description,
+      required this.category,
+      required this.cost});
+  final int serviceId;
+  final String serviceName, description, category;
+  final int cost;
 
   @override
   State<ServiceDetailsViewBody> createState() => _ServiceDetailsViewBodyState();
@@ -31,10 +38,10 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
               const SizedBox(
                 height: 50,
               ),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,10 +69,86 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 16,
                   ),
-                  ServiceFullDetails(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Service Category:',
+                        style: TextStyle(
+                            color: kGreenColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.category,
+                        style: const TextStyle(
+                          color: kYellowColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Service Name:',
+                        style: TextStyle(
+                            color: kGreenColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.serviceName,
+                        style: const TextStyle(
+                          color: kYellowColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Service Discription:',
+                        style: TextStyle(
+                            color: kGreenColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 225,
+                        child: Text(
+                          widget.description,
+                          style: const TextStyle(
+                            color: kYellowColor,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Service Cost:',
+                        style: TextStyle(
+                          color: kGreenColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        '${widget.cost} Points',
+                        style: const TextStyle(
+                          color: kYellowColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  )
+                  // ServiceFullDetails(),
                 ],
               ),
               CustomTextField(
@@ -88,9 +171,9 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                     label: 'Request',
                     backgroundColor: kYellowColor,
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        Get.back();
-                      }
+                      // if (formKey.currentState!.validate()) {
+                      // Get.back();
+                      // }
                     },
                   ),
                 ],

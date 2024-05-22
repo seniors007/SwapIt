@@ -24,7 +24,6 @@ class SearchPageBody extends StatelessWidget {
                   CustomSearchBar(),
                   kDivider,
                   const CustomTitle(),
-                  // CustomGroupButton(),
                   const SizedBox(
                     height: 5,
                   ),
@@ -45,21 +44,22 @@ class SearchPageBody extends StatelessWidget {
                       final service =
                           state.searchResponseContainer.results[index];
                       return ServicePostInSearch(
+                        serviceId: service.id!,
                         serviceName: service.serviceName!,
                         description: service.serviceDescription!,
                         category: service.categoryName!,
                         cost: service.servicePrice!,
-                        // service: state.searchResponseContainer.services[index],
                       );
                     },
                     childCount: state.searchResponseContainer.results.length,
-                    // childCount: state.searchResponseContainer.services.length,
                   ),
                 );
               } else if (state is SearchFailure) {
                 return const SliverFillRemaining(
-                    child: Center(
-                        child: Text("somthing wnt wrong try again later")));
+                  child: Center(
+                    child: Text("somthing wnt wrong try again later"),
+                  ),
+                );
               } else {
                 return const SliverFillRemaining(
                   child: Center(child: Text('Search for whatever you need')),

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:swapit/core/utils/constants.dart';
@@ -7,19 +6,32 @@ import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/search/presentation/views/service_datalis_view.dart';
 
 class ServicePostInSearch extends StatelessWidget {
-  const ServicePostInSearch(
-      {super.key,
-      required this.serviceName,
-      required this.description,
-      required this.category,
-      required this.cost});
+  const ServicePostInSearch({
+    super.key,
+    required this.serviceId,
+    required this.serviceName,
+    required this.description,
+    required this.category,
+    required this.cost,
+  });
+
+  final int serviceId; // Added this field
   final String serviceName, description, category;
   final int cost;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const ServiceDetailsView());
+        Get.to(
+          () => ServiceDetailsView(
+            serviceId: serviceId,
+            serviceName: serviceName,
+            description: description,
+            category: category,
+            cost: cost,
+          ),
+        );
       },
       child: Container(
         height: 190,
@@ -110,7 +122,15 @@ class ServicePostInSearch extends StatelessWidget {
                           label: 'Request',
                           backgroundColor: kYellowColor,
                           onPressed: () {
-                            Get.to(() => const ServiceDetailsView());
+                            Get.to(
+                              () => ServiceDetailsView(
+                                serviceId: serviceId,
+                                serviceName: serviceName,
+                                description: description,
+                                category: category,
+                                cost: cost,
+                              ),
+                            );
                           },
                         )
                       ],
