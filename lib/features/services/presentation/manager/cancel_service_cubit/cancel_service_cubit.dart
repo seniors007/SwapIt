@@ -21,7 +21,7 @@ class CancelServiceCubit extends Cubit<CancelServiceState> {
       if (response.statusCode == 200) {
         emit(CancelServiceSuccess());
       } else {
-        emit(const CancelServiceFailure(errMsg: 'Failed to accept service'));
+        emit(const CancelServiceFailure(errMsg: 'Failed to cancel service'));
         log('Failed with status code: ${response.statusCode}');
       }
     } catch (e) {
