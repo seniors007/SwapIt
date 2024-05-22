@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:swapit/features/services/data/models/pending_services_response_model/services_response_model.dart';
+import 'package:swapit/features/services/data/models/services_response_model/services_response_model.dart';
 import 'package:dio/dio.dart' as dio;
 part 'current_services_state.dart';
 
