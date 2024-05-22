@@ -11,9 +11,10 @@ class PendingServiceCard extends StatelessWidget {
     required this.categoryName,
     required this.username,
     required this.notes,
+    required this.serviceId,
   });
   final String serviceName, serviceDescription, categoryName, username, notes;
-
+  final int serviceId;
   @override
   Widget build(BuildContext context) {
     return Padding(

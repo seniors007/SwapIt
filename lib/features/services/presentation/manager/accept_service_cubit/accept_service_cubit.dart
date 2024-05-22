@@ -11,14 +11,12 @@ class AcceptServiceCubitCubit extends Cubit<AcceptServiceCubitState> {
   Future<void> acceptService(
       {required int serviceId, required int providerId}) async {
     final dio.Dio _dio = dio.Dio();
-    const String apiUrl = 'http://localhost:5204/api/services/AcceptService';
+    String apiUrl =
+        'http://localhost:5204/api/serviceRequests/AcceptServiceRequest?ServiceRequestId=$serviceId';
 
     emit(AcceptServiceLoading());
     try {
-      final dio.Response response = await _dio.post(apiUrl, data: {
-        'serviceId': serviceId,
-        'providerId': providerId,
-      });
+      final dio.Response response = await _dio.get(apiUrl);
 
       if (response.statusCode == 200) {
         emit(AcceptServiceSuccess());
