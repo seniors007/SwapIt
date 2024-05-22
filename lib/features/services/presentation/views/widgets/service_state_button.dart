@@ -102,7 +102,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                   categoryName: service.categoryName,
                   username: service.username,
                   notes: service.notes!,
-                  serviceId: service.id,
+                  serviceRequestId: service.serviceRequestId,
                 );
               },
             );

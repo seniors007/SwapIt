@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swapit/features/services/presentation/manager/accept_service_cubit/accept_service_cubit.dart';
 import 'package:swapit/features/services/presentation/manager/pending_services_cubit/pending_services_cubit.dart';
 import 'package:swapit/features/services/presentation/views/widgets/service_view_body.dart';
 
@@ -19,9 +18,6 @@ class ServicesView extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CurrentServiceCubit(),
-          ),
-          BlocProvider(
-            create: (context) => AcceptServiceCubit(),
           ),
         ],
         child: const ServiceViewBody(),

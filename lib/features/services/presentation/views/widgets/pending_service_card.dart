@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
@@ -11,10 +12,12 @@ class PendingServiceCard extends StatelessWidget {
     required this.categoryName,
     required this.username,
     required this.notes,
-    required this.serviceId,
+    required this.serviceRequestId,
   });
+
   final String serviceName, serviceDescription, categoryName, username, notes;
-  final int serviceId;
+  final int serviceRequestId;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,10 +27,11 @@ class PendingServiceCard extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-                blurRadius: 20,
-                color: Colors.grey.withOpacity(.50),
-                spreadRadius: 0,
-                offset: const Offset(10, 10)),
+              blurRadius: 20,
+              color: Colors.grey.withOpacity(.50),
+              spreadRadius: 0,
+              offset: const Offset(10, 10),
+            ),
           ],
         ),
         child: Card(
@@ -93,7 +97,9 @@ class PendingServiceCard extends StatelessWidget {
                     CustomButton(
                       label: 'Accept',
                       backgroundColor: kYellowColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        _acceptService(serviceRequestId);
+                      },
                     ),
                     const SizedBox(
                       width: 50,
@@ -111,5 +117,17 @@ class PendingServiceCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _acceptService(int serviceId) async {
+    final dio.Dio _dio = dio.Dio();
+    final String apiUrl =
+        'http://localhost:5204/api/serviceRequests/AcceptServiceRequest?ServiceRequestId=$serviceId';
+
+    try {
+      final response = await _dio.get(apiUrl);
+      if (response.statusCode == 200) {
+      } else {}
+    } catch (e) {}
   }
 }

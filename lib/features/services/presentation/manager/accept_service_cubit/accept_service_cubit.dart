@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 
 part 'accept_service_state.dart';
 
-class AcceptServiceCubit extends Cubit<AcceptServiceCubitState> {
+class AcceptServiceCubit extends Cubit<AcceptServiceState> {
   AcceptServiceCubit() : super(AcceptServiceInitial());
 
   Future<void> acceptService({required int serviceId}) async {

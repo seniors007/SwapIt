@@ -40,7 +40,7 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
             showSnackBar(context, 'Service requested successfully');
             Navigator.pop(context);
           } else if (state is RequestServiceFailure) {
-            showSnackBar(context, 'Something went wrong: ${state.errMsg}');
+            showSnackBar(context, 'Something went wrong:');
           }
         },
         builder: (context, state) {
