@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
-import 'package:swapit/features/profile/presentation/manager/search_cubit/search_cubit.dart';
+import 'package:swapit/core/search_cubit/search_cubit.dart';
 import 'package:swapit/features/search/presentation/views/widgets/custom_title.dart';
 import 'package:swapit/features/search/presentation/views/widgets/search_bar.dart';
 import 'package:swapit/features/search/presentation/views/widgets/service_post_in_search.dart';

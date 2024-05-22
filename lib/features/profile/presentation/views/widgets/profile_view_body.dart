@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
-import 'package:swapit/features/profile/presentation/manager/search_cubit/search_cubit.dart';
+import 'package:swapit/core/search_cubit/search_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_button.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';

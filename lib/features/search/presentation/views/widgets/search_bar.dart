@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
-import 'package:swapit/features/profile/presentation/manager/search_cubit/search_cubit.dart';
+import 'package:swapit/core/search_cubit/search_cubit.dart';
 
 class CustomSearchBar extends StatelessWidget {
   CustomSearchBar({super.key});
