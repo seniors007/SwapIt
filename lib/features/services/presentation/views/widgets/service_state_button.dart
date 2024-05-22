@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/features/services/presentation/manager/current_service_cubit/current_services_cubit.dart';
 import 'package:swapit/features/services/presentation/manager/pending_services_cubit/pending_services_cubit.dart';
 import 'package:swapit/features/services/presentation/views/widgets/current_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/finished_service_card.dart';
@@ -60,6 +61,9 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                     if (index == 0) {
                       BlocProvider.of<PendingServicesCubit>(context)
                           .getPendingServiceProvider(serviceProviderId: 30);
+                    } else if (index == 1) {
+                      BlocProvider.of<CurrentServiceCubit>(context)
+                          .getCurrentServiceProvider(serviceProviderId: 30);
                     }
                   },
                 ),
@@ -93,13 +97,10 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
               itemBuilder: (context, index) {
                 final service = state.pendingServices[index];
                 return PendingServiceCard(
-                  // id: service.id,
                   serviceName: service.serviceName,
                   serviceDescription: service.serviceDescription,
                   categoryName: service.categoryName,
-                  // totalRate: service.totalRate,
                   username: service.username,
-                  // profileImagePath: service.profileImagePath,
                 );
               },
             );
@@ -110,22 +111,35 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
         },
       );
     } else if (selectedIndex == 1) {
-      return _buildCurrentServicesList();
+      return BlocBuilder<CurrentServiceCubit, CurrentServiceState>(
+        builder: (context, state) {
+          if (state is CurrentServiceLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is CurrentServiceSuccess) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: state.pendingServices.length,
+              itemBuilder: (context, index) {
+                final service = state.pendingServices[index];
+                return CurrentServiceCard(
+                  serviceName: service.serviceName,
+                  serviceDescription: service.serviceDescription,
+                  categoryName: service.categoryName,
+                  username: service.username,
+                );
+              },
+            );
+          } else if (state is CurrentServiceFailure) {
+            return Center(child: Text(state.errMsg));
+          }
+          return const SizedBox();
+        },
+      );
     } else if (selectedIndex == 2) {
       return _buildFinishedServicesList();
     }
     return const SizedBox();
-  }
-
-  Widget _buildCurrentServicesList() {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 1,
-      itemBuilder: (context, index) {
-        return const CurrentServiceCard();
-      },
-    );
   }
 
   Widget _buildFinishedServicesList() {
