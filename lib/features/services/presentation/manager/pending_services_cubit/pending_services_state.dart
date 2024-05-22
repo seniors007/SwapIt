@@ -12,7 +12,7 @@ final class PendingServicesInitial extends PendingServicesState {}
 final class PendingServicesloading extends PendingServicesState {}
 
 final class PendingServicesSuccess extends PendingServicesState {
-  final List<PendingService> pendingServices;
+  final List<ServiceResposeModel> pendingServices;
 
   const PendingServicesSuccess({required this.pendingServices});
 }

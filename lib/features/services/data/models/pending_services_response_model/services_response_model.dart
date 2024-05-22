@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class PendingService extends Equatable {
+class ServiceResposeModel extends Equatable {
   final int id;
   final String serviceName;
   final String serviceDescription;
@@ -10,7 +10,7 @@ class PendingService extends Equatable {
   final String username;
   final String? profileImagePath;
 
-  const PendingService({
+  const ServiceResposeModel({
     required this.id,
     required this.serviceName,
     required this.serviceDescription,
@@ -21,8 +21,8 @@ class PendingService extends Equatable {
     this.profileImagePath,
   });
 
-  factory PendingService.fromJson(Map<String, dynamic> json) {
-    return PendingService(
+  factory ServiceResposeModel.fromJson(Map<String, dynamic> json) {
+    return ServiceResposeModel(
       id: json['id'],
       serviceName: json['serviceName'],
       serviceDescription: json['serviceDescription'],
@@ -60,15 +60,15 @@ class PendingService extends Equatable {
       ];
 }
 
-class PendingServiceContainer {
-  final List<PendingService> pendingServices;
+class ServiceResponseContainer {
+  final List<ServiceResposeModel> pendingServices;
 
-  PendingServiceContainer({required this.pendingServices});
+  ServiceResponseContainer({required this.pendingServices});
 
-  factory PendingServiceContainer.fromJson(List<dynamic> json) {
-    List<PendingService> pendingServices =
-        json.map((e) => PendingService.fromJson(e)).toList();
-    return PendingServiceContainer(pendingServices: pendingServices);
+  factory ServiceResponseContainer.fromJson(List<dynamic> json) {
+    List<ServiceResposeModel> pendingServices =
+        json.map((e) => ServiceResposeModel.fromJson(e)).toList();
+    return ServiceResponseContainer(pendingServices: pendingServices);
   }
 
   List<dynamic> toJson() => pendingServices.map((e) => e.toJson()).toList();
