@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 
-class FinishedSerivceCard extends StatelessWidget {
-  const FinishedSerivceCard({super.key});
+class FinishedServiceCard extends StatelessWidget {
+  const FinishedServiceCard({super.key});
 
   @override
   Widget build(BuildContext context) {

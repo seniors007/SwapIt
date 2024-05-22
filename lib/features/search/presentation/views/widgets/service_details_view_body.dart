@@ -38,8 +38,7 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
         listener: (context, state) {
           if (state is RequestServiceSuccess) {
             showSnackBar(context, 'Service requested successfully');
-            // Optionally navigate back or to another page
-            // Navigator.pop(context);
+            Navigator.pop(context);
           } else if (state is RequestServiceFailure) {
             showSnackBar(context, 'Something went wrong: ${state.errMsg}');
           }

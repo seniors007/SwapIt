@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/features/services/presentation/manager/pending_services_cubit/pending_services_cubit.dart';
 import 'package:swapit/features/services/presentation/views/widgets/current_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/finished_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/pending_service_card.dart';
@@ -15,68 +17,125 @@ class ServiceStateButton extends StatefulWidget {
 
 class _ServiceStateButtonState extends State<ServiceStateButton> {
   int selectedIndex = 0;
-  List<Widget> widgets = [
-    const PendingServiceCard(),
-    const CurrentServiceCard(),
-    const FinishedSerivceCard(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: CustomScrollView(slivers: [
-        SliverToBoxAdapter(
-          child: SingleChildScrollView(
-            clipBehavior: Clip.none,
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: GroupButton(
-                options: const GroupButtonOptions(
-                  elevation: 5,
-                  spacing: 5,
-                  buttonHeight: 50,
-                  buttonWidth: 115,
-                  selectedColor: kGreenColor,
-                  unselectedColor: kWhiteColor,
-                  direction: Axis.horizontal,
-                  mainGroupAlignment: MainGroupAlignment.center,
-                  selectedTextStyle: TextStyle(
-                    fontSize: 15,
-                    color: kWhiteColor,
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: GroupButton(
+                  options: const GroupButtonOptions(
+                    elevation: 5,
+                    spacing: 5,
+                    buttonHeight: 50,
+                    buttonWidth: 115,
+                    selectedColor: kGreenColor,
+                    unselectedColor: kWhiteColor,
+                    direction: Axis.horizontal,
+                    mainGroupAlignment: MainGroupAlignment.center,
+                    selectedTextStyle: TextStyle(
+                      fontSize: 15,
+                      color: kWhiteColor,
+                    ),
+                    groupingType: GroupingType.wrap,
+                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    unselectedTextStyle: TextStyle(
+                      color: Colors.black,
+                    ),
+                    selectedBorderColor: kGreenColor,
                   ),
-                  groupingType: GroupingType.wrap,
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
-                  unselectedTextStyle: TextStyle(
-                    color: Colors.black,
-                  ),
-                  selectedBorderColor: kGreenColor,
+                  isRadio: true,
+                  buttons: const ["Pending", "Current", "Finished"],
+                  onSelected: (value, index, isSelected) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                    if (index == 0) {
+                      BlocProvider.of<PendingServicesCubit>(context)
+                          .getPendingServiceProvider(serviceProviderId: 30);
+                    }
+                  },
                 ),
-                isRadio: true,
-                buttons: const [
-                  "Pending",
-                  "Current",
-                  "Finished",
-                ],
-                onSelected: (value, index, isSelected) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
               ),
             ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return widgets[selectedIndex];
-            },
-            childCount: 9,
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return _buildServiceList();
+              },
+              childCount: 1,
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildServiceList() {
+    if (selectedIndex == 0) {
+      return BlocBuilder<PendingServicesCubit, PendingServicesState>(
+        builder: (context, state) {
+          if (state is PendingServicesloading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is PendingServicesSuccess) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: state.pendingServices.length,
+              itemBuilder: (context, index) {
+                final service = state.pendingServices[index];
+                return PendingServiceCard(
+                  // id: service.id,
+                  serviceName: service.serviceName,
+                  serviceDescription: service.serviceDescription,
+                  categoryName: service.categoryName,
+                  // totalRate: service.totalRate,
+                  username: service.username,
+                  // profileImagePath: service.profileImagePath,
+                );
+              },
+            );
+          } else if (state is PendingServicesFailure) {
+            return Center(child: Text(state.errMsg));
+          }
+          return const SizedBox();
+        },
+      );
+    } else if (selectedIndex == 1) {
+      return _buildCurrentServicesList();
+    } else if (selectedIndex == 2) {
+      return _buildFinishedServicesList();
+    }
+    return const SizedBox();
+  }
+
+  Widget _buildCurrentServicesList() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 1,
+      itemBuilder: (context, index) {
+        return const CurrentServiceCard();
+      },
+    );
+  }
+
+  Widget _buildFinishedServicesList() {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return const FinishedServiceCard();
+      },
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 1,
     );
   }
 }

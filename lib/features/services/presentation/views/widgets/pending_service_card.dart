@@ -4,7 +4,14 @@ import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
 
 class PendingServiceCard extends StatelessWidget {
-  const PendingServiceCard({super.key});
+  const PendingServiceCard({
+    super.key,
+    required this.serviceName,
+    required this.serviceDescription,
+    required this.categoryName,
+    required this.username,
+  });
+  final String serviceName, serviceDescription, categoryName, username;
 
   @override
   Widget build(BuildContext context) {
@@ -27,44 +34,49 @@ class PendingServiceCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Party Decoration',
-                          style: TextStyle(
+                          serviceName,
+                          style: const TextStyle(
                             color: kGreenColor,
                             fontSize: 20,
                           ),
                         ),
                         Text(
-                          'Decoration',
-                          style: TextStyle(
+                          categoryName,
+                          style: const TextStyle(
                             color: kYellowColor,
                             fontSize: 17,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
-                        ServiceNotes(),
-                        SizedBox(
+                        const ServiceNotes(),
+                        const SizedBox(
                           height: 15,
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image(
+                        const Image(
                           image: AssetImage('assets/profile.png'),
                         ),
-                        Text(
-                          'Draco M.',
-                          style: TextStyle(color: kGreenColor),
+                        SizedBox(
+                          width: 50,
+                          child: Text(
+                            username,
+                            overflow: TextOverflow.clip,
+                            maxLines: 1,
+                            style: const TextStyle(color: kGreenColor),
+                          ),
                         ),
                       ],
                     ),
