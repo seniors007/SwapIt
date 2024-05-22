@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 class ServiceNotes extends StatelessWidget {
   const ServiceNotes({
     super.key,
+    required this.notes,
   });
-
+  final String notes;
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        Image(
+        const Image(
           image: AssetImage('assets/notes.png'),
           height: 25,
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         SizedBox(
           width: 210,
           height: 80,
           child: Text(
-            "there is my note there is my note there is my note there is my note there is my note there is my note there is my note there is my note there is my note ",
+            notes,
             overflow: TextOverflow.visible,
           ),
         )

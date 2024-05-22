@@ -8,8 +8,9 @@ class CurrentServiceCard extends StatelessWidget {
       required this.serviceName,
       required this.serviceDescription,
       required this.categoryName,
-      required this.username});
-  final String serviceName, serviceDescription, categoryName, username;
+      required this.username,
+      required this.notes});
+  final String serviceName, serviceDescription, categoryName, username, notes;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,7 +52,7 @@ class CurrentServiceCard extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    const ServiceNotes()
+                    ServiceNotes(notes: notes)
                   ],
                 ),
                 const Spacer(),

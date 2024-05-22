@@ -10,8 +10,9 @@ class PendingServiceCard extends StatelessWidget {
     required this.serviceDescription,
     required this.categoryName,
     required this.username,
+    required this.notes,
   });
-  final String serviceName, serviceDescription, categoryName, username;
+  final String serviceName, serviceDescription, categoryName, username, notes;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,9 @@ class PendingServiceCard extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        const ServiceNotes(),
+                        ServiceNotes(
+                          notes: notes,
+                        ),
                         const SizedBox(
                           height: 15,
                         ),

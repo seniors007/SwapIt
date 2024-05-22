@@ -101,6 +101,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                   serviceDescription: service.serviceDescription,
                   categoryName: service.categoryName,
                   username: service.username,
+                  notes: service.notes!,
                 );
               },
             );
@@ -127,6 +128,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                   serviceDescription: service.serviceDescription,
                   categoryName: service.categoryName,
                   username: service.username,
+                  notes: service.notes!,
                 );
               },
             );

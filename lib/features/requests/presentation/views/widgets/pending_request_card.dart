@@ -50,7 +50,9 @@ class PendingRequestCard extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                        ServiceNotes(),
+                        ServiceNotes(
+                          notes: "notes",
+                        ),
                       ],
                     ),
                     Spacer(),

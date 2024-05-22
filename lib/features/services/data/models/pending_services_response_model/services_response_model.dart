@@ -9,6 +9,8 @@ class ServiceResposeModel extends Equatable {
   final int totalRate;
   final String username;
   final String? profileImagePath;
+  final String? notes;
+  final int serviceRequestId;
 
   const ServiceResposeModel({
     required this.id,
@@ -19,6 +21,8 @@ class ServiceResposeModel extends Equatable {
     required this.totalRate,
     required this.username,
     this.profileImagePath,
+    this.notes,
+    required this.serviceRequestId,
   });
 
   factory ServiceResposeModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +35,8 @@ class ServiceResposeModel extends Equatable {
       totalRate: json['totalRate'],
       username: json['username'],
       profileImagePath: json['profileImagePath'],
+      notes: json['notes'],
+      serviceRequestId: json['serviceRequestId'],
     );
   }
 
@@ -44,6 +50,8 @@ class ServiceResposeModel extends Equatable {
       'totalRate': totalRate,
       'username': username,
       'profileImagePath': profileImagePath,
+      'notes': notes,
+      'serviceRequestId': serviceRequestId,
     };
   }
 
@@ -57,6 +65,8 @@ class ServiceResposeModel extends Equatable {
         totalRate,
         username,
         profileImagePath,
+        notes,
+        serviceRequestId,
       ];
 }
 
