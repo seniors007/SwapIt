@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:meta/meta.dart';
-
 part 'add_service_state.dart';
 
 class AddServiceCubit extends Cubit<AddServiceState> {

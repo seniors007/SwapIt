@@ -142,7 +142,6 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                                 price = priceAsInt;
                               }
                             } catch (e) {
-                              // Handle unexpected errors
                               print('Error converting price to integer: $e');
                             }
                           },

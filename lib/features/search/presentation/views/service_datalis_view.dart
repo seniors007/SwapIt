@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swapit/features/search/presentation/manager/request_service_cubit/request_service_cubit.dart';
 import 'package:swapit/features/search/presentation/views/widgets/service_details_view_body.dart';
 
 class ServiceDetailsView extends StatelessWidget {
@@ -17,14 +19,17 @@ class ServiceDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ServiceDetailsViewBody(
-        serviceId: serviceId,
-        serviceName: serviceName,
-        description: description,
-        category: category,
-        cost: cost,
-      ), // Pass all the data
+    return BlocProvider(
+      create: (context) => RequestServiceCubit(),
+      child: Scaffold(
+        body: ServiceDetailsViewBody(
+          serviceId: serviceId,
+          serviceName: serviceName,
+          description: description,
+          category: category,
+          cost: cost,
+        ),
+      ),
     );
   }
 }
