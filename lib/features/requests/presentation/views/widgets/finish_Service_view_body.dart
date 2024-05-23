@@ -24,12 +24,11 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
       isLoading = true;
     });
 
-    final String postUrl = 'http://localhost:5204/api/rates/Create';
+    const String postUrl = 'http://localhost:5204/api/rates/Create';
     final String getUrl =
         'http://localhost:5204/api/serviceRequests/FinishServiceRequest?ServiceRequestId=${widget.serviceRequestId}';
 
     try {
-      // POST request
       final responsePost = await _dio.post(postUrl, data: {
         "rateValue": rate.round(),
         "rateDate": DateTime.now().toIso8601String(),
@@ -39,7 +38,6 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
       });
 
       if (responsePost.statusCode == 200) {
-        // GET request
         final responseGet = await _dio.get(getUrl);
 
         if (responseGet.statusCode == 200) {
