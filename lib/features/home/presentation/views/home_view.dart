@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:swapit/core/search_cubit/search_cubit.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:swapit/features/notification/presentation/views/notification_view.dart';
@@ -24,8 +22,7 @@ class _HomeviewState extends State<Homeview> {
 
   List<Widget> _buildScreens() {
     return [
-    
-       const HomeViewBody(),
+      const HomeViewBody(),
       const ServicesView(),
       const SearchPage(),
       const RequestsPage(),
