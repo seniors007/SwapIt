@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/features/services/presentation/manager/pending_services_cubit/pending_services_cubit.dart';
 import 'package:swapit/features/services/presentation/views/widgets/service_view_body.dart';
 
-import '../manager/current_service_cubit/current_services_cubit.dart';
+import '../manager/current_services_cubit/current_services_cubit.dart';
+import '../manager/finished_services_cubit/finished_services_cubit.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
@@ -17,7 +18,10 @@ class ServicesView extends StatelessWidget {
             create: (context) => PendingServicesCubit(),
           ),
           BlocProvider(
-            create: (context) => CurrentServiceCubit(),
+            create: (context) => CurrentServicesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => FinishedServicesCubit(),
           ),
         ],
         child: const ServiceViewBody(),

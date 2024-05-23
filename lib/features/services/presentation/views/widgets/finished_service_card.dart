@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 
 class FinishedServiceCard extends StatelessWidget {
-  const FinishedServiceCard({super.key});
-
+  const FinishedServiceCard(
+      {super.key,
+      required this.rate,
+      required this.serviceName,
+      required this.category,
+      required this.username});
+  final int rate;
+  final String serviceName, category, username;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,33 +25,33 @@ class FinishedServiceCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: const Card(
+        child: Card(
           elevation: 0,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Party Decoration',
-                      style: TextStyle(
+                      serviceName,
+                      style: const TextStyle(
                         color: kGreenColor,
                         fontSize: 20,
                       ),
                     ),
                     Text(
-                      'Decoration',
-                      style: TextStyle(
+                      category,
+                      style: const TextStyle(
                         color: kYellowColor,
                         fontSize: 17,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Image(
                           image: AssetImage('assets/state.png'),
@@ -58,35 +64,25 @@ class FinishedServiceCard extends StatelessWidget {
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage('assets/profile.png'),
                     ),
                     Text(
-                      'Draco M.',
-                      style: TextStyle(color: kGreenColor),
+                      username,
+                      style: const TextStyle(color: kGreenColor),
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image(
-                          image: AssetImage('assets/star.png'),
-                          height: 20,
-                          width: 20,
+                        Text(
+                          '$rate',
+                          style: const TextStyle(color: kGreenColor),
                         ),
-                        Image(
-                          image: AssetImage('assets/star.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
-                          image: AssetImage('assets/star.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
+                        const Image(
                           image: AssetImage('assets/star.png'),
                           height: 20,
                           width: 20,

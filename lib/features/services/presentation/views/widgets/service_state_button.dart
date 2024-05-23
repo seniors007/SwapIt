@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
-import 'package:swapit/features/services/presentation/manager/current_service_cubit/current_services_cubit.dart';
+import 'package:swapit/features/services/presentation/manager/current_services_cubit/current_services_cubit.dart';
+import 'package:swapit/features/services/presentation/manager/finished_services_cubit/finished_services_cubit.dart';
 import 'package:swapit/features/services/presentation/manager/pending_services_cubit/pending_services_cubit.dart';
 import 'package:swapit/features/services/presentation/views/widgets/current_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/finished_service_card.dart';
@@ -62,8 +63,11 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                       BlocProvider.of<PendingServicesCubit>(context)
                           .getPendingServiceProvider(serviceProviderId: 30);
                     } else if (index == 1) {
-                      BlocProvider.of<CurrentServiceCubit>(context)
+                      BlocProvider.of<CurrentServicesCubit>(context)
                           .getCurrentServiceProvider(serviceProviderId: 30);
+                    } else if (index == 2) {
+                      BlocProvider.of<FinishedServicesCubit>(context)
+                          .getFinishedServiceProvider(serviceProviderId: 30);
                     }
                   },
                 ),
@@ -113,7 +117,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
         },
       );
     } else if (selectedIndex == 1) {
-      return BlocBuilder<CurrentServiceCubit, CurrentServiceState>(
+      return BlocBuilder<CurrentServicesCubit, CurrentServiceState>(
         builder: (context, state) {
           if (state is CurrentServiceLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -140,19 +144,45 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
         },
       );
     } else if (selectedIndex == 2) {
-      return _buildFinishedServicesList();
+      return BlocBuilder<FinishedServicesCubit, FinishedServicesState>(
+        builder: (context, state) {
+          if (state is FinishedServicesLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is FinishedServicesSuccess) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: state.finishedServices.length,
+              itemBuilder: (context, index) {
+                final service = state.finishedServices[index];
+                return FinishedServiceCard(
+                  serviceName: service.serviceName,
+                  // serviceDescription: service.serviceDescription,
+                  category: service.categoryName,
+                  username: service.username,
+                  rate: service.totalRate,
+                  // notes: service.notes!,
+                );
+              },
+            );
+          } else if (state is FinishedServicesFailure) {
+            return Center(child: Text(state.errMsg));
+          }
+          return const SizedBox();
+        },
+      );
     }
     return const SizedBox();
   }
 
-  Widget _buildFinishedServicesList() {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return const FinishedServiceCard();
-      },
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 1,
-    );
-  }
+  // Widget _buildFinishedServicesList() {
+  //   return ListView.builder(
+  //     itemBuilder: (context, index) {
+  //       return const FinishedServiceCard();
+  //     },
+  //     shrinkWrap: true,
+  //     physics: const NeverScrollableScrollPhysics(),
+  //     itemCount: 1,
+  //   );
+  // }
 }

@@ -5,8 +5,8 @@ import 'package:swapit/features/services/data/models/services_response_model/ser
 import 'package:dio/dio.dart' as dio;
 part 'current_services_state.dart';
 
-class CurrentServiceCubit extends Cubit<CurrentServiceState> {
-  CurrentServiceCubit() : super(CurrentServiceInitial());
+class CurrentServicesCubit extends Cubit<CurrentServiceState> {
+  CurrentServicesCubit() : super(CurrentServiceInitial());
   Future<void> getCurrentServiceProvider(
       {required int serviceProviderId}) async {
     final dio.Dio _dio = dio.Dio();
