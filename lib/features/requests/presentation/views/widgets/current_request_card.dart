@@ -4,11 +4,17 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
+import 'package:swapit/core/widgets/service_notes.dart';
 import 'package:swapit/features/requests/presentation/views/finish_service_view.dart';
 
 class CurrentRequestCard extends StatefulWidget {
-  const CurrentRequestCard({super.key});
-
+  const CurrentRequestCard(
+      {super.key,
+      required this.serviceName,
+      required this.category,
+      required this.username,
+      required this.notes});
+  final String serviceName, category, username, notes;
   @override
   State<CurrentRequestCard> createState() => _CurrentRequestCardState();
 }
@@ -19,7 +25,7 @@ class _CurrentRequestCardState extends State<CurrentRequestCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 185,
+        height: 200,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -35,52 +41,39 @@ class _CurrentRequestCardState extends State<CurrentRequestCard> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Elctrical Replacemant',
-                      style: TextStyle(
+                      widget.serviceName,
+                      style: const TextStyle(
                         color: kGreenColor,
                         fontSize: 20,
                       ),
                     ),
                     Text(
-                      'Elctrical',
-                      style: TextStyle(
+                      widget.category,
+                      style: const TextStyle(
                         color: kYellowColor,
                         fontSize: 17,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
-                    Row(
-                      children: [
-                        Image(
-                          image: AssetImage('assets/state.png'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text('State: Current')
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    ServiceNotes(notes: widget.notes)
                   ],
                 ),
                 const Spacer(),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Image(
                       image: AssetImage('assets/profile.png'),
                     ),
-                    const Text(
-                      'Draco M.',
-                      style: TextStyle(color: kGreenColor),
+                    Text(
+                      widget.username,
+                      style: const TextStyle(color: kGreenColor),
                     ),
                     const Spacer(),
                     CustomButton(

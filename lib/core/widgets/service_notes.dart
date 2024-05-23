@@ -18,7 +18,7 @@ class ServiceNotes extends StatelessWidget {
           width: 15,
         ),
         SizedBox(
-          width: 210,
+          width: 170,
           height: 80,
           child: Text(
             notes,
