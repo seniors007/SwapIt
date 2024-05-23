@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swapit/features/services/presentation/manager/current_services_cubit/current_services_cubit.dart';
+import 'package:swapit/features/services/presentation/manager/finished_services_cubit/finished_services_cubit.dart';
 import 'package:swapit/features/services/presentation/manager/pending_services_cubit/pending_services_cubit.dart';
 import 'package:swapit/features/services/presentation/views/widgets/service_view_body.dart';
 
-import '../manager/current_services_cubit/current_services_cubit.dart';
-import '../manager/finished_services_cubit/finished_services_cubit.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
