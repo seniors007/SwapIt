@@ -3,13 +3,14 @@ import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
 
 class CurrentServiceCard extends StatelessWidget {
-  const CurrentServiceCard(
-      {super.key,
-      required this.serviceName,
-      required this.serviceDescription,
-      required this.categoryName,
-      required this.username,
-      required this.notes});
+  const CurrentServiceCard({
+    super.key,
+    required this.serviceName,
+    required this.serviceDescription,
+    required this.categoryName,
+    required this.username,
+    required this.notes,
+  });
   final String serviceName, serviceDescription, categoryName, username, notes;
   @override
   Widget build(BuildContext context) {

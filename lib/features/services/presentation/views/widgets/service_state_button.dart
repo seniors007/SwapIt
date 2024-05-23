@@ -157,11 +157,9 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                 final service = state.finishedServices[index];
                 return FinishedServiceCard(
                   serviceName: service.serviceName,
-                  // serviceDescription: service.serviceDescription,
                   category: service.categoryName,
                   username: service.username,
                   rate: service.totalRate,
-                  // notes: service.notes!,
                 );
               },
             );
@@ -174,15 +172,4 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
     }
     return const SizedBox();
   }
-
-  // Widget _buildFinishedServicesList() {
-  //   return ListView.builder(
-  //     itemBuilder: (context, index) {
-  //       return const FinishedServiceCard();
-  //     },
-  //     shrinkWrap: true,
-  //     physics: const NeverScrollableScrollPhysics(),
-  //     itemCount: 1,
-  //   );
-  // }
 }

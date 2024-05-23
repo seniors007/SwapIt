@@ -111,7 +111,7 @@ class _RequestStateButtonState extends State<RequestStateButton> {
                   category: service.categoryName,
                   userName: service.username,
                   notes: service.notes!,
-                  // // serviceRequestId: service.serviceRequestId,
+                  requestid: service.serviceRequestId,
                 );
               },
             );
@@ -138,7 +138,7 @@ class _RequestStateButtonState extends State<RequestStateButton> {
                   category: service.categoryName,
                   username: service.username,
                   notes: service.notes!,
-                  // serviceRequestId: service.serviceRequestId,
+                  serviceRequestId: service.serviceRequestId,
                 );
               },
             );
@@ -161,13 +161,11 @@ class _RequestStateButtonState extends State<RequestStateButton> {
               itemBuilder: (context, index) {
                 final service = state.finishedRequests[index];
                 return FinishedRequestCard(
-                    serviceName: service.serviceName,
-                    // serviceDescription: service.serviceDescription,
-                    category: service.categoryName,
-                    username: service.username,
-                    // notes: service.notes!,
-                    // serviceRequestId: service.serviceRequestId,
-                    rate: service.totalRate);
+                  serviceName: service.serviceName,
+                  category: service.categoryName,
+                  username: service.username,
+                  rate: service.totalRate,
+                );
               },
             );
           } else if (state is FinishedRequestsFailure) {

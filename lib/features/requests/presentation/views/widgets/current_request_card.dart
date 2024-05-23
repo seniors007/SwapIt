@@ -13,8 +13,10 @@ class CurrentRequestCard extends StatefulWidget {
       required this.serviceName,
       required this.category,
       required this.username,
-      required this.notes});
+      required this.notes,
+      required this.serviceRequestId});
   final String serviceName, category, username, notes;
+  final int serviceRequestId;
   @override
   State<CurrentRequestCard> createState() => _CurrentRequestCardState();
 }
@@ -80,7 +82,9 @@ class _CurrentRequestCardState extends State<CurrentRequestCard> {
                       label: "Finish",
                       backgroundColor: kYellowColor,
                       onPressed: () {
-                        Get.to(() => const FinishServiceView());
+                        Get.to(() => FinishServiceView(
+                              serviceRequestId: widget.serviceRequestId,
+                            ));
                       },
                     )
                   ],

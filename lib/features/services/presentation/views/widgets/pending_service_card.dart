@@ -3,7 +3,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
-
+import '../../../../../core/functions/cancel_service.dart';
 import '../../../../../core/widgets/custom_snack_bar.dart';
 
 class PendingServiceCard extends StatelessWidget {
@@ -110,7 +110,7 @@ class PendingServiceCard extends StatelessWidget {
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
                       onPressed: () {
-                        _cancelService(context, serviceRequestId);
+                        cancelService(context, serviceRequestId);
                       },
                     ),
                   ],
@@ -138,23 +138,6 @@ class PendingServiceCard extends StatelessWidget {
       }
     } catch (e) {
       showSnackBar(context, 'An error occurred');
-    }
-  }
-
-  Future<void> _cancelService(BuildContext context, int serviceId) async {
-    final dio.Dio _dio = dio.Dio();
-    final String apiUrl =
-        'http://localhost:5204/api/serviceRequests/CancelServiceRequest?ServiceRequestId=$serviceId&userId=31';
-
-    try {
-      final response = await _dio.get(apiUrl);
-      if (response.statusCode == 200) {
-        showSnackBar(context, 'Service Canceled');
-      } else {
-        showSnackBar(context, 'Failed to cancel service');
-      }
-    } catch (e) {
-      showSnackBar(context, 'An error occurred: $e');
     }
   }
 }

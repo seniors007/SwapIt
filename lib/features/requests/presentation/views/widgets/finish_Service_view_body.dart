@@ -1,18 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 
 class FinishServiceViewBody extends StatefulWidget {
-  const FinishServiceViewBody({super.key});
+  const FinishServiceViewBody({super.key, required this.serviceRequestId});
+  final int serviceRequestId;
 
   @override
   State<FinishServiceViewBody> createState() => _FinishServiceViewBodyState();
 }
 
 class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
-  double points = 1;
+  double rate = 1;
+  bool isLoading = false;
+
+  final Dio _dio = Dio();
+
+  Future<void> _submitRating() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final String postUrl = 'http://localhost:5204/api/rates/Create';
+    final String getUrl =
+        'http://localhost:5204/api/serviceRequests/FinishServiceRequest?ServiceRequestId=${widget.serviceRequestId}';
+
+    try {
+      // POST request
+      final responsePost = await _dio.post(postUrl, data: {
+        "rateValue": rate.round(),
+        "rateDate": DateTime.now().toIso8601String(),
+        "feedback": "Your feedback here",
+        "serviceId": widget.serviceRequestId,
+        "customerId": 6
+      });
+
+      if (responsePost.statusCode == 200) {
+        // GET request
+        final responseGet = await _dio.get(getUrl);
+
+        if (responseGet.statusCode == 200) {
+          showSnackBar(context, "Thank you for your rating!");
+        } else {
+          showSnackBar(context, "Failed to finish service request");
+        }
+      } else {
+        showSnackBar(context, "Failed to submit rating");
+      }
+    } catch (e) {
+      showSnackBar(context, "An error occurred: $e");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,9 +83,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Container(
@@ -47,10 +91,11 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 20,
-                      color: Colors.grey.withOpacity(.50),
-                      spreadRadius: 0,
-                      offset: const Offset(10, 10)),
+                    blurRadius: 20,
+                    color: Colors.grey.withOpacity(0.50),
+                    spreadRadius: 0,
+                    offset: const Offset(10, 10),
+                  ),
                 ],
               ),
               child: Card(
@@ -68,33 +113,33 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
                         Slider(
                           thumbColor: kGreenColor,
                           activeColor: kYellowColor,
-                          value: points,
-                          label: points.round().toString(),
+                          value: rate,
+                          label: rate.round().toString(),
                           min: 1,
                           max: 5,
                           divisions: 4,
                           onChanged: (newPoints) {
-                            setState(() => points = newPoints);
+                            setState(() => rate = newPoints);
                           },
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        CustomButton(
-                          label: 'Finish',
-                          backgroundColor: kYellowColor,
-                          onPressed: () {
-                            Get.back();
-                            showSnackBar(context, "Thank You For Your Rate");
-                          },
-                        )
+                        const SizedBox(height: 15),
+                        isLoading
+                            ? const CircularProgressIndicator()
+                            : CustomButton(
+                                label: 'Finish',
+                                backgroundColor: kYellowColor,
+                                onPressed: () async {
+                                  await _submitRating();
+                                  Get.back();
+                                },
+                              ),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

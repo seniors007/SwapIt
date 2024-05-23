@@ -7,8 +7,11 @@ import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/features/profile/data/models/amount_model/amount_model.dart';
 import 'package:swapit/features/profile/data/models/item_list_model/item_list_model.dart';
 
-void excutePaypalMethod(BuildContext context,
-    ({AmountModel amount, ItemListModel itemList}) transctionsData) {
+void excutePaypalMethod(
+    BuildContext context,
+    ({AmountModel amount, ItemListModel itemList}) transctionsData,
+    int userid,
+    int points) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (BuildContext context) => PaypalCheckoutView(
@@ -26,7 +29,7 @@ void excutePaypalMethod(BuildContext context,
         onSuccess: (Map params) async {
           log("onSuccess: $params");
           Navigator.pop(context);
-          deposite();
+          deposite(userid: userid, points: points);
           showSnackBar(context, 'Buy In Successfully Done ,Thank You');
         },
         onError: (error) {
@@ -44,14 +47,14 @@ void excutePaypalMethod(BuildContext context,
   );
 }
 
-void deposite() async {
+void deposite({required int userid, required int points}) async {
   try {
     var dio = Dio();
     Response response = await dio.post(
       'http://localhost:5204/api/payment/Deposite',
       queryParameters: {
-        'userId': 30,
-        'points': 20,
+        'userId': userid,
+        'points': points,
       },
       options: Options(
         responseType: ResponseType.plain,
@@ -59,6 +62,6 @@ void deposite() async {
     );
     log(response.data.toString());
   } catch (error) {
-    log('Error making POST request: $error');
+    log('Error making deposite request: $error');
   }
 }

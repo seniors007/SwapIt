@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
+import '../../../../../core/functions/cancel_service.dart';
 
 class PendingRequestCard extends StatelessWidget {
-  const PendingRequestCard(
-      {super.key,
-      required this.serviceName,
-      required this.category,
-      required this.notes,
-      required this.userName});
+  const PendingRequestCard({
+    super.key,
+    required this.serviceName,
+    required this.category,
+    required this.notes,
+    required this.userName,
+    required this.requestid,
+  });
   final String serviceName, category, notes, userName;
+  final int requestid;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -81,7 +85,9 @@ class PendingRequestCard extends StatelessWidget {
                     CustomButton(
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        cancelService(context, requestid);
+                      },
                     ),
                   ],
                 )
