@@ -62,7 +62,9 @@ class SearchPageBody extends StatelessWidget {
                 );
               } else {
                 return const SliverFillRemaining(
-                  child: Center(child: Text('Search for whatever you need')),
+                  child: Center(
+                    child: Text('Search for whatever you need'),
+                  ),
                 );
               }
             },

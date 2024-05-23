@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class CurrentRequestResponseModel extends Equatable {
+class RequestResponseModel extends Equatable {
   final int id;
   final String serviceName;
   final String serviceDescription;
@@ -12,7 +12,7 @@ class CurrentRequestResponseModel extends Equatable {
   final String? notes;
   final int serviceRequestId;
 
-  const CurrentRequestResponseModel({
+  const RequestResponseModel({
     required this.id,
     required this.serviceName,
     required this.serviceDescription,
@@ -25,8 +25,8 @@ class CurrentRequestResponseModel extends Equatable {
     required this.serviceRequestId,
   });
 
-  factory CurrentRequestResponseModel.fromJson(Map<String, dynamic> json) {
-    return CurrentRequestResponseModel(
+  factory RequestResponseModel.fromJson(Map<String, dynamic> json) {
+    return RequestResponseModel(
       id: json['id'],
       serviceName: json['serviceName'],
       serviceDescription: json['serviceDescription'],
@@ -70,15 +70,15 @@ class CurrentRequestResponseModel extends Equatable {
       ];
 }
 
-class CurrentRequestResponseContainer {
-  final List<CurrentRequestResponseModel> acceptedRequests;
+class RequestResponseContainer {
+  final List<RequestResponseModel> acceptedRequests;
 
-  CurrentRequestResponseContainer({required this.acceptedRequests});
+  RequestResponseContainer({required this.acceptedRequests});
 
-  factory CurrentRequestResponseContainer.fromJson(List<dynamic> json) {
-    List<CurrentRequestResponseModel> acceptedRequests =
-        json.map((e) => CurrentRequestResponseModel.fromJson(e)).toList();
-    return CurrentRequestResponseContainer(acceptedRequests: acceptedRequests);
+  factory RequestResponseContainer.fromJson(List<dynamic> json) {
+    List<RequestResponseModel> acceptedRequests =
+        json.map((e) => RequestResponseModel.fromJson(e)).toList();
+    return RequestResponseContainer(acceptedRequests: acceptedRequests);
   }
 
   List<dynamic> toJson() => acceptedRequests.map((e) => e.toJson()).toList();

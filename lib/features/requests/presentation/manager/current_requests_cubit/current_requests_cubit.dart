@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:swapit/features/requests/data/current_requests_response_model/accepted_requests_response_model.dart';
+import 'package:swapit/features/requests/data/requests_response_model/requests_response_model.dart';
 
 part 'current_requests_state.dart';
 
@@ -19,7 +19,7 @@ class CurrentRequestsCubit extends Cubit<CurrentRequestsState> {
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
         final acceptedServices =
-            CurrentRequestResponseContainer.fromJson(data).acceptedRequests;
+            RequestResponseContainer.fromJson(data).acceptedRequests;
         emit(CurrentRequestsSuccess(currentServices: acceptedServices));
       } else {
         emit(const CurrentRequestsFailure(

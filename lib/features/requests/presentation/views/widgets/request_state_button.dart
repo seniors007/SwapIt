@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/requests/presentation/manager/current_requests_cubit/current_requests_cubit.dart';
+import 'package:swapit/features/requests/presentation/manager/pending_request_cubit/pending_requests_cubit.dart';
+import 'package:swapit/features/requests/presentation/manager/pending_request_cubit/pending_requests_state.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/current_request_card.dart';
+import 'package:swapit/features/requests/presentation/views/widgets/pending_request_card.dart';
 
 class RequestStateButton extends StatefulWidget {
   const RequestStateButton({super.key});
@@ -58,7 +61,10 @@ class _RequestStateButtonState extends State<RequestStateButton> {
                     setState(() {
                       selectedIndex = index;
                     });
-                    if (index == 1) {
+                    if (index == 0) {
+                      BlocProvider.of<PendingRequestsCubit>(context)
+                          .getPendingRequests(customerId: 31);
+                    } else if (index == 1) {
                       BlocProvider.of<CurrentRequestsCubit>(context)
                           .getCurrentCustomerServices(customerId: 31);
                     }
@@ -81,7 +87,34 @@ class _RequestStateButtonState extends State<RequestStateButton> {
   }
 
   Widget _buildRequestList() {
-    if (selectedIndex == 1) {
+    if (selectedIndex == 0) {
+      return BlocBuilder<PendingRequestsCubit, PendingRequestsState>(
+        builder: (context, state) {
+          if (state is PendingRequestsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is PendingRequestsSuccess) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: state.pendingRequests.length,
+              itemBuilder: (context, index) {
+                final service = state.pendingRequests[index];
+                return PendingRequestCard(
+                  serviceName: service.serviceName,
+                  category: service.categoryName,
+                  userName: service.username,
+                  notes: service.notes!,
+                  // // serviceRequestId: service.serviceRequestId,
+                );
+              },
+            );
+          } else if (state is PendingRequestsFailure) {
+            return Center(child: Text(state.message));
+          }
+          return const SizedBox();
+        },
+      );
+    } else if (selectedIndex == 1) {
       return BlocBuilder<CurrentRequestsCubit, CurrentRequestsState>(
         builder: (context, state) {
           if (state is CurrentRequestsLoading) {

@@ -12,7 +12,7 @@ final class CurrentRequestsInitial extends CurrentRequestsState {}
 final class CurrentRequestsLoading extends CurrentRequestsState {}
 
 final class CurrentRequestsSuccess extends CurrentRequestsState {
-  final List<CurrentRequestResponseModel> currentServices;
+  final List<RequestResponseModel> currentServices;
 
   const CurrentRequestsSuccess({required this.currentServices});
 
