@@ -5,14 +5,19 @@ import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
 
 class PendingRequestCard extends StatelessWidget {
-  const PendingRequestCard({super.key});
-
+  const PendingRequestCard(
+      {super.key,
+      required this.serviceName,
+      required this.category,
+      required this.notes,
+      required this.userName});
+  final String serviceName, category, notes, userName;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 240,
+        height: 230,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -28,49 +33,48 @@ class PendingRequestCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Elctrical Repair',
-                          style: TextStyle(
+                          serviceName,
+                          style: const TextStyle(
                             color: kGreenColor,
                             fontSize: 20,
                           ),
                         ),
                         Text(
-                          'Elctrical',
-                          style: TextStyle(
+                          category,
+                          style: const TextStyle(
                             color: kYellowColor,
                             fontSize: 17,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         ServiceNotes(
-                          notes: "notes",
+                          notes: notes,
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image(
+                        const Image(
                           image: AssetImage('assets/profile.png'),
                         ),
                         Text(
-                          'Draco M.',
-                          style: TextStyle(color: kGreenColor),
+                          userName,
+                          style: const TextStyle(color: kGreenColor),
                         ),
                       ],
                     ),
                   ],
                 ),
-                const Spacer(),
                 Row(
                   children: [
                     const Spacer(),

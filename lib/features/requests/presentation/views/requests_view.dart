@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swapit/features/requests/presentation/manager/current_requests_cubit/current_requests_cubit.dart';
+import 'package:swapit/features/requests/presentation/manager/pending_request_cubit/pending_requests_cubit.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/request_view_body.dart';
+
+import '../manager/finished_requests_cubit/finished_requests_cubit.dart';
 
 class RequestsPage extends StatelessWidget {
   const RequestsPage({super.key});
 
-  static String id = 'RequestsPage';
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: RequestViewBody(),
+    return Scaffold(
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => PendingRequestsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => CurrentRequestsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => FinishedRequestsCubit(),
+          ),
+        ],
+        child: const RequestViewBody(),
+      ),
     );
   }
 }

@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
 
 class FinishedRequestCard extends StatelessWidget {
-  const FinishedRequestCard({super.key});
-
+  const FinishedRequestCard(
+      {super.key,
+      required this.serviceName,
+      required this.category,
+      required this.username,
+      required this.rate});
+  final String serviceName, category, username;
+  final int rate;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,33 +26,33 @@ class FinishedRequestCard extends StatelessWidget {
                 offset: const Offset(10, 10)),
           ],
         ),
-        child: const Card(
+        child: Card(
           elevation: 0,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'House Cleaning',
-                      style: TextStyle(
-                        color: kYellowColor,
+                      serviceName,
+                      style: const TextStyle(
+                        color: kGreenColor,
                         fontSize: 20,
                       ),
                     ),
                     Text(
-                      'Cleaning',
-                      style: TextStyle(
+                      category,
+                      style: const TextStyle(
                         color: kYellowColor,
                         fontSize: 17,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Image(
                           image: AssetImage('assets/state.png'),
@@ -59,38 +65,27 @@ class FinishedRequestCard extends StatelessWidget {
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage('assets/profile.png'),
                     ),
                     Text(
-                      'Draco M.',
-                      style: TextStyle(color: kGreenColor),
+                      username,
+                      style: const TextStyle(color: kGreenColor),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
                       children: [
-                        Image(
-                          image: AssetImage('assets/star.png'),
-                          height: 20,
-                          width: 20,
+                        Text(
+                          '$rate',
+                          style: const TextStyle(color: kGreenColor),
                         ),
-                        Image(
-                          image: AssetImage('assets/star.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
-                          image: AssetImage('assets/star.png'),
-                          height: 20,
-                          width: 20,
-                        ),
-                        Image(
+                        const Image(
                           image: AssetImage('assets/star.png'),
                           height: 20,
                           width: 20,
