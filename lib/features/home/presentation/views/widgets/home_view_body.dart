@@ -1,89 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
+import 'package:swapit/core/search_cubit/search_cubit.dart';
+import 'package:swapit/features/search/presentation/views/widgets/service_post_in_search.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 6),
-          child: ProfileInfo(),
-        ),
-        Text(
-          'Hi user \nHere what is \ngoing on today.',
-          style: TextStyle(
-            fontSize: 45,
-            color: kYellowColor,
+    return BlocProvider(
+      create: (context) => SearchCubit()..searchService(serviceName: '', servicePrice: 0, serviceProviderId: 0, categoryId: 0),
+      child: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6),
+              child: ProfileInfo(),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        kDivider,
-        SizedBox(
-          height: 5,
-        ),
-        Text(
-          'Services For You',
-          style: TextStyle(
-            fontSize: 20,
-            color: kGreenColor,
+          const SliverToBoxAdapter(
+            child: Text(
+              'Hi user \nHere what is \ngoing on today.',
+              style: TextStyle(
+                fontSize: 45,
+                color: kYellowColor,
+              ),
+            ),
           ),
-        ),
-      ],
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: kDivider,
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Text(
+              'Services For You',
+              style: TextStyle(
+                fontSize: 20,
+                color: kGreenColor,
+              ),
+            ),
+          ),
+          BlocBuilder<SearchCubit, SearchState>(
+            builder: (context, state) {
+              if (state is SearchLoading) {
+                return const SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              } else if (state is SearchSuccess) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final service = state.searchResponseContainer.results[index];
+                      return ServicePostInSearch(
+                        serviceId: service.id!,
+                        serviceName: service.serviceName!,
+                        description: service.serviceDescription!,
+                        category: service.categoryName!,
+                        cost: service.servicePrice!,
+                      );
+                    },
+                    childCount: state.searchResponseContainer.results.length,
+                  ),
+                );
+              } else if (state is SearchFailure) {
+                return const SliverFillRemaining(
+                  child: Center(
+                    child: Text("Something went wrong, try again later"),
+                  ),
+                );
+              } else {
+                return const SliverFillRemaining(
+                  child: Center(
+                    child: Text("Idle State"),
+                  ),
+                );
+              }
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 20),
+          ),
+        ],
+      ),
     );
   }
 }
-
-//---------->not used <-----------------------
-//  Container(
-//             height: 175,
-//             width: 350,
-//             decoration: BoxDecoration(
-//               boxShadow: [
-//                 BoxShadow(
-//                     blurRadius: 20,
-//                     color: Colors.grey.withOpacity(.50),
-//                     spreadRadius: 0,
-//                     offset: const Offset(10, 10)),
-//               ],
-//             ),
-//             child: Card(
-//               elevation: 0,
-//               child: Padding(
-//                 padding:
-//                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   children: [
-//                     const Text(
-//                       'No tasks schduled today',
-//                       style: TextStyle(color: Colors.black, fontSize: 20),
-//                     ),
-//                     const SizedBox(
-//                       height: 3,
-//                     ),
-//                     const Text(
-//                       'Make sure your avilability is up to date so \n         that you can receive new tasks',
-//                       style: TextStyle(color: Colors.grey, fontSize: 13),
-//                     ),
-// TextButton(
-//   onPressed: () {},
-//   child: const Text(
-//     'See my Avilability',
-//     style: TextStyle(
-//         decoration: TextDecoration.underline,
-//         color: kYellowColor,
-//         fontSize: 20),
-//   ),
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
