@@ -17,7 +17,7 @@ class PendingRequestCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 240,
+        height: 230,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -75,7 +75,6 @@ class PendingRequestCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Spacer(),
                 Row(
                   children: [
                     const Spacer(),

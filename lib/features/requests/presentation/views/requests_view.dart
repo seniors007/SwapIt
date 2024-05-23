@@ -4,6 +4,8 @@ import 'package:swapit/features/requests/presentation/manager/current_requests_c
 import 'package:swapit/features/requests/presentation/manager/pending_request_cubit/pending_requests_cubit.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/request_view_body.dart';
 
+import '../manager/finished_requests_cubit/finished_requests_cubit.dart';
+
 class RequestsPage extends StatelessWidget {
   const RequestsPage({super.key});
 
@@ -17,6 +19,9 @@ class RequestsPage extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CurrentRequestsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => FinishedRequestsCubit(),
           ),
         ],
         child: const RequestViewBody(),

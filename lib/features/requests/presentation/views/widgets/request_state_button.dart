@@ -3,10 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/requests/presentation/manager/current_requests_cubit/current_requests_cubit.dart';
+import 'package:swapit/features/requests/presentation/manager/finished_requests_cubit/finished_requests_cubit.dart';
 import 'package:swapit/features/requests/presentation/manager/pending_request_cubit/pending_requests_cubit.dart';
 import 'package:swapit/features/requests/presentation/manager/pending_request_cubit/pending_requests_state.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/current_request_card.dart';
+import 'package:swapit/features/requests/presentation/views/widgets/finished_request_card.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/pending_request_card.dart';
+
+import '../../manager/finished_requests_cubit/finished_requests_state.dart';
 
 class RequestStateButton extends StatefulWidget {
   const RequestStateButton({super.key});
@@ -67,6 +71,9 @@ class _RequestStateButtonState extends State<RequestStateButton> {
                     } else if (index == 1) {
                       BlocProvider.of<CurrentRequestsCubit>(context)
                           .getCurrentCustomerServices(customerId: 31);
+                    } else if (index == 2) {
+                      BlocProvider.of<FinishedRequestsCubit>(context)
+                          .getFinishedCustomerServices(customerId: 31);
                     }
                   },
                 ),
@@ -109,7 +116,7 @@ class _RequestStateButtonState extends State<RequestStateButton> {
               },
             );
           } else if (state is PendingRequestsFailure) {
-            return Center(child: Text(state.message));
+            return const Center(child: Text("An Error Occured"));
           }
           return const SizedBox();
         },
@@ -136,7 +143,35 @@ class _RequestStateButtonState extends State<RequestStateButton> {
               },
             );
           } else if (state is CurrentRequestsFailure) {
-            return Center(child: Text(state.errMsg));
+            return const Center(child: Text("An Error Occured"));
+          }
+          return const SizedBox();
+        },
+      );
+    } else if (selectedIndex == 2) {
+      return BlocBuilder<FinishedRequestsCubit, FinishedRequestsState>(
+        builder: (context, state) {
+          if (state is FinishedRequestsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is FinishedRequestsSuccess) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: state.finishedRequests.length,
+              itemBuilder: (context, index) {
+                final service = state.finishedRequests[index];
+                return FinishedRequestCard(
+                    serviceName: service.serviceName,
+                    // serviceDescription: service.serviceDescription,
+                    category: service.categoryName,
+                    username: service.username,
+                    // notes: service.notes!,
+                    // serviceRequestId: service.serviceRequestId,
+                    rate: service.totalRate);
+              },
+            );
+          } else if (state is FinishedRequestsFailure) {
+            return const Center(child: Text("An Error Occured"));
           }
           return const SizedBox();
         },
