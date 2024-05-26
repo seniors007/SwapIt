@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -12,8 +11,9 @@ class GetUserCubit extends Cubit<GetUserState> {
     try {
       final response = await Dio()
           .get('http://localhost:5204/api/users/GetUser?userId=$userId');
+      print(response.data.toString());
       if (response.statusCode == 200) {
-        final userJson = json.decode(response.data);
+        final userJson = response.data;
         final user = GetUserModel.fromJson(userJson);
         emit(GetUserSuccess(user));
       } else {

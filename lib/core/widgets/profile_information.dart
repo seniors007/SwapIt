@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/home/data/get_user_model/get_user_model.dart';
 import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_user_cubit.dart';
-import '../../features/home/presentation/manager/get_user_cubit/get_user_state.dart';
+import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_user_state.dart';
 
 class ProfileInfo extends StatelessWidget {
   const ProfileInfo({super.key});
@@ -52,21 +52,33 @@ class ProfileInfo extends StatelessWidget {
           child: Row(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Image(
                     image: AssetImage('assets/profile.png'),
                   ),
                   Text(
                     user.username,
-                    style: const TextStyle(color: kGreenColor),
+                    style: TextStyle(color: kGreenColor),
                   ),
-                  // Since 'rating' is not available, remove the rating section
-                  // You can add a placeholder or remove the entire row if needed.
+                  Row(
+                    children: [
+                      const Image(
+                        image: AssetImage('assets/star.png'),
+                        height: 20,
+                        width: 20,
+                      ),
+                      Text(
+                        user.totalRate.toString(),
+                        style: const TextStyle(color: kGreenColor),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(width: 20),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -86,7 +98,7 @@ class ProfileInfo extends StatelessWidget {
                         width: 20,
                       ),
                       Text(
-                        user.address, // Assuming 'location' is a property (replace with actual property name)
+                        user.address,
                         style: const TextStyle(color: kGreenColor),
                       ),
                     ],
