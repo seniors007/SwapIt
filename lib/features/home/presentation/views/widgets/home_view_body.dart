@@ -5,6 +5,8 @@ import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/core/search_cubit/search_cubit.dart';
 import 'package:swapit/features/search/presentation/views/widgets/service_post_in_search.dart';
 
+import '../../manager/get_user_cubit/get_user_cubit.dart';
+
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
 
@@ -20,10 +22,14 @@ class HomeViewBody extends StatelessWidget {
       child: CustomScrollView(
         clipBehavior: Clip.none,
         slivers: [
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 6),
-              child: ProfileInfo(),
+          BlocProvider(
+            create: (context) =>
+                GetUserCubit()..getUser(33), // Provide GetUserCubit here
+            child: const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 6),
+                child: ProfileInfo(),
+              ),
             ),
           ),
           const SliverToBoxAdapter(

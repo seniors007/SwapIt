@@ -1,13 +1,13 @@
 class GetUserModel {
-  int userId;
-  String username;
-  String email;
-  DateTime dateOfBirth;
-  String address;
-  String phoneNumber;
-  String jobTitle;
-  String profileImagePath;
-  int totalRate;
+  final int userId;
+  final String username;
+  final String email;
+  final DateTime dateOfBirth;
+  final String address;
+  final String phoneNumber;
+  final String jobTitle;
+  final String profileImagePath;
+  final int totalRate;
 
   GetUserModel({
     required this.userId,
@@ -33,19 +33,5 @@ class GetUserModel {
       profileImagePath: json['profileImagePath'],
       totalRate: json['totalRate'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['username'] = this.username;
-    data['email'] = this.email;
-    data['dateOfBirth'] = this.dateOfBirth.toIso8601String();
-    data['address'] = this.address;
-    data['phoneNumber'] = this.phoneNumber;
-    data['jobTitle'] = this.jobTitle;
-    data['profileImagePath'] = this.profileImagePath;
-    data['totalRate'] = this.totalRate;
-    return data;
   }
 }

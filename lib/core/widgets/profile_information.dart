@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/features/home/data/get_user_model/get_user_model.dart';
 import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_user_cubit.dart';
-import '../../features/home/data/get_user_model/get_user_model.dart';
+import '../../features/home/presentation/manager/get_user_cubit/get_user_state.dart';
 
 class ProfileInfo extends StatelessWidget {
   const ProfileInfo({super.key});
@@ -57,21 +58,10 @@ class ProfileInfo extends StatelessWidget {
                   ),
                   Text(
                     user.username,
-                    style: TextStyle(color: kGreenColor),
+                    style: const TextStyle(color: kGreenColor),
                   ),
-                  Row(
-                    children: [
-                      const Image(
-                        image: AssetImage('assets/star.png'),
-                        height: 20,
-                        width: 20,
-                      ),
-                      Text(
-                        "user.rating.toString()",
-                        style: const TextStyle(color: kGreenColor),
-                      ),
-                    ],
-                  ),
+                  // Since 'rating' is not available, remove the rating section
+                  // You can add a placeholder or remove the entire row if needed.
                 ],
               ),
               const SizedBox(width: 20),
@@ -90,14 +80,14 @@ class ProfileInfo extends StatelessWidget {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      Image(
+                      const Image(
                         image: AssetImage('assets/location.png'),
                         height: 20,
                         width: 20,
                       ),
                       Text(
-                        "user.location",
-                        style: TextStyle(color: kGreenColor),
+                        user.address, // Assuming 'location' is a property (replace with actual property name)
+                        style: const TextStyle(color: kGreenColor),
                       ),
                     ],
                   ),
