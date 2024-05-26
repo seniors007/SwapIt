@@ -4,68 +4,54 @@ import 'package:swapit/core/utils/constants.dart';
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
     super.key,
+    required this.notificationType,
+    required this.content,
   });
-
+  final String notificationType, content;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 135,
-      width: 350,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 20,
-              color: Colors.grey.withOpacity(.50),
-              spreadRadius: 0,
-              offset: const Offset(10, 10)),
-        ],
-      ),
-      child: const Card(
-        elevation: 0,
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image(
-                    image: AssetImage('assets/profile.png'),
-                  ),
-                  Text(
-                    'Draco M.',
-                    style: TextStyle(color: kGreenColor),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 12,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Decorator',
-                    style: TextStyle(
-                        color: kYellowColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 200,
-                    child: Text(
-                      'Draco has approved your request',
-                      maxLines: 2,
-                      overflow: TextOverflow.fade,
-                      style: TextStyle(
-                        color: kGreenColor,
-                        fontSize: 17,
-                      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Container(
+        height: 170,
+        width: 350,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 20,
+                color: Colors.grey.withOpacity(.50),
+                spreadRadius: 0,
+                offset: const Offset(10, 10)),
+          ],
+        ),
+        child: Card(
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notificationType,
+                  style: const TextStyle(
+                      color: kYellowColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 320,
+                  child: Text(
+                    content,
+                    maxLines: 4,
+                    overflow: TextOverflow.fade,
+                    style: const TextStyle(
+                      color: kGreenColor,
+                      fontSize: 17,
                     ),
                   ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

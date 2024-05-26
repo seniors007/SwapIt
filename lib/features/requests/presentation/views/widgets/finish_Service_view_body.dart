@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +20,6 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
   bool isLoading = false;
 
   final Dio _dio = Dio();
-
   Future<void> _submitRating() async {
     setState(() {
       isLoading = true;
@@ -29,24 +30,28 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
         'http://localhost:5204/api/serviceRequests/FinishServiceRequest?ServiceRequestId=${widget.serviceRequestId}';
 
     try {
-      final responsePost = await _dio.post(postUrl, data: {
-        "rateValue": rate.round(),
-        "rateDate": DateTime.now().toIso8601String(),
-        "feedback": "Your feedback here",
-        "serviceId": widget.serviceRequestId,
-        "customerId": 6
-      });
+      final responseGet = await _dio.get(getUrl);
 
-      if (responsePost.statusCode == 200) {
-        final responseGet = await _dio.get(getUrl);
+      if (responseGet.statusCode == 200) {
+        final requestBody = {
+          "rateValue": rate.round(),
+          "rateDate": DateTime.now().toIso8601String(),
+          "feedback": "Your feedback here",
+          "serviceId": widget.serviceRequestId,
+          "customerId": 6
+        };
 
-        if (responseGet.statusCode == 200) {
+        log('Request Body: $requestBody');
+
+        final responsePost = await _dio.post(postUrl, data: requestBody);
+
+        if (responsePost.statusCode == 200) {
           showSnackBar(context, "Thank you for your rating!");
         } else {
-          showSnackBar(context, "Failed to finish service request");
+          showSnackBar(context, "Failed to submit rating");
         }
       } else {
-        showSnackBar(context, "Failed to submit rating");
+        showSnackBar(context, "Failed to finish service request");
       }
     } catch (e) {
       showSnackBar(context, "An error occurred: $e");
