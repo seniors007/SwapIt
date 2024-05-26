@@ -11,8 +11,14 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit()..searchService(serviceName: '', servicePrice: 0, serviceProviderId: 0, categoryId: 0),
+      create: (context) => SearchCubit()
+        ..searchService(
+            serviceName: '',
+            servicePrice: 0,
+            serviceProviderId: 0,
+            categoryId: 0),
       child: CustomScrollView(
+        clipBehavior: Clip.none,
         slivers: [
           const SliverToBoxAdapter(
             child: Padding(
@@ -61,7 +67,8 @@ class HomeViewBody extends StatelessWidget {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      final service = state.searchResponseContainer.results[index];
+                      final service =
+                          state.searchResponseContainer.results[index];
                       return ServicePostInSearch(
                         serviceId: service.id!,
                         serviceName: service.serviceName!,
