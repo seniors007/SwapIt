@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
+import 'package:swapit/core/widgets/custom_text_field.dart';
 
 class FinishServiceViewBody extends StatefulWidget {
   const FinishServiceViewBody({super.key, required this.serviceRequestId});
@@ -18,6 +19,8 @@ class FinishServiceViewBody extends StatefulWidget {
 class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
   double rate = 1;
   bool isLoading = false;
+  GlobalKey<FormState> formKey = GlobalKey();
+  String feedBack = '';
 
   final Dio _dio = Dio();
   Future<void> _submitRating() async {
@@ -36,7 +39,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
         final requestBody = {
           "rateValue": rate.round(),
           "rateDate": DateTime.now().toIso8601String(),
-          "feedback": "Your feedback here",
+          "feedback": feedBack,
           "serviceId": widget.serviceRequestId,
           "customerId": 6
         };
@@ -64,86 +67,95 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 300,
-                child: Text(
-                  'How was your experience with the service?',
-                  style: TextStyle(
-                    color: kGreenColor,
-                    fontSize: 25,
+    return Form(
+      key: formKey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 300,
+                  child: Text(
+                    'How was your experience with the service?',
+                    style: TextStyle(
+                      color: kGreenColor,
+                      fontSize: 25,
+                    ),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
                   ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Container(
-              height: 230,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 20,
-                    color: Colors.grey.withOpacity(0.50),
-                    spreadRadius: 0,
-                    offset: const Offset(10, 10),
-                  ),
-                ],
-              ),
-              child: Card(
-                elevation: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Form(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Your Rating',
-                          style: TextStyle(color: kGreenColor, fontSize: 20),
-                        ),
-                        Slider(
-                          thumbColor: kGreenColor,
-                          activeColor: kYellowColor,
-                          value: rate,
-                          label: rate.round().toString(),
-                          min: 1,
-                          max: 5,
-                          divisions: 4,
-                          onChanged: (newPoints) {
-                            setState(() => rate = newPoints);
-                          },
-                        ),
-                        const SizedBox(height: 15),
-                        isLoading
-                            ? const CircularProgressIndicator()
-                            : CustomButton(
-                                label: 'Finish',
-                                backgroundColor: kYellowColor,
-                                onPressed: () async {
-                                  await _submitRating();
-                                  Get.back();
-                                },
-                              ),
-                      ],
+              ],
+            ),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Container(
+                height: 280,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 20,
+                      color: Colors.grey.withOpacity(0.50),
+                      spreadRadius: 0,
+                      offset: const Offset(10, 10),
+                    ),
+                  ],
+                ),
+                child: Card(
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Form(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Your Rating',
+                            style: TextStyle(color: kGreenColor, fontSize: 20),
+                          ),
+                          Slider(
+                            thumbColor: kGreenColor,
+                            activeColor: kYellowColor,
+                            value: rate,
+                            label: rate.round().toString(),
+                            min: 1,
+                            max: 5,
+                            divisions: 4,
+                            onChanged: (newPoints) {
+                              setState(() => rate = newPoints);
+                            },
+                          ),
+                          CustomTextField(
+                            label: 'Your FeedBack',
+                            onChanged: (value) {
+                              feedBack = value;
+                            },
+                          ),
+                          const SizedBox(height: 15),
+                          isLoading
+                              ? const CircularProgressIndicator()
+                              : CustomButton(
+                                  label: 'Finish',
+                                  backgroundColor: kYellowColor,
+                                  onPressed: () async {
+                                    await _submitRating();
+                                    Get.back();
+                                  },
+                                ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

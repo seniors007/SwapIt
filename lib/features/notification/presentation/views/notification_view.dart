@@ -12,7 +12,7 @@ class NotificationView extends StatelessWidget {
       body: BlocProvider(
         create: (context) {
           final cubit = NotificationCubit();
-          cubit.getNotifications(userId: 30);
+          cubit.getNotifications(userId: 34);
           return cubit;
         },
         child: const NotificationViewBody(),

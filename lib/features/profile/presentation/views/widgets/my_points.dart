@@ -24,7 +24,7 @@ class _MyPointsState extends State<MyPoints> {
   }
 
   Future<void> fetchPoints() async {
-    const String userId = '30';
+    const String userId = '34';
     const String url =
         'http://localhost:5204/api/payment/MyPoints?userId=$userId';
 

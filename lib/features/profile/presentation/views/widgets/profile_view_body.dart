@@ -64,7 +64,7 @@ class ProfileViewBody extends StatelessWidget {
                   ..searchService(
                     serviceName: '',
                     servicePrice: 0,
-                    serviceProviderId: 30,
+                    serviceProviderId: 34,
                     categoryId: 0,
                   ),
                 child: const ServicePostInProfileListView(),

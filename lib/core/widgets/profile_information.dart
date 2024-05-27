@@ -11,7 +11,7 @@ class ProfileInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GetUserCubit>(
-      create: (context) => GetUserCubit()..getUser(33),
+      create: (context) => GetUserCubit()..getUser(34),
       child: BlocBuilder<GetUserCubit, GetUserState>(
         builder: (context, state) {
           if (state is GetUserLoading) {
@@ -59,7 +59,7 @@ class ProfileInfo extends StatelessWidget {
                   ),
                   Text(
                     user.username,
-                    style: TextStyle(color: kGreenColor),
+                    style: const TextStyle(color: kGreenColor),
                   ),
                   Row(
                     children: [
