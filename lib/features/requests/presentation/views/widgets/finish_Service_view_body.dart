@@ -20,7 +20,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
   double rate = 1;
   bool isLoading = false;
   GlobalKey<FormState> formKey = GlobalKey();
-  String feedBack = '';
+  String? feedBack;
 
   final Dio _dio = Dio();
   Future<void> _submitRating() async {
