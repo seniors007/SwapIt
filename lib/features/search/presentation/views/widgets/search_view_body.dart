@@ -6,8 +6,8 @@ import 'package:swapit/features/search/presentation/views/widgets/custom_title.d
 import 'package:swapit/features/search/presentation/views/widgets/search_bar.dart';
 import 'package:swapit/features/search/presentation/views/widgets/service_post_in_search.dart';
 
-class SearchPageBody extends StatelessWidget {
-  const SearchPageBody({super.key});
+class SearchViewBody extends StatelessWidget {
+  const SearchViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {

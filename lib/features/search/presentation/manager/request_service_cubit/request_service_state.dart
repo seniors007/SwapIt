@@ -11,7 +11,11 @@ class RequestServiceInitial extends RequestServiceState {}
 
 class RequestServiceLoading extends RequestServiceState {}
 
-class RequestServiceSuccess extends RequestServiceState {}
+class RequestServiceSuccess extends RequestServiceState {
+  final bool success;
+
+  const RequestServiceSuccess(this.success);
+}
 
 class RequestServiceFailure extends RequestServiceState {
   final String errMsg;

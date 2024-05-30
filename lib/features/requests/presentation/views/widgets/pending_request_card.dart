@@ -86,7 +86,7 @@ class PendingRequestCard extends StatelessWidget {
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
                       onPressed: () {
-                        cancelService(context, requestid, 30);
+                        cancelService(context, requestid, 34);
                       },
                     ),
                   ],

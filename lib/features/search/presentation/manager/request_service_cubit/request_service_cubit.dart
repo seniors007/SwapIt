@@ -32,7 +32,11 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       });
 
       if (response.statusCode == 200) {
-        emit(RequestServiceSuccess());
+        if (response.data == true) {
+          emit(const RequestServiceSuccess(true));
+        } else {
+          emit(const RequestServiceSuccess(false));
+        }
         log(response.data.toString());
       } else {
         emit(const RequestServiceFailure(

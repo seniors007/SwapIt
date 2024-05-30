@@ -11,7 +11,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => SearchCubit(),
-        child: const SearchPageBody(),
+        child: const SearchViewBody(),
       ),
     );
   }

@@ -28,7 +28,7 @@ class ServiceDetailsViewBody extends StatefulWidget {
 
 class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
-  String notes = '';
+  String? notes;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,12 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
       child: BlocConsumer<RequestServiceCubit, RequestServiceState>(
         listener: (context, state) {
           if (state is RequestServiceSuccess) {
-            showSnackBar(context, 'Service requested successfully');
-            Navigator.pop(context);
+            if (state.success) {
+              showSnackBar(context, 'Service requested successfully');
+              Navigator.pop(context);
+            } else {
+              showSnackBar(context, 'Sorry, You don\'t have enough points');
+            }
           } else if (state is RequestServiceFailure) {
             showSnackBar(context, 'Something went wrong:');
           }
@@ -183,21 +187,24 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                           onPressed: state is RequestServiceLoading
                               ? null
                               : () {
-                                  final requestDate =
-                                      DateTime.now().toIso8601String();
-                                  const requestState = "Pending";
-                                  const executionTime = 30;
-                                  const customerId = 31;
+                                  if (formKey.currentState!.validate()) {
+                                    final requestDate =
+                                        DateTime.now().toIso8601String();
+                                    const requestState = "Pending";
+                                    const executionTime = 30;
+                                    const customerId = 34;
 
-                                  BlocProvider.of<RequestServiceCubit>(context)
-                                      .createServiceRequest(
-                                    requestDate: requestDate,
-                                    requestState: requestState,
-                                    executionTime: executionTime,
-                                    customerId: customerId,
-                                    serviceId: widget.serviceId,
-                                    notes: notes,
-                                  );
+                                    BlocProvider.of<RequestServiceCubit>(
+                                            context)
+                                        .createServiceRequest(
+                                      requestDate: requestDate,
+                                      requestState: requestState,
+                                      executionTime: executionTime,
+                                      customerId: customerId,
+                                      serviceId: widget.serviceId,
+                                      notes: notes!,
+                                    );
+                                  }
                                 },
                         ),
                       ],
