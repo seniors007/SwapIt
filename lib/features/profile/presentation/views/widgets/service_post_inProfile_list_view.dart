@@ -26,11 +26,13 @@ class ServicePostInProfileListView extends StatelessWidget {
                   .searchResponseContainer.results[index].serviceDescription;
               int? cost =
                   state.searchResponseContainer.results[index].servicePrice;
+              int? serviceId = state.searchResponseContainer.results[index].id;
               return ServicePostInProfile(
                 serviceName: servieName!,
                 category: category!,
                 cost: cost!,
                 description: description!,
+                serviceid: serviceId!,
               );
             },
           );

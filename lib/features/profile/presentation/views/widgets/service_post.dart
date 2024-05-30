@@ -1,15 +1,36 @@
+import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:swapit/core/utils/constants.dart';
+import 'package:swapit/core/widgets/custom_snack_bar.dart';
 
 class ServicePostInProfile extends StatelessWidget {
-  const ServicePostInProfile(
-      {super.key,
-      required this.serviceName,
-      required this.description,
-      required this.cost,
-      required this.category});
+  const ServicePostInProfile({
+    super.key,
+    required this.serviceName,
+    required this.description,
+    required this.cost,
+    required this.category,
+    required this.serviceid,
+  });
   final String serviceName, description, category;
-  final int cost;
+  final int cost, serviceid;
+
+  Future<void> _deleteService(BuildContext context, int serviceId) async {
+    try {
+      var response = await Dio().get(
+        'http://localhost:5204/api/services/delete?serviceId=$serviceId',
+      );
+      if (response.statusCode == 200) {
+        showSnackBar(context, 'Service deleted successfully');
+      } else {
+        showSnackBar(context, 'Failed to delete service');
+      }
+    } catch (e) {
+      log('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,7 +119,7 @@ class ServicePostInProfile extends StatelessWidget {
                         width: 135,
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => _deleteService(context, serviceid),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: kYellowColor),
                           child: const Text(
