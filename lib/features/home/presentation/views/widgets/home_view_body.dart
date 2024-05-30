@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
-import 'package:swapit/core/search_cubit/search_cubit.dart';
+import 'package:swapit/core/cubits/search_cubit/search_cubit.dart';
 import 'package:swapit/features/search/presentation/views/widgets/service_post_in_search.dart';
 
 import '../../manager/get_user_cubit/get_user_cubit.dart';
@@ -18,7 +18,8 @@ class HomeViewBody extends StatelessWidget {
             serviceName: '',
             servicePrice: 0,
             serviceProviderId: 0,
-            categoryId: 0),
+            categoryId: 0,
+            userId: 34),
       child: CustomScrollView(
         clipBehavior: Clip.none,
         slivers: [

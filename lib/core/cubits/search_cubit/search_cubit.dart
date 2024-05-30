@@ -10,12 +10,12 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchInitial());
 
-  Future<void> searchService({
-    required String serviceName,
-    required int servicePrice,
-    required int serviceProviderId,
-    required int categoryId,
-  }) async {
+  Future<void> searchService(
+      {required String serviceName,
+      required int servicePrice,
+      required int serviceProviderId,
+      required int categoryId,
+      required int userId}) async {
     final dio.Dio _dio = dio.Dio();
     const String apiUrl = 'http://localhost:5204/api/services/Search';
     final searchData = SearchModel(
@@ -23,6 +23,7 @@ class SearchCubit extends Cubit<SearchState> {
       servicePrice: servicePrice,
       serviceProviderId: serviceProviderId,
       categoryId: categoryId,
+      userId: userId,
     );
     final Map<String, dynamic> data = searchData.toJson();
 

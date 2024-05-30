@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
-import 'package:swapit/core/search_cubit/search_cubit.dart';
+import 'package:swapit/core/cubits/search_cubit/search_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_button.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/my_points.dart';
@@ -62,11 +62,11 @@ class ProfileViewBody extends StatelessWidget {
               child: BlocProvider(
                 create: (context) => SearchCubit()
                   ..searchService(
-                    serviceName: '',
-                    servicePrice: 0,
-                    serviceProviderId: 34,
-                    categoryId: 0,
-                  ),
+                      serviceName: '',
+                      servicePrice: 0,
+                      serviceProviderId: 34, //mine this what gonna update
+                      categoryId: 0,
+                      userId: 0),
                 child: const ServicePostInProfileListView(),
               ),
             ),

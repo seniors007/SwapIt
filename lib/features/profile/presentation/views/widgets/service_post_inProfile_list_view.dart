@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swapit/core/search_cubit/search_cubit.dart';
+import 'package:swapit/core/cubits/search_cubit/search_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/service_post.dart';
 
 class ServicePostInProfileListView extends StatelessWidget {
