@@ -181,11 +181,28 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           const SizedBox(
                             height: 20.0,
                           ),
+                          CustomTextField(
+                            label: 'Job Title',
+                            onChanged: (value) {
+                              registerdata.jobTitle = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          CustomTextField(
+                            label: 'Address',
+                            onChanged: (value) {
+                              registerdata.address = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
                           CustomButton(
                             backgroundColor: kYellowColor,
                             label: 'Register',
                             onPressed: () {
-                              //when the app completed shold be activate
                               if (formKey.currentState!.validate()) {
                                 if (registerdata.birthYear != null &&
                                     registerdata.birthMonth != null &&
@@ -206,6 +223,8 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                   dateOfBirth: registerdata.dateOfBirth!,
                                   gender: dropdownGendervalue,
                                   phoneNumber: registerdata.phoneNumber!,
+                                  jobTitle: registerdata.jobTitle!,
+                                  address: registerdata.address!,
                                 );
                               }
                             },

@@ -7,6 +7,8 @@ class RegisterData {
   String? birthMonth;
   String? dateOfBirth;
   String? birthDay;
+  String? jobTitle;
+  String? address;
 
   RegisterData({
     this.userName,
@@ -17,5 +19,7 @@ class RegisterData {
     this.birthMonth,
     this.dateOfBirth,
     this.birthDay,
+    this.jobTitle,
+    this.address,
   });
 }
