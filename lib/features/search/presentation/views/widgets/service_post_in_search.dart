@@ -13,10 +13,11 @@ class ServicePostInSearch extends StatelessWidget {
     required this.description,
     required this.category,
     required this.cost,
+    required this.username,
   });
 
   final int serviceId; // Added this field
-  final String serviceName, description, category;
+  final String serviceName, description, category, username;
   final int cost;
 
   @override
@@ -51,17 +52,21 @@ class ServicePostInSearch extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 16),
             child: Row(
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage('assets/profile.png'),
                     ),
-                    Text(
-                      'Draco M.',
-                      style: TextStyle(color: kGreenColor),
+                    SizedBox(
+                      width: 50,
+                      child: Text(
+                        maxLines: 1,
+                        username,
+                        style: const TextStyle(color: kGreenColor),
+                      ),
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Image(
                           image: AssetImage('assets/star.png'),

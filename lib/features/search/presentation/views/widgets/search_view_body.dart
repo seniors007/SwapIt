@@ -16,15 +16,15 @@ class SearchViewBody extends StatelessWidget {
       child: CustomScrollView(
         clipBehavior: Clip.none,
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSearchBar(),
                   kDivider,
-                  const CustomTitle(),
-                  const SizedBox(
+                  CustomTitle(),
+                  SizedBox(
                     height: 5,
                   ),
                 ],
@@ -49,6 +49,7 @@ class SearchViewBody extends StatelessWidget {
                         description: service.serviceDescription!,
                         category: service.categoryName!,
                         cost: service.servicePrice!,
+                        username: service.username!,
                       );
                     },
                     childCount: state.searchResponseContainer.results.length,

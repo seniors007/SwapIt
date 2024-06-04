@@ -82,6 +82,7 @@ class HomeViewBody extends StatelessWidget {
                         description: service.serviceDescription!,
                         category: service.categoryName!,
                         cost: service.servicePrice!,
+                        username: service.username!,
                       );
                     },
                     childCount: state.searchResponseContainer.results.length,

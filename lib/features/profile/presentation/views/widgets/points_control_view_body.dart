@@ -130,7 +130,7 @@ class _PointsControlViewBodyState extends State<PointsControlViewBody> {
                             var transctionsData =
                                 getTransctionsData(moneyAmount.toInt());
                             excutePaypalMethod(
-                                context, transctionsData, 30, getPoints());
+                                context, transctionsData, 34, getPoints());
                           },
                         )
                       ],
