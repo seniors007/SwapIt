@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/core/utils/constants.dart';
@@ -116,6 +117,15 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                         ),
                         CustomTextField(
                           label: 'Service Name',
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(
+                              RegExp(
+                                  r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'),
+                            ),
+                            FilteringTextInputFormatter.deny(
+                              RegExp(r'\b01[0-5]\d{8}\b'),
+                            ),
+                          ],
                           onChanged: (value) {
                             serviceName = value;
                           },
@@ -125,6 +135,15 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                         ),
                         CustomTextField(
                           label: 'Service Description',
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(
+                              RegExp(
+                                  r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'),
+                            ),
+                            FilteringTextInputFormatter.deny(
+                              RegExp(r'\b01[0-5]\d{8}\b'),
+                            ),
+                          ],
                           onChanged: (value) {
                             serviceDescription = value;
                           },
@@ -142,7 +161,7 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                                 price = priceAsInt;
                               }
                             } catch (e) {
-                              print('Error converting price to integer: $e');
+                              log('Error converting price to integer: $e');
                             }
                           },
                         ),

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:swapit/core/utils/constants.dart';
@@ -132,6 +133,15 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
                           ),
                           CustomTextField(
                             label: 'Your FeedBack',
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(
+                                RegExp(
+                                    r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'),
+                              ),
+                              FilteringTextInputFormatter.deny(
+                                RegExp(r'\b01[0-5]\d{8}\b'),
+                              ),
+                            ],
                             onChanged: (value) {
                               feedBack = value;
                             },
