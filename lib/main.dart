@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:swapit/core/user_controller.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/splash/presentation/views/splash_view.dart';
 
 void main() async {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  // final cameras = await availableCameras();
-  //  final firstCamera = cameras.first;
-  // hi from marmora
-
+  Get.put(UserController());
   runApp(const SwapIt());
 }
 

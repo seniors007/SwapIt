@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -12,6 +10,8 @@ import 'package:swapit/features/auth/presentation/views/register_view.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/home/presentation/views/home_view.dart';
+
+import '../../../../../core/user_controller.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -26,19 +26,22 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
+          userController.setUser(
+            state.loginResponse.userId,
+            state.loginResponse.userName,
+            state.loginResponse.roles,
+          );
+          // log('User ID: ${userController.userId.value}');
+          // log('User Name: ${userController.userName.value}');
+          // log('Roles: ${userController.roles}');
           Get.to(() => const Homeview());
           showSnackBar(context, 'Login Successful');
-          final userName = state.loginResponse.userName;
-          final userId = state.loginResponse.userId;
-          final roles = state.loginResponse.roles;
-          log('Username: $userName');
-          log('User ID: $userId');
-          log('Roles: $roles');
           isLoading = false;
         } else if (state is LoginFailure) {
           showSnackBar(context, state.errMsg);
