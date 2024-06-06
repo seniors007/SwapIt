@@ -11,7 +11,7 @@ class PastWorkImgs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ImagesCubit(Dio())..fetchImages(30),
+      create: (context) => ImagesCubit(Dio())..fetchImages(34),
       child: BlocBuilder<ImagesCubit, ImagesState>(
         builder: (context, state) {
           if (state is ImagesLoading) {

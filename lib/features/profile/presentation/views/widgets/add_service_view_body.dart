@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
@@ -25,6 +27,9 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
   String? serviceName;
   String? serviceDescription;
   int? price;
+  File? serviceImage;
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +52,15 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
       }
     } catch (e) {
       log('Error fetching categories: $e');
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        serviceImage = File(pickedFile.path);
+      });
     }
   }
 
@@ -168,17 +182,33 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                         const SizedBox(
                           height: 20.0,
                         ),
+                        _buildImagePicker(
+                          'Upload Service Image',
+                          serviceImage,
+                          _pickImage,
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
                         CustomButton(
                           label: 'Add',
                           backgroundColor: kYellowColor,
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              BlocProvider.of<AddServiceCubit>(context)
-                                  .addService(
-                                      categoryId: _dropdownValue,
-                                      serviceName: serviceName!,
-                                      serviceDescription: serviceDescription!,
-                                      price: price!);
+                              if (serviceImage != null) {
+                                BlocProvider.of<AddServiceCubit>(context)
+                                    .addService(
+                                  serviceProviderId: 34,
+                                  categoryId: _dropdownValue,
+                                  serviceName: serviceName!,
+                                  serviceDescription: serviceDescription!,
+                                  price: price!,
+                                  serviceImage: serviceImage!,
+                                );
+                              } else {
+                                showSnackBar(
+                                    context, 'Please upload a service image');
+                              }
                             }
                           },
                         )
@@ -191,6 +221,38 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildImagePicker(
+    String label,
+    File? imageFile,
+    Function() onImagePicked,
+  ) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                color: kGreenColor,
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+              icon: const Icon(
+                Icons.image,
+                size: 50,
+              ),
+              onPressed: onImagePicked,
+            ),
+          ],
+        ),
+        if (imageFile != null) Image.file(imageFile, height: 100, width: 100),
+      ],
     );
   }
 }
