@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class RegisterData {
   String? userName;
   String? password;
@@ -9,6 +11,8 @@ class RegisterData {
   String? birthDay;
   String? jobTitle;
   String? address;
+  File? profileImage;
+  File? idImage;
 
   RegisterData({
     this.userName,
@@ -21,5 +25,7 @@ class RegisterData {
     this.birthDay,
     this.jobTitle,
     this.address,
+    this.profileImage,
+    this.idImage,
   });
 }

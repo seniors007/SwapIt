@@ -1,7 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
@@ -28,19 +29,34 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
 
   bool isLoading = false;
 
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(Function(File) onImagePicked) async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      onImagePicked(File(pickedFile.path));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterLoading) {
-          isLoading = true;
+          setState(() {
+            isLoading = true;
+          });
         } else if (state is RegisterSuccess) {
           Get.to(() => const LoginView());
           showSnackBar(context, 'Register Successful');
-          isLoading = false;
+          setState(() {
+            isLoading = false;
+          });
         } else if (state is RegisterFailure) {
           showSnackBar(context, state.errMsg);
-          isLoading = false;
+          setState(() {
+            isLoading = false;
+          });
         }
       },
       builder: (context, state) {
@@ -199,6 +215,30 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           const SizedBox(
                             height: 20.0,
                           ),
+                          _buildImagePicker(
+                            'Upload Profile Image',
+                            registerdata.profileImage,
+                            (File image) {
+                              setState(() {
+                                registerdata.profileImage = image;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          _buildImagePicker(
+                            'Upload ID Image',
+                            registerdata.idImage,
+                            (File image) {
+                              setState(() {
+                                registerdata.idImage = image;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
                           CustomButton(
                             backgroundColor: kYellowColor,
                             label: 'Register',
@@ -215,17 +255,25 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                                   registerdata.dateOfBirth =
                                       date.toIso8601String();
                                 }
-                                BlocProvider.of<RegisterCubit>(context)
-                                    .registerUser(
-                                  userName: registerdata.userName!,
-                                  password: registerdata.password!,
-                                  email: registerdata.email!,
-                                  dateOfBirth: registerdata.dateOfBirth!,
-                                  gender: dropdownGendervalue,
-                                  phoneNumber: registerdata.phoneNumber!,
-                                  jobTitle: registerdata.jobTitle!,
-                                  address: registerdata.address!,
-                                );
+                                if (registerdata.profileImage != null &&
+                                    registerdata.idImage != null) {
+                                  BlocProvider.of<RegisterCubit>(context)
+                                      .registerUser(
+                                    userName: registerdata.userName!,
+                                    password: registerdata.password!,
+                                    email: registerdata.email!,
+                                    dateOfBirth: registerdata.dateOfBirth!,
+                                    gender: dropdownGendervalue,
+                                    phoneNumber: registerdata.phoneNumber!,
+                                    jobTitle: registerdata.jobTitle!,
+                                    address: registerdata.address!,
+                                    profileImage: registerdata.profileImage!,
+                                    idImage: registerdata.idImage!,
+                                  );
+                                } else {
+                                  showSnackBar(context,
+                                      'Please upload both profile and ID images');
+                                }
                               }
                             },
                           ),
@@ -241,13 +289,10 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             'Or Register with',
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
                           const DiffLoginMethod(),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -255,6 +300,29 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildImagePicker(
+      String label, File? imageFile, Function(File) onImagePicked) {
+    return Column(
+      children: [
+        Text(label),
+        const SizedBox(height: 10),
+        if (imageFile != null)
+          Image.file(
+            imageFile,
+            width: 100,
+            height: 100,
+            fit: BoxFit.cover,
+          ),
+        const SizedBox(height: 10),
+        CustomButton(
+          label: 'Pick Image',
+          onPressed: () => _pickImage(onImagePicked),
+          backgroundColor: kYellowColor,
+        ),
+      ],
     );
   }
 

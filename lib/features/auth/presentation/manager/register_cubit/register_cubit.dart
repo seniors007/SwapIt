@@ -1,6 +1,6 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:dio/dio.dart' as dio;
 
@@ -18,11 +18,13 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String phoneNumber,
     required String jobTitle,
     required String address,
+    required File profileImage,
+    required File idImage,
   }) async {
     final dio.Dio _dio = dio.Dio();
     const String apiUrl = 'http://localhost:5204/api/users/create';
 
-    final Map<String, dynamic> registerData = {
+    final dio.FormData formData = dio.FormData.fromMap({
       "username": userName,
       "password": password,
       "email": email,
@@ -30,21 +32,24 @@ class RegisterCubit extends Cubit<RegisterState> {
       "gender": gender,
       "phoneNumber": phoneNumber,
       "jobTitle": jobTitle,
-      "profileImagePath": "3.jpg",
       "address": address,
-    };
+      "profileImage": await dio.MultipartFile.fromFile(profileImage.path,
+          filename: "profile_image.jpg"),
+      "idImage": await dio.MultipartFile.fromFile(idImage.path,
+          filename: "id_image.jpg"),
+    });
 
     emit(RegisterLoading());
 
-    log('Register Data: $registerData');
+    log('Register Data: $formData');
 
     try {
       final dio.Response response = await _dio.post(
         apiUrl,
-        data: registerData,
+        data: formData,
         options: dio.Options(
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
           },
         ),
       );
