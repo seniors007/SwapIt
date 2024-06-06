@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapit/core/utils/constants.dart';
@@ -5,8 +8,30 @@ import 'package:swapit/features/home/data/get_user_model/get_user_model.dart';
 import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_user_cubit.dart';
 import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_user_state.dart';
 
-class ProfileInfo extends StatelessWidget {
+class ProfileInfo extends StatefulWidget {
   const ProfileInfo({super.key});
+
+  @override
+  State<ProfileInfo> createState() => _ProfileInfoState();
+}
+
+class _ProfileInfoState extends State<ProfileInfo> {
+  Uint8List? _profileImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage('38');
+  }
+
+  Future<void> _loadProfileImage(String userId) async {
+    final imageData = await fetchProfileImage(userId);
+    if (imageData != null) {
+      setState(() {
+        _profileImage = imageData;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +79,13 @@ class ProfileInfo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    image: AssetImage('assets/profile.png'),
-                  ),
+                  _profileImage != null
+                      ? Image.memory(_profileImage!, height: 50, width: 50)
+                      : const Image(
+                          image: AssetImage('assets/profile.png'),
+                          height: 50,
+                          width: 50,
+                        ),
                   Text(
                     user.username,
                     style: const TextStyle(color: kGreenColor),
@@ -110,5 +139,20 @@ class ProfileInfo extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<Uint8List?> fetchProfileImage(String userId) async {
+    try {
+      final response = await Dio().get(
+        'http://localhost:5204/api/users/GetProfileImage?userId=$userId',
+        options: Options(responseType: ResponseType.bytes),
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }

@@ -24,8 +24,8 @@ class _HomeviewState extends State<Homeview> {
     return [
       const HomeViewBody(),
       const ServicesView(),
-      const SearchPage(),
-      const RequestsPage(),
+      const SearchView(),
+      const RequestsView(),
       const ProfileView(),
     ];
   }

@@ -6,8 +6,8 @@ import 'package:swapit/features/requests/presentation/views/widgets/request_view
 
 import '../manager/finished_requests_cubit/finished_requests_cubit.dart';
 
-class RequestsPage extends StatelessWidget {
-  const RequestsPage({super.key});
+class RequestsView extends StatelessWidget {
+  const RequestsView({super.key});
 
   @override
   Widget build(BuildContext context) {
