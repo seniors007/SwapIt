@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/requests/presentation/manager/current_requests_cubit/current_requests_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:swapit/features/requests/presentation/views/widgets/current_requ
 import 'package:swapit/features/requests/presentation/views/widgets/finished_request_card.dart';
 import 'package:swapit/features/requests/presentation/views/widgets/pending_request_card.dart';
 
+import '../../../../../core/user_controller.dart';
 import '../../manager/finished_requests_cubit/finished_requests_state.dart';
 
 class RequestStateButton extends StatefulWidget {
@@ -24,6 +26,7 @@ class _RequestStateButtonState extends State<RequestStateButton> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CustomScrollView(
@@ -67,13 +70,16 @@ class _RequestStateButtonState extends State<RequestStateButton> {
                     });
                     if (index == 0) {
                       BlocProvider.of<PendingRequestsCubit>(context)
-                          .getPendingRequests(customerId: 34);
+                          .getPendingRequests(
+                              customerId: userController.userId.value);
                     } else if (index == 1) {
                       BlocProvider.of<CurrentRequestsCubit>(context)
-                          .getCurrentCustomerServices(customerId: 34);
+                          .getCurrentCustomerServices(
+                              customerId: userController.userId.value);
                     } else if (index == 2) {
                       BlocProvider.of<FinishedRequestsCubit>(context)
-                          .getFinishedCustomerServices(customerId: 34);
+                          .getFinishedCustomerServices(
+                              customerId: userController.userId.value);
                     }
                   },
                 ),

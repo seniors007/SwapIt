@@ -1,10 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/profile/presentation/views/points_control_view.dart';
+import '../../../../../core/user_controller.dart';
 
 class MyPoints extends StatefulWidget {
   const MyPoints({super.key});
@@ -16,17 +16,15 @@ class MyPoints extends StatefulWidget {
 class _MyPointsState extends State<MyPoints> {
   int points = 0;
   bool isLoading = true;
-
+  final UserController userController = Get.find();
   @override
   void initState() {
     super.initState();
-    fetchPoints();
+    fetchPoints(userController.userId.value);
   }
 
-  Future<void> fetchPoints() async {
-    const String userId = '34';
-    const String url =
-        'http://localhost:5204/api/payment/MyPoints?userId=$userId';
+  Future<void> fetchPoints(int userId) async {
+    String url = 'http://localhost:5204/api/payment/MyPoints?userId=$userId';
 
     try {
       final response = await Dio().get(url);

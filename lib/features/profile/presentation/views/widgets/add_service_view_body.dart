@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/core/utils/constants.dart';
@@ -11,6 +12,7 @@ import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:swapit/features/profile/presentation/manager/add_service_cubit/add_service_cubit.dart';
+import '../../../../../core/user_controller.dart';
 
 class AddServiceViewBody extends StatefulWidget {
   const AddServiceViewBody({super.key});
@@ -38,8 +40,8 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
 
   Future<void> fetchCategories() async {
     try {
-      Response response =
-          await Dio().get('http://localhost:5204/api/categories/getall');
+      dio.Response response =
+          await dio.Dio().get('http://localhost:5204/api/categories/getall');
       if (response.statusCode == 200) {
         setState(() {
           _categories = List<Map<String, dynamic>>.from(response.data);
@@ -66,6 +68,7 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return BlocConsumer<AddServiceCubit, AddServiceState>(
       listener: (context, state) {
         if (state is AddServiceLoading) {
@@ -198,7 +201,8 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
                               if (serviceImage != null) {
                                 BlocProvider.of<AddServiceCubit>(context)
                                     .addService(
-                                  serviceProviderId: 34,
+                                  serviceProviderId:
+                                      userController.userId.value,
                                   categoryId: _dropdownValue,
                                   serviceName: serviceName!,
                                   serviceDescription: serviceDescription!,

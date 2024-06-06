@@ -102,11 +102,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         label: 'Login',
                         backgroundColor: kYellowColor,
                         onPressed: () {
-                          // if (formKey.currentState!.validate()) {
-                          //   BlocProvider.of<LoginCubit>(context).loginUser(
-                          //       userName: userName!, password: password!);
-                          // }
-                          Get.to(() => const Homeview());
+                          if (formKey.currentState!.validate()) {
+                            BlocProvider.of<LoginCubit>(context).loginUser(
+                                userName: userName!, password: password!);
+                          }
                         },
                       ),
                       const SizedBox(

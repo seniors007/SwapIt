@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,6 +7,7 @@ import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
+import '../../../../../core/user_controller.dart';
 
 class FinishServiceViewBody extends StatefulWidget {
   const FinishServiceViewBody({super.key, required this.serviceRequestId});
@@ -24,7 +24,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
   String? feedBack;
 
   final Dio _dio = Dio();
-  Future<void> _submitRating() async {
+  Future<void> _submitRating(int userId) async {
     setState(() {
       isLoading = true;
     });
@@ -42,7 +42,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
           "rateDate": DateTime.now().toIso8601String(),
           "feedback": feedBack,
           "serviceId": widget.serviceRequestId,
-          "customerId": 6
+          "customerId": userId
         };
 
         log('Request Body: $requestBody');
@@ -68,6 +68,7 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Form(
       key: formKey,
       child: Padding(
@@ -153,7 +154,8 @@ class _FinishServiceViewBodyState extends State<FinishServiceViewBody> {
                                   label: 'Finish',
                                   backgroundColor: kYellowColor,
                                   onPressed: () async {
-                                    await _submitRating();
+                                    await _submitRating(
+                                        userController.userId.value);
                                     Get.back();
                                   },
                                 ),

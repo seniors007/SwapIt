@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:group_button/group_button.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/services/presentation/manager/current_services_cubit/current_services_cubit.dart';
@@ -9,6 +11,8 @@ import 'package:swapit/features/services/presentation/manager/pending_services_c
 import 'package:swapit/features/services/presentation/views/widgets/current_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/finished_service_card.dart';
 import 'package:swapit/features/services/presentation/views/widgets/pending_service_card.dart';
+
+import '../../../../../core/user_controller.dart';
 
 class ServiceStateButton extends StatefulWidget {
   const ServiceStateButton({super.key});
@@ -22,6 +26,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CustomScrollView(
@@ -61,13 +66,16 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                     });
                     if (index == 0) {
                       BlocProvider.of<PendingServicesCubit>(context)
-                          .getPendingServiceProvider(serviceProviderId: 30);
+                          .getPendingServiceProvider(
+                              serviceProviderId: userController.userId.value);
                     } else if (index == 1) {
                       BlocProvider.of<CurrentServicesCubit>(context)
-                          .getCurrentServiceProvider(serviceProviderId: 30);
+                          .getCurrentServiceProvider(
+                              serviceProviderId: userController.userId.value);
                     } else if (index == 2) {
                       BlocProvider.of<FinishedServicesCubit>(context)
-                          .getFinishedServiceProvider(serviceProviderId: 30);
+                          .getFinishedServiceProvider(
+                              serviceProviderId: userController.userId.value);
                     }
                   },
                 ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/past_work_imgs.dart';
 import 'package:swapit/features/search/presentation/manager/request_service_cubit/request_service_cubit.dart';
+import '../../../../../core/user_controller.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ServiceDetailsViewBody extends StatefulWidget {
@@ -32,6 +34,7 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return BlocProvider(
       create: (_) => RequestServiceCubit(),
       child: BlocConsumer<RequestServiceCubit, RequestServiceState>(
@@ -192,7 +195,8 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                                         DateTime.now().toIso8601String();
                                     const requestState = "Pending";
                                     const executionTime = 30;
-                                    const customerId = 34;
+                                    var customerId =
+                                        userController.userId.value;
 
                                     BlocProvider.of<RequestServiceCubit>(
                                             context)

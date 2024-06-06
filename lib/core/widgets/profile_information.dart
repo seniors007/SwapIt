@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:swapit/core/user_controller.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/features/home/data/get_user_model/get_user_model.dart';
 import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_user_cubit.dart';
@@ -17,14 +19,14 @@ class ProfileInfo extends StatefulWidget {
 
 class _ProfileInfoState extends State<ProfileInfo> {
   Uint8List? _profileImage;
-
+  final UserController userController = Get.find();
   @override
   void initState() {
     super.initState();
-    _loadProfileImage('38');
+    _loadProfileImage(userController.userId.value);
   }
 
-  Future<void> _loadProfileImage(String userId) async {
+  Future<void> _loadProfileImage(int userId) async {
     final imageData = await fetchProfileImage(userId);
     if (imageData != null) {
       setState(() {
@@ -36,7 +38,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GetUserCubit>(
-      create: (context) => GetUserCubit()..getUser(34),
+      create: (context) => GetUserCubit()..getUser(userController.userId.value),
       child: BlocBuilder<GetUserCubit, GetUserState>(
         builder: (context, state) {
           if (state is GetUserLoading) {
@@ -141,7 +143,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
     );
   }
 
-  Future<Uint8List?> fetchProfileImage(String userId) async {
+  Future<Uint8List?> fetchProfileImage(int userId) async {
     try {
       final response = await Dio().get(
         'http://localhost:5204/api/users/GetProfileImage?userId=$userId',

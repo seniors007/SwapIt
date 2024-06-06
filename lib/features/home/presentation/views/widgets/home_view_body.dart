@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/profile_information.dart';
 import 'package:swapit/core/cubits/search_cubit/search_cubit.dart';
 import 'package:swapit/features/search/presentation/views/widgets/service_post_in_search.dart';
-
+import '../../../../../core/user_controller.dart';
 import '../../manager/get_user_cubit/get_user_cubit.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -12,6 +14,7 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return BlocProvider(
       create: (context) => SearchCubit()
         ..searchService(
@@ -19,13 +22,13 @@ class HomeViewBody extends StatelessWidget {
             servicePrice: 0,
             serviceProviderId: 0,
             categoryId: 0,
-            userId: 34),
+            userId: userController.userId.value),
       child: CustomScrollView(
         clipBehavior: Clip.none,
         slivers: [
           BlocProvider(
             create: (context) =>
-                GetUserCubit()..getUser(33), // Provide GetUserCubit here
+                GetUserCubit()..getUser(userController.userId.value),
             child: const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 6),

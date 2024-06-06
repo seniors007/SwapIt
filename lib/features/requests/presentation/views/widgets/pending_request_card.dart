@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
 import '../../../../../core/functions/cancel_service.dart';
+import '../../../../../core/user_controller.dart';
 
 class PendingRequestCard extends StatelessWidget {
   const PendingRequestCard({
@@ -18,6 +21,7 @@ class PendingRequestCard extends StatelessWidget {
   final int requestid;
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
@@ -86,7 +90,8 @@ class PendingRequestCard extends StatelessWidget {
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
                       onPressed: () {
-                        cancelService(context, requestid, 34);
+                        cancelService(
+                            context, requestid, userController.userId.value);
                       },
                     ),
                   ],

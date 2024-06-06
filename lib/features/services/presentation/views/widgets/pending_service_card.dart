@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:get/get.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/service_notes.dart';
 import '../../../../../core/functions/cancel_service.dart';
+import '../../../../../core/user_controller.dart';
 import '../../../../../core/widgets/custom_snack_bar.dart';
 
 class PendingServiceCard extends StatelessWidget {
@@ -22,6 +24,7 @@ class PendingServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
@@ -110,7 +113,8 @@ class PendingServiceCard extends StatelessWidget {
                       label: 'Cancel',
                       backgroundColor: kGreenColor,
                       onPressed: () {
-                        cancelService(context, serviceRequestId, 30);
+                        cancelService(context, serviceRequestId,
+                            userController.userId.value);
                       },
                     ),
                   ],

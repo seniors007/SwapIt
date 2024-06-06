@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/custom_profile_img.dart';
+import '../../../../../core/user_controller.dart';
 import '../../../data/models/images_model/images_model.dart';
 import '../../manager/images_cubit/images_cubit.dart';
 
@@ -10,8 +12,10 @@ class PastWorkImgs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return BlocProvider(
-      create: (context) => ImagesCubit(Dio())..fetchImages(34),
+      create: (context) =>
+          ImagesCubit(Dio())..fetchImages(userController.userId.value),
       child: BlocBuilder<ImagesCubit, ImagesState>(
         builder: (context, state) {
           if (state is ImagesLoading) {

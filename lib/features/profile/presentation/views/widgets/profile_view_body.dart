@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/cubits/search_cubit/search_cubit.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/add_service_button.dart';
@@ -8,6 +9,7 @@ import 'package:swapit/features/profile/presentation/views/widgets/my_points.dar
 import 'package:swapit/features/profile/presentation/views/widgets/past_work_imgs.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/profile_options.dart';
 import 'package:swapit/features/profile/presentation/views/widgets/service_post_inProfile_list_view.dart';
+import '../../../../../core/user_controller.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({
@@ -16,6 +18,7 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Padding(
       padding: const EdgeInsets.only(left: 8, bottom: 10),
       child: Scrollbar(
@@ -64,7 +67,7 @@ class ProfileViewBody extends StatelessWidget {
                   ..searchService(
                       serviceName: '',
                       servicePrice: 0,
-                      serviceProviderId: 34, //mine this what gonna update
+                      serviceProviderId: userController.userId.value,
                       categoryId: 0,
                       userId: 0),
                 child: const ServicePostInProfileListView(),

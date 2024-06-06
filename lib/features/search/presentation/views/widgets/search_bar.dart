@@ -1,9 +1,11 @@
 import 'dart:developer';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:swapit/core/utils/constants.dart';
 import 'package:swapit/core/cubits/search_cubit/search_cubit.dart';
+import '../../../../../core/user_controller.dart';
 
 class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({super.key});
@@ -32,8 +34,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   Future<void> fetchCategories() async {
     try {
-      Response response =
-          await Dio().get('http://localhost:5204/api/categories/getall');
+      dio.Response response =
+          await dio.Dio().get('http://localhost:5204/api/categories/getall');
       if (response.statusCode == 200) {
         setState(() {
           _categories = [
@@ -51,7 +53,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   Future<void> fetchServiceProviders() async {
     try {
-      Response response = await Dio()
+      dio.Response response = await dio.Dio()
           .get('http://localhost:5204/api/users/ServiceProvidersDropDown');
       if (response.statusCode == 200) {
         setState(() {
@@ -71,6 +73,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 8),
       child: Column(
@@ -141,7 +144,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   color: kWhiteColor,
                   child: TextField(
                     controller: _serviceNameController,
-                    onSubmitted: (_) => _performSearch(context),
+                    onSubmitted: (_) =>
+                        _performSearch(context, userController.userId.value),
                     // ignore: prefer_const_constructors
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
@@ -159,7 +163,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
-                  _performSearch(context);
+                  _performSearch(context, userController.userId.value);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -179,14 +183,14 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     );
   }
 
-  void _performSearch(BuildContext context) {
+  void _performSearch(BuildContext context, int userid) {
     final serviceName = _serviceNameController.text.trim();
     context.read<SearchCubit>().searchService(
           serviceName: serviceName.isNotEmpty ? serviceName : '',
           servicePrice: 0,
           serviceProviderId: _dropdownServiceProviderValue,
           categoryId: _dropdownCategoryValue,
-          userId: 34,
+          userId: userid,
         );
   }
 }
