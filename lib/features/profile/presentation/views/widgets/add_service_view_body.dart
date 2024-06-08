@@ -255,7 +255,12 @@ class _AddServiceViewBodyState extends State<AddServiceViewBody> {
             ),
           ],
         ),
-        if (imageFile != null) Image.file(imageFile, height: 100, width: 100),
+        if (imageFile != null)
+          Image.file(
+            imageFile,
+            height: 100,
+            width: 100,
+          ),
       ],
     );
   }

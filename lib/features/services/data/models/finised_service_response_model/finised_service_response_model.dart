@@ -10,6 +10,7 @@ class FinishedServiceResponseModel extends Equatable {
   final String username;
   final String? profileImagePath;
   final String? notes;
+  final String? feedback;
   final int serviceRequestId;
 
   const FinishedServiceResponseModel({
@@ -22,6 +23,7 @@ class FinishedServiceResponseModel extends Equatable {
     required this.username,
     this.profileImagePath,
     this.notes,
+    this.feedback,
     required this.serviceRequestId,
   });
 
@@ -36,6 +38,7 @@ class FinishedServiceResponseModel extends Equatable {
       username: json['username'],
       profileImagePath: json['profileImagePath'],
       notes: json['notes'],
+      feedback: json['feedback'],
       serviceRequestId: json['serviceRequestId'],
     );
   }
@@ -51,6 +54,7 @@ class FinishedServiceResponseModel extends Equatable {
       'username': username,
       'profileImagePath': profileImagePath,
       'notes': notes,
+      'feedback': feedback,
       'serviceRequestId': serviceRequestId,
     };
   }
@@ -66,6 +70,7 @@ class FinishedServiceResponseModel extends Equatable {
         username,
         profileImagePath,
         notes,
+        feedback,
         serviceRequestId,
       ];
 }

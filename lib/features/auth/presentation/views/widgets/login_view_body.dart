@@ -10,7 +10,6 @@ import 'package:swapit/features/auth/presentation/views/register_view.dart';
 import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/home/presentation/views/home_view.dart';
-
 import '../../../../../core/user_controller.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -37,9 +36,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             state.loginResponse.userName,
             state.loginResponse.roles,
           );
-          // log('User ID: ${userController.userId.value}');
-          // log('User Name: ${userController.userName.value}');
-          // log('Roles: ${userController.roles}');
+
           Get.to(() => const Homeview());
           showSnackBar(context, 'Login Successful');
           isLoading = false;

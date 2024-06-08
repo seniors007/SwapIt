@@ -7,9 +7,10 @@ class FinishedServiceCard extends StatelessWidget {
       required this.rate,
       required this.serviceName,
       required this.category,
-      required this.username});
+      required this.username,
+      required this.feedback});
   final int rate;
-  final String serviceName, category, username;
+  final String serviceName, category, username, feedback;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,15 +52,22 @@ class FinishedServiceCard extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Row(
+                    Row(
                       children: [
-                        Image(
-                          image: AssetImage('assets/state.png'),
+                        const Image(
+                          image: AssetImage('assets/feedback.png'),
+                          height: 25,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
-                        Text('State: Done')
+                        SizedBox(
+                          width: 170,
+                          child: Text(
+                            feedback,
+                            maxLines: 1,
+                          ),
+                        )
                       ],
                     )
                   ],

@@ -168,6 +168,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
                   category: service.categoryName,
                   username: service.username,
                   rate: service.totalRate,
+                  feedback: service.feedback ?? '',
                 );
               },
             );

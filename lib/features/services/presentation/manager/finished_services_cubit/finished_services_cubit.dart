@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:equatable/equatable.dart';
-import 'package:swapit/features/services/data/models/finised_service_response_model/finised_service_response_model.dart';
+import '../../../data/models/finised_service_response_model/finised_service_response_model.dart'; // Update with the actual path
 
 part 'finished_services_state.dart';
 
