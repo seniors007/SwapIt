@@ -6,12 +6,13 @@ import 'package:swapit/features/home/presentation/manager/get_user_cubit/get_use
 
 class GetUserCubit extends Cubit<GetUserState> {
   GetUserCubit() : super(GetUserInitial());
+
   Future<void> getUser(int userId) async {
     emit(GetUserLoading());
     try {
       final response = await Dio()
           .get('http://localhost:5204/api/users/GetUser?userId=$userId');
-      print(response.data.toString());
+      log(response.data.toString());
       if (response.statusCode == 200) {
         final userJson = response.data;
         final user = GetUserModel.fromJson(userJson);

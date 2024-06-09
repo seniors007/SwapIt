@@ -7,19 +7,26 @@ import 'package:swapit/core/widgets/service_notes.dart';
 import '../../../../../core/functions/cancel_service.dart';
 import '../../../../../core/user_controller.dart';
 import '../../../../../core/widgets/custom_snack_bar.dart';
+import 'dart:convert';
 
 class PendingServiceCard extends StatelessWidget {
   const PendingServiceCard({
-    super.key,
+    Key? key,
     required this.serviceName,
     required this.serviceDescription,
     required this.categoryName,
     required this.username,
     required this.notes,
     required this.serviceRequestId,
-  });
+    required this.photo,
+  }) : super(key: key);
 
-  final String serviceName, serviceDescription, categoryName, username, notes;
+  final String serviceName,
+      serviceDescription,
+      categoryName,
+      username,
+      notes,
+      photo;
   final int serviceRequestId;
 
   @override
@@ -28,7 +35,7 @@ class PendingServiceCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
-        height: 250,
+        height: 350,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -70,8 +77,22 @@ class PendingServiceCard extends StatelessWidget {
                         ServiceNotes(
                           notes: notes,
                         ),
-                        const SizedBox(
-                          height: 15,
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.photo,
+                              color: kGreenColor,
+                              size: 30,
+                            ),
+                            const SizedBox(width: 15),
+                            SizedBox(
+                              height: 100,
+                              child: Image.memory(
+                                base64Decode(photo),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
@@ -16,20 +16,26 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     required int customerId,
     required int serviceId,
     required String notes,
+    File? requestImage,
   }) async {
     emit(RequestServiceLoading());
     final Dio dio = Dio();
     const String url = 'http://localhost:5204/api/serviceRequests/Create';
 
     try {
-      final response = await dio.post(url, data: {
+      FormData formData = FormData.fromMap({
         "requestDate": requestDate,
         "requestState": requestState,
         "executionTime": executionTime,
         "customerId": customerId,
         "serviceId": serviceId,
         "notes": notes,
+        if (requestImage != null)
+          "requestImage": await MultipartFile.fromFile(requestImage.path,
+              filename: "request_image.jpg"),
       });
+
+      final response = await dio.post(url, data: formData);
 
       if (response.statusCode == 200) {
         if (response.data == true) {

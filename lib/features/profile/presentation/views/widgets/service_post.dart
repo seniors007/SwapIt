@@ -51,34 +51,6 @@ class ServicePostInProfile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Row(
             children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image(
-                    image: AssetImage('assets/profile.png'),
-                  ),
-                  Text(
-                    'Draco M.',
-                    style: TextStyle(color: kGreenColor),
-                  ),
-                  Row(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/star.png'),
-                        height: 20,
-                        width: 20,
-                      ),
-                      Text(
-                        '4.5',
-                        style: TextStyle(color: kGreenColor),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 12,
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -116,7 +88,7 @@ class ServicePostInProfile extends StatelessWidget {
                   Row(
                     children: [
                       const SizedBox(
-                        width: 135,
+                        width: 215,
                       ),
                       ElevatedButton(
                           onPressed: () => _deleteService(context, serviceid),

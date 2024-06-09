@@ -11,11 +11,13 @@ class ServiceDetailsView extends StatelessWidget {
     required this.description,
     required this.category,
     required this.cost,
+    required this.rate,
+    required this.username,
+    required this.id,
   });
 
-  final int serviceId;
-  final String serviceName, description, category;
-  final int cost;
+  final int serviceId, rate, cost, id;
+  final String serviceName, description, category, username;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +25,14 @@ class ServiceDetailsView extends StatelessWidget {
       create: (context) => RequestServiceCubit(),
       child: Scaffold(
         body: ServiceDetailsViewBody(
+          rate: rate,
+          username: username,
           serviceId: serviceId,
           serviceName: serviceName,
           description: description,
           category: category,
           cost: cost,
+          id: id,
         ),
       ),
     );

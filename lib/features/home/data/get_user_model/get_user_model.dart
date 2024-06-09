@@ -6,7 +6,7 @@ class GetUserModel {
   String address;
   String phoneNumber;
   String jobTitle;
-  String profileImagePath;
+  String profileImage;
   int totalRate;
 
   GetUserModel({
@@ -17,7 +17,7 @@ class GetUserModel {
     required this.address,
     required this.phoneNumber,
     required this.jobTitle,
-    required this.profileImagePath,
+    required this.profileImage,
     required this.totalRate,
   });
 
@@ -30,7 +30,7 @@ class GetUserModel {
       address: json['address'],
       phoneNumber: json['phoneNumber'],
       jobTitle: json['jobTitle'],
-      profileImagePath: json['profileImagePath'],
+      profileImage: json['profileImage'],
       totalRate: json['totalRate'],
     );
   }
@@ -44,7 +44,7 @@ class GetUserModel {
     data['address'] = address;
     data['phoneNumber'] = phoneNumber;
     data['jobTitle'] = jobTitle;
-    data['profileImagePath'] = profileImagePath;
+    data['profileImage'] = profileImage;
     data['totalRate'] = totalRate;
     return data;
   }

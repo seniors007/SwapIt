@@ -14,11 +14,12 @@ class ServicePostInSearch extends StatelessWidget {
     required this.category,
     required this.cost,
     required this.username,
+    required this.rate,
+    required this.id,
   });
 
-  final int serviceId; // Added this field
+  final int serviceId, rate, cost, id;
   final String serviceName, description, category, username;
-  final int cost;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,9 @@ class ServicePostInSearch extends StatelessWidget {
             description: description,
             category: category,
             cost: cost,
+            rate: rate,
+            username: username,
+            id: id,
           ),
         );
       },
@@ -66,16 +70,16 @@ class ServicePostInSearch extends StatelessWidget {
                         style: const TextStyle(color: kGreenColor),
                       ),
                     ),
-                    const Row(
+                    Row(
                       children: [
-                        Image(
+                        const Image(
                           image: AssetImage('assets/star.png'),
                           height: 20,
                           width: 20,
                         ),
                         Text(
-                          '4.5',
-                          style: TextStyle(color: kGreenColor),
+                          '$rate',
+                          style: const TextStyle(color: kGreenColor),
                         ),
                       ],
                     ),
@@ -134,6 +138,9 @@ class ServicePostInSearch extends StatelessWidget {
                                 description: description,
                                 category: category,
                                 cost: cost,
+                                rate: rate,
+                                username: username,
+                                id: id,
                               ),
                             );
                           },

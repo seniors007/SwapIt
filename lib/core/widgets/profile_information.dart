@@ -1,6 +1,5 @@
-import 'dart:developer';
 import 'dart:typed_data';
-import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -20,19 +19,10 @@ class ProfileInfo extends StatefulWidget {
 class _ProfileInfoState extends State<ProfileInfo> {
   Uint8List? _profileImage;
   final UserController userController = Get.find();
+
   @override
   void initState() {
     super.initState();
-    _loadProfileImage(userController.userId.value);
-  }
-
-  Future<void> _loadProfileImage(int userId) async {
-    final imageData = await fetchProfileImage(userId);
-    if (imageData != null) {
-      setState(() {
-        _profileImage = imageData;
-      });
-    }
   }
 
   @override
@@ -45,6 +35,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
             return const CircularProgressIndicator();
           } else if (state is GetUserSuccess) {
             final user = state.user;
+            _profileImage = base64Decode(user.profileImage);
             return _buildProfileWidget(user);
           } else if (state is GetUserFailure) {
             return const Text('Check Your Internet Connection');
@@ -141,20 +132,5 @@ class _ProfileInfoState extends State<ProfileInfo> {
         ),
       ),
     );
-  }
-
-  Future<Uint8List?> fetchProfileImage(int userId) async {
-    try {
-      final response = await Dio().get(
-        'http://localhost:5204/api/users/GetProfileImage?userId=$userId',
-        options: Options(responseType: ResponseType.bytes),
-      );
-      if (response.statusCode == 200) {
-        return response.data;
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    return null;
   }
 }

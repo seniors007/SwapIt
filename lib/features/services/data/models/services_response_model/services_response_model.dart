@@ -10,6 +10,8 @@ class ServiceResposeModel extends Equatable {
   final String username;
   final String? profileImagePath;
   final String? notes;
+  final String? feedback;
+  final String? requestImage;
   final int serviceRequestId;
 
   const ServiceResposeModel({
@@ -22,6 +24,8 @@ class ServiceResposeModel extends Equatable {
     required this.username,
     this.profileImagePath,
     this.notes,
+    this.feedback,
+    this.requestImage,
     required this.serviceRequestId,
   });
 
@@ -36,6 +40,8 @@ class ServiceResposeModel extends Equatable {
       username: json['username'],
       profileImagePath: json['profileImagePath'],
       notes: json['notes'],
+      feedback: json['feedback'],
+      requestImage: json['requestImage'],
       serviceRequestId: json['serviceRequestId'],
     );
   }
@@ -51,6 +57,8 @@ class ServiceResposeModel extends Equatable {
       'username': username,
       'profileImagePath': profileImagePath,
       'notes': notes,
+      'feedback': feedback,
+      'requestImage': requestImage,
       'serviceRequestId': serviceRequestId,
     };
   }
@@ -66,6 +74,8 @@ class ServiceResposeModel extends Equatable {
         username,
         profileImagePath,
         notes,
+        feedback,
+        requestImage,
         serviceRequestId,
       ];
 }

@@ -27,25 +27,25 @@ class ProfileViewBody extends StatelessWidget {
           clipBehavior: Clip.none,
           physics: const ClampingScrollPhysics(),
           slivers: [
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileInfo(),
-                  SizedBox(
+                  const ProfileInfo(),
+                  const SizedBox(
                     height: 7,
                   ),
                   kDivider,
-                  SizedBox(
+                  const SizedBox(
                     height: 7,
                   ),
-                  Text(
+                  const Text(
                     'My work',
                     style: TextStyle(color: kGreenColor),
                   ),
-                  PastWorkImgs(),
+                  PastWorkImgs(serviceProviderId: userController.userId.value),
                   kDivider,
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

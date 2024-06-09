@@ -80,12 +80,14 @@ class HomeViewBody extends StatelessWidget {
                       final service =
                           state.searchResponseContainer.results[index];
                       return ServicePostInSearch(
+                        rate: service.totalRate!,
                         serviceId: service.id!,
                         serviceName: service.serviceName!,
                         description: service.serviceDescription!,
                         category: service.categoryName!,
                         cost: service.servicePrice!,
                         username: service.username!,
+                        id: 46,
                       );
                     },
                     childCount: state.searchResponseContainer.results.length,

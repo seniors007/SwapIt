@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
@@ -18,11 +20,13 @@ class ServiceDetailsViewBody extends StatefulWidget {
     required this.description,
     required this.category,
     required this.cost,
+    required this.rate,
+    required this.username,
+    required this.id,
   });
 
-  final int serviceId;
-  final String serviceName, description, category;
-  final int cost;
+  final int serviceId, cost, rate, id;
+  final String serviceName, description, category, username;
 
   @override
   State<ServiceDetailsViewBody> createState() => _ServiceDetailsViewBodyState();
@@ -31,6 +35,18 @@ class ServiceDetailsViewBody extends StatefulWidget {
 class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   String? notes;
+  File? requestImage;
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        requestImage = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +63,7 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
               showSnackBar(context, 'Sorry, You don\'t have enough points');
             }
           } else if (state is RequestServiceFailure) {
-            showSnackBar(context, 'Something went wrong:');
+            showSnackBar(context, 'Something went wrong: ${state.errMsg}');
           }
         },
         builder: (context, state) {
@@ -63,28 +79,28 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image(
+                              const Image(
                                 image: AssetImage('assets/profile.png'),
                               ),
                               Text(
-                                'Draco M.',
-                                style: TextStyle(color: kGreenColor),
+                                widget.username,
+                                style: const TextStyle(color: kGreenColor),
                               ),
                               Row(
                                 children: [
-                                  Image(
+                                  const Image(
                                     image: AssetImage('assets/star.png'),
                                     height: 20,
                                     width: 20,
                                   ),
                                   Text(
-                                    '4.5',
-                                    style: TextStyle(color: kGreenColor),
+                                    widget.rate.toString(),
+                                    style: const TextStyle(color: kGreenColor),
                                   ),
                                 ],
                               ),
@@ -181,6 +197,23 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                     const SizedBox(height: 10),
                     Row(
                       children: [
+                        CustomButton(
+                          onPressed: _pickImage,
+                          label: 'Pick Image',
+                          backgroundColor: kGreenColor,
+                        ),
+                        const SizedBox(width: 10),
+                        if (requestImage != null)
+                          Image.file(
+                            requestImage!,
+                            width: 100,
+                            height: 100,
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
                         const Spacer(),
                         CustomButton(
                           label: state is RequestServiceLoading
@@ -207,6 +240,7 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                                       customerId: customerId,
                                       serviceId: widget.serviceId,
                                       notes: notes!,
+                                      requestImage: requestImage,
                                     );
                                   }
                                 },
@@ -222,7 +256,9 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
-                    const PastWorkImgs()
+                    PastWorkImgs(
+                      serviceProviderId: widget.id,
+                    )
                   ],
                 ),
               ),
