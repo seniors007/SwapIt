@@ -20,9 +20,11 @@ class ServiceNotes extends StatelessWidget {
         SizedBox(
           width: 170,
           height: 80,
-          child: Text(
-            notes,
-            overflow: TextOverflow.visible,
+          child: Center(
+            child: Text(
+              notes,
+              overflow: TextOverflow.visible,
+            ),
           ),
         )
       ],
