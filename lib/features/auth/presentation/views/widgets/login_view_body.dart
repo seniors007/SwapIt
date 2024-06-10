@@ -7,7 +7,6 @@ import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:swapit/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:swapit/features/auth/presentation/views/register_view.dart';
-import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/features/home/presentation/views/home_view.dart';
 import '../../../../../core/user_controller.dart';
@@ -78,7 +77,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         height: 15,
                       ),
                       CustomTextField(
-                        label: 'Email',
+                        label: 'User Name',
                         onChanged: (data) {
                           userName = data;
                         },
@@ -106,20 +105,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         },
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 150,
                       ),
                       const Divider(
                         endIndent: 25,
                         indent: 25,
                         color: Colors.grey,
-                      ),
-                      const Text(
-                        'Or Login with',
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                      const DiffLoginMethod(),
-                      const SizedBox(
-                        height: 50,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

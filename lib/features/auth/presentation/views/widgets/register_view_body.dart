@@ -11,7 +11,6 @@ import 'package:swapit/core/widgets/custom_text_field.dart';
 import 'package:swapit/features/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:swapit/features/auth/presentation/views/login_view.dart';
 import 'package:swapit/features/auth/presentation/views/viewModels/resister_data.dart';
-import 'package:swapit/features/auth/presentation/views/widgets/diff_login_method.dart';
 
 class RegisterViewBody extends StatefulWidget {
   const RegisterViewBody({super.key});
@@ -285,11 +284,6 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             indent: 25,
                             color: Colors.grey,
                           ),
-                          const Text(
-                            'Or Register with',
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                          const DiffLoginMethod(),
                         ],
                       ),
                     ),
