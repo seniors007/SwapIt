@@ -1,9 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:swapit/core/widgets/custom_button.dart';
 import 'package:swapit/core/widgets/custom_snack_bar.dart';
 import 'package:swapit/core/widgets/custom_text_field.dart';
@@ -23,10 +24,12 @@ class ServiceDetailsViewBody extends StatefulWidget {
     required this.rate,
     required this.username,
     required this.id,
+    this.userimage,
   });
 
   final int serviceId, cost, rate, id;
   final String serviceName, description, category, username;
+  final String? userimage;
 
   @override
   State<ServiceDetailsViewBody> createState() => _ServiceDetailsViewBodyState();
@@ -84,12 +87,24 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Image(
-                                image: AssetImage('assets/profile.png'),
-                              ),
-                              Text(
-                                widget.username,
-                                style: const TextStyle(color: kGreenColor),
+                              widget.userimage != null
+                                  ? Image.memory(
+                                      base64Decode(widget.userimage!),
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const Image(
+                                      image: AssetImage('assets/profile.png'),
+                                    ),
+                              SizedBox(
+                                width: 70,
+                                child: Text(
+                                  widget.username,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(color: kGreenColor),
+                                ),
                               ),
                               Row(
                                 children: [
@@ -114,9 +129,10 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                             const Text(
                               'Service Category:',
                               style: TextStyle(
-                                  color: kGreenColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                color: kGreenColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
                               widget.category,
@@ -129,9 +145,10 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                             const Text(
                               'Service Name:',
                               style: TextStyle(
-                                  color: kGreenColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                color: kGreenColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
                               widget.serviceName,
@@ -144,9 +161,10 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                             const Text(
                               'Service Description:',
                               style: TextStyle(
-                                  color: kGreenColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                color: kGreenColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(
                               width: 225,
@@ -184,7 +202,8 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(
                           RegExp(
-                              r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'),
+                            r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}',
+                          ),
                         ),
                         FilteringTextInputFormatter.deny(
                           RegExp(r'\b01[0-5]\d{8}\b'),
@@ -252,13 +271,14 @@ class _ServiceDetailsViewBodyState extends State<ServiceDetailsViewBody> {
                     const Text(
                       'The Service Provider Past Work:',
                       style: TextStyle(
-                          color: kGreenColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                        color: kGreenColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     PastWorkImgs(
                       serviceProviderId: widget.id,
-                    )
+                    ),
                   ],
                 ),
               ),

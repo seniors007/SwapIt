@@ -7,6 +7,12 @@ class SearchResponse {
   final int? totalRate;
   final String? username;
   final dynamic profileImagePath;
+  final String? notes;
+  final String? feedback;
+  final int? serviceRequestId;
+  final int? serviceProviderId;
+  final dynamic requestImage;
+  final String? userImage;
 
   const SearchResponse({
     this.id,
@@ -17,6 +23,12 @@ class SearchResponse {
     this.totalRate,
     this.username,
     this.profileImagePath,
+    this.notes,
+    this.feedback,
+    this.serviceRequestId,
+    this.serviceProviderId,
+    this.requestImage,
+    this.userImage,
   });
 
   factory SearchResponse.fromJson(Map<String, dynamic> json) => SearchResponse(
@@ -28,6 +40,12 @@ class SearchResponse {
         totalRate: json['totalRate'] as int?,
         username: json['username'] as String?,
         profileImagePath: json['profileImagePath'] as dynamic,
+        notes: json['notes'] as String?,
+        feedback: json['feedback'] as String?,
+        serviceRequestId: json['serviceRequestId'] as int?,
+        serviceProviderId: json['serviceProviderId'] as int?,
+        requestImage: json['requestImage'] as dynamic,
+        userImage: json['userImage'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +57,11 @@ class SearchResponse {
         'totalRate': totalRate,
         'username': username,
         'profileImagePath': profileImagePath,
+        'notes': notes,
+        'feedback': feedback,
+        'serviceRequestId': serviceRequestId,
+        'serviceProviderId': serviceProviderId,
+        'requestImage': requestImage,
+        'userImage': userImage,
       };
 }

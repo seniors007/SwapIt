@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,11 +17,12 @@ class ServicePostInSearch extends StatelessWidget {
     required this.username,
     required this.rate,
     required this.id,
+    this.userImage,
   });
 
   final int serviceId, rate, cost, id;
   final String serviceName, description, category, username;
-
+  final String? userImage;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,6 +37,7 @@ class ServicePostInSearch extends StatelessWidget {
             rate: rate,
             username: username,
             id: id,
+            userimage: userImage,
           ),
         );
       },
@@ -59,9 +62,19 @@ class ServicePostInSearch extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Image(
-                      image: AssetImage('assets/profile.png'),
-                    ),
+                    userImage != null
+                        ? Image.memory(
+                            base64Decode(userImage!),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                          )
+                        : const Image(
+                            image: AssetImage('assets/profile.png'),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                          ),
                     SizedBox(
                       width: 50,
                       child: Text(
@@ -141,6 +154,7 @@ class ServicePostInSearch extends StatelessWidget {
                                 rate: rate,
                                 username: username,
                                 id: id,
+                                userimage: userImage,
                               ),
                             );
                           },

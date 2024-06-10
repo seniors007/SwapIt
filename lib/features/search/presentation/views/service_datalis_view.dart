@@ -14,11 +14,12 @@ class ServiceDetailsView extends StatelessWidget {
     required this.rate,
     required this.username,
     required this.id,
+    this.userimage,
   });
 
   final int serviceId, rate, cost, id;
   final String serviceName, description, category, username;
-
+  final String? userimage;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -33,6 +34,7 @@ class ServiceDetailsView extends StatelessWidget {
           category: category,
           cost: cost,
           id: id,
+          userimage: userimage,
         ),
       ),
     );

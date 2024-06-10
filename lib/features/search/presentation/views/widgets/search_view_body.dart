@@ -51,7 +51,8 @@ class SearchViewBody extends StatelessWidget {
                         category: service.categoryName!,
                         cost: service.servicePrice!,
                         username: service.username!,
-                        id: 46,
+                        id: service.serviceProviderId!,
+                        userImage: service.userImage,
                       );
                     },
                     childCount: state.searchResponseContainer.results.length,
