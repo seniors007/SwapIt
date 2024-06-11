@@ -109,7 +109,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
               itemBuilder: (context, index) {
                 final service = state.pendingServices[index];
                 return PendingServiceCard(
-                  photo: service.requestImage!,
+                  photo: service.requestImage ?? kErrorPhoto,
                   serviceName: service.serviceName,
                   serviceDescription: service.serviceDescription,
                   categoryName: service.categoryName,
@@ -138,7 +138,7 @@ class _ServiceStateButtonState extends State<ServiceStateButton> {
               itemBuilder: (context, index) {
                 final service = state.pendingServices[index];
                 return CurrentServiceCard(
-                  photo: service.requestImage!,
+                  photo: service.requestImage ?? kErrorPhoto,
                   serviceName: service.serviceName,
                   serviceDescription: service.serviceDescription,
                   categoryName: service.categoryName,
